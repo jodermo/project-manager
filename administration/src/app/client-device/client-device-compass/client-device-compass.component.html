@@ -1,0 +1,10 @@
+<div class="client-device-compass" *ngIf="clientDevice.orientation">
+  <div class="compass-arrow" *ngIf="arrow">
+  </div>
+  <div class="compass-circle"
+       [style]="{transform :'translate(-50%, -50%) rotate('+ (  clientDevice.rotation)+'deg)'}"></div>
+  <div class="compass-look-at" *ngIf="clientDevice.orientation">
+  </div>
+  <span>Rotation: {{clientDevice.rotation}}°</span>
+</div>
+

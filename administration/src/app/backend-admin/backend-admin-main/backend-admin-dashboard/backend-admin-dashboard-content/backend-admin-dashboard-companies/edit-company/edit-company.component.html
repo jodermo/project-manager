@@ -1,0 +1,178 @@
+<div class="overlay" *ngIf="entry">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span class="icon-box margin-right">
+          <mat-icon>store</mat-icon>
+        </span>
+        <span *ngIf="!entry.id"> <b>{{adminService.text('New Company')}}</b></span>
+        <span *ngIf="entry.id"> <b>{{entry.name || ('ID ' + entry.id)}} <sup><sub><small><i>({{entry.type}})</i></small></sub></sup></b></span>
+        <span class="spacer"></span>
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="entry.active">
+            {{entry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <button *ngIf="tabIndex === 1"
+                mat-icon-button
+                (click)="editPoiMap()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="entry.poiId &&  tabIndex === 1"
+                mat-icon-button
+                (click)="togglePoiMap()">
+          <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading">
+        <mat-tab-group animationDuration="0ms"
+                       headerPosition="below"
+                       class="overlay-tab-group" *ngIf="entry" mat-align-tabs="center" [selectedIndex]="tabIndex"
+
+                       (selectedIndexChange)="tabIndex = $event"
+        >
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Company Details')">
+
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Company Name')}}</mat-label>
+              <input matInput type="text" name="company_name" [(ngModel)]="entry.name"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Type')}}</mat-label>
+              <mat-select [(ngModel)]="entry.type">
+                <mat-option *ngFor="let companyType of adminService.companyTypes" [value]="companyType">
+                  {{adminService.text(companyType)}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Description')}}</mat-label>
+              <textarea matInput name="description" [(ngModel)]="entry.description"
+                        (keyup.enter)="saveEntry()"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Website')}}</mat-label>
+              <input matInput type="text" name="company_website" [(ngModel)]="entry.website"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Email')}}</mat-label>
+              <input matInput type="email" name="company_email" [(ngModel)]="entry.email"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+            <app-image-upload *ngIf="entry.id" [label]="adminService.text('Company Image')" [entry]="entry"
+                              (onChange)="setData($event)"></app-image-upload>
+
+
+          </mat-tab>
+
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Location')" [disabled]="!entry.id">
+            <div class="horizontal-flex">
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Street')}}</mat-label>
+                <input matInput type="text" name="company_street" [(ngModel)]="entry.street"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Number')}}</mat-label>
+                <input matInput type="text" name="company_street_number" [(ngModel)]="entry.streetNumber"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+            </div>
+
+            <div class="horizontal-flex">
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Postcode')}}</mat-label>
+                <input matInput type="text" name="company_postcode" [(ngModel)]="entry.postcode"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('City')}}</mat-label>
+                <input matInput type="text" name="company_city" [(ngModel)]="entry.city"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+            </div>
+
+            <app-database-table-field-poi-entry *ngIf="entry.id"
+                                                [entry]="entry"
+                                                [layout]="'extended'"
+                                                (onChange)="setData($event)"
+                                                #poiField></app-database-table-field-poi-entry>
+
+
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Contact')" [disabled]="!entry.id">
+            <div class="horizontal-flex">
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('First Name')}}</mat-label>
+                <input matInput type="text" name="company_contact_first_name" [(ngModel)]="entry.contactFirstName"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Last Name')}}</mat-label>
+                <input matInput type="text" name="company_contact_last_name" [(ngModel)]="entry.contactLastName"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+            </div>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Contact Email')}}</mat-label>
+              <input matInput type="text" name="company_postcode" [(ngModel)]="entry.contactEmail"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Attributes')">
+            <app-edit-company-attributes [company]="entry"></app-edit-company-attributes>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Opening Hours')">
+            <app-edit-company-opening-hours [company]="entry"></app-edit-company-opening-hours>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Products')">
+            <app-edit-company-products [company]="entry"></app-edit-company-products>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Files')" [disabled]="!entry.id">
+            <app-image-upload *ngIf="entry.id" [label]="adminService.text('Company Images')"
+                              [entry]="entry"
+                              [fieldKey]="'imageIds'" [multiple]="true"
+                              (onChange)="setData($event)"></app-image-upload>
+
+            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Company Documents')" [entry]="entry"
+                             [fieldKey]="'fileIds'" [multiple]="true"
+                             (onChange)="setData($event)"></app-file-upload>
+          </mat-tab>
+
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

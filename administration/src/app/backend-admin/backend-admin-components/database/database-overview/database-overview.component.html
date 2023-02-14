@@ -1,0 +1,29 @@
+<div class="database-list card-list" *ngIf="dataSource && dataSource.filteredData && dataSource.filteredData.length">
+  <div class="database-list-item card-list-item" *ngFor="let entry of dataSource.filteredData">
+    <mat-card class="database-card card-list-card">
+      <mat-card-title (click)="setEditEntry(entry)">
+        <span>{{entry.id}}</span>
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="adminService.deleteEntry(entry);" [disabled]="!entry.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(entry)" [disabled]="!entry.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<mat-toolbar class="white no-padding" *ngIf="!paginator">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page"></mat-paginator>
+</mat-toolbar>
+<app-edit-task *ngIf="!paginator" #editComponent></app-edit-task>

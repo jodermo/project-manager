@@ -1,0 +1,66 @@
+$carousel-item-width: 120px;
+$carousel-item-height: 160px;
+$carousel-navi-point-size: 24px;
+
+$padding-small: .25rem;
+$padding-medium: .75rem;
+$padding-large: 2.25rem;
+
+$app-logo-width: 120px;
+$play-button-size: 96px;
+
+$button-height: 32px;
+$button-border-radius: 8px;
+$button-border-size: 3px;
+
+$game-character-width: 100px;
+
+$game-product-width : 200px;
+
+$menu-decor-height: 25vw;
+
+$info-menu-height: 1.5rem;
+
+$game-item-width: 19vw;
+$game-item-height: calc($game-item-width * 0.666);
+$game-item-padding: calc($game-item-width * 0.1);
+$game-item-value-width: calc($game-item-width * 0.5);
+$game-item-value-height: calc($game-item-value-width * 0.666);
+$game-item-info-width: calc($game-item-width * 0.25);
+$game-item-info-height: calc($game-item-width * 0.25);
+$info-text-border-radius: calc($game-item-width * 0.1);
+
+$input-height: $button-height;
+$input-border-radius: $button-border-radius;
+$input-border-size: $button-border-radius;
+
+$header-height: 64px;
+
+$play-button-size: $game-item-width;
+
+$slider-track-height: 8px;
+$slider-thumb-size: 48px;
+
+$slider-thumb-offset: calc(($slider-thumb-size + $button-border-size) / 2);
+
+$search-form-width: 480px;
+
+$category-image-width: 220px;
+
+$font-size-default: 16px;
+$font-size-small: .75rem;
+$font-size-large: 1.25rem;
+$font-size-extra-large: 3rem;
+
+$line-height-default: 1.2rem;
+$line-height-small: 1.3rem;
+$line-height-large: 1.4rem;
+$line-height-extra-large: 3.3rem;
+
+$font-weight-lighter: 300;
+$font-weight-light: 400;
+$font-weight-normal: 600;
+$font-weight-bold: 800;
+$font-weight-bolder: 900;
+
+$view-value-size: 20vw;

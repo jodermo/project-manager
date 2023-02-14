@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <span>{{adminService.text('Files')}}</span>
+  <span class="spacer"></span>
+  <small *ngIf="loaded && ready">
+    <i>
+      <span *ngIf="renderData">{{renderData.length}} / </span>
+      <span *ngIf="entries">{{entries.length}}</span>
+    </i>
+  </small>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+
+
+<div *ngIf="loaded && dataSource" class="tab-content vertical-scroll">
+  <app-files-overview
+    [dataSource]="dataSource"
+    [entries]="entries"
+    [entry]="entry"
+    [fieldKey]="fieldKey"
+    [displayedColumns]="displayedColumns"
+    [paginator]="paginator"
+    [sort]="sort"
+    [pageSizeOptions]="pageSizeOptions"
+    [filterInput]="input"
+    [edit]="edit"
+    [editable]="editable"
+    [editComponent]="editComponent"
+    (onSave)="onSaveEntry($event)"
+    (onDelete)="onDeleteEntry()"
+    #overviewComponent
+  ></app-files-overview>
+</div>
+
+
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="applyFilter()" aria-label="Select page"
+                 #paginator></mat-paginator>
+</mat-toolbar>
+<app-edit-file (onSave)="onSaveEntry($event)"
+               (onDelete)="onDeleteEntry()" (onEntrySaved)="getCustomData()" [apiRoute]="apiRoute"
+               #editComponent></app-edit-file>

@@ -1,0 +1,16 @@
+<mat-form-field class="backend-admin-form-field" appearance="fill">
+  <input matInput type="text" name="filter" [placeholder]="adminService.text('Search')"
+         [(ngModel)]="filterQuery"
+         (change)="updateFilter()"
+         (keyup)="updateFilter()">
+</mat-form-field>
+<div class="file-list">
+  <mat-list role="list">
+    <mat-list-item role="listitem" *ngFor="let file of filteredFiles" >
+      <div class="horizontal-flex full-width overflow-hidden">
+        <mat-checkbox color="primary" class="example-margin" (click)="toggleFile(file)" [checked]="fileSelected(file)"  ></mat-checkbox>
+        <app-file-preview class="flex-item full-width overflow-hidden padding-left" [file]="file" [showMedia]="false" [download]="false"  [preview]="true" ></app-file-preview>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>

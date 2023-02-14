@@ -1,0 +1,84 @@
+<div class="overlay" *ngIf="entry">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <mat-icon>list_alt</mat-icon>
+        <span *ngIf="!entry.id">{{adminService.text('New Memo')}}</span>
+        <span *ngIf="entry.id">{{entry.title || ('ID ' + entry.id)}}</span>
+        <span class="spacer"></span>
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="entry.active">
+            {{entry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <button *ngIf="tabIndex === 1"
+                mat-icon-button
+                (click)="editPoiMap()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="entry.poiId &&  tabIndex === 1"
+                mat-icon-button
+                (click)="togglePoiMap()">
+          <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading">
+        <mat-tab-group class="overlay-tab-group" *ngIf="entry" mat-align-tabs="center" [selectedIndex]="tabIndex"
+                       animationDuration="0ms"
+                       headerPosition="below"
+                       (selectedIndexChange)="tabIndex = $event"
+        >
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Memo')">
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Title')}}</mat-label>
+              <input matInput type="text" name="title" [(ngModel)]="entry.title"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Description')}}</mat-label>
+              <textarea matInput name="description" [(ngModel)]="entry.description"
+                        (keyup.enter)="saveEntry()"></textarea>
+            </mat-form-field>
+            <app-image-upload [entry]="entry" (onChange)="setData($event)"></app-image-upload>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Location')" [disabled]="!entry.id">
+            <app-database-table-field-poi-entry
+              *ngIf="entry.id"
+              [entry]="entry"
+              [layout]="'extended'"
+              (onChange)="setData($event)"
+                                                (onChange)="setData($event)"
+            #poiField></app-database-table-field-poi-entry>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Files')"  [disabled]="!entry.id">
+            <app-image-upload *ngIf="entry.id" [label]="adminService.text('Images')"
+                              [entry]="entry"
+                              [fieldKey]="'imageIds'" [multiple]="true"
+                              (onChange)="setData($event)"></app-image-upload>
+
+            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Documents')" [entry]="entry"
+                             [fieldKey]="'fileIds'" [multiple]="true"
+                             (onChange)="setData($event)"></app-file-upload>
+          </mat-tab>
+
+        </mat-tab-group>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

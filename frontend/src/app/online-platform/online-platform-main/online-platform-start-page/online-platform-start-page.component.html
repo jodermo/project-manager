@@ -1,0 +1,8 @@
+<div *ngIf="platform.page && platform.page.type === 'start'" class="page-wrapper">
+  <div class="start-screen">
+  <app-login *ngIf="!platform.user"></app-login>
+  <div *ngIf="platform.user" class="vertical-flex full-height">
+    <h1>Willkommen {{platform.user.username}}</h1>
+  </div>
+  </div>
+</div>

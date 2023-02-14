@@ -1,0 +1,29 @@
+<div class="file-container horizontal-flex" *ngIf="ready && file">
+  <ng-container *ngIf="showMedia && fileType === 'image'">
+    <div>
+      <app-image-preview [file]="file"></app-image-preview>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!showMedia || fileType !== 'image'">
+    <div class="horizontal-flex full-width padding-left">
+      <span><b class="padding-right">{{file.name}}</b><i>[{{fileType}}]</i></span>
+    </div>
+  </ng-container>
+  <span *ngIf="download" class="spacer"></span>
+  <button *ngIf="download" mat-icon-button (click)="adminService.downloadFile(file)">
+    <mat-icon>download</mat-icon>
+  </button>
+  <span *ngIf="preview" class="spacer"></span>
+  <button *ngIf="preview" mat-icon-button
+          [matMenuTriggerFor]="previewMenu"
+          (menuOpened)="showPreview = true"
+          (menuClosed)="showPreview = false"
+  >
+    <mat-icon>visibility</mat-icon>
+  </button>
+
+</div>
+
+<mat-menu #previewMenu="matMenu" class="image-menu">
+  <app-file-preview *ngIf="showPreview" [file]="file"></app-file-preview>
+</mat-menu>

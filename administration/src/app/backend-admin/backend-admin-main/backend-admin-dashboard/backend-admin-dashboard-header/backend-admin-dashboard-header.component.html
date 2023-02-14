@@ -1,0 +1,10 @@
+<mat-toolbar color="primary" class="admin-dashboard-header">
+  <span>
+      {{adminService.text(adminService.title)}}
+  </span>
+  <span class="spacer"></span>
+  <button class="header-menu-button" mat-icon-button (click)="adminService.dashboard.showMenu = !adminService.dashboard.showMenu">
+    <mat-icon *ngIf="!adminService.dashboard.showMenu">menu</mat-icon>
+    <mat-icon *ngIf="adminService.dashboard.showMenu">arrow_forward_ios</mat-icon>
+  </button>
+</mat-toolbar>

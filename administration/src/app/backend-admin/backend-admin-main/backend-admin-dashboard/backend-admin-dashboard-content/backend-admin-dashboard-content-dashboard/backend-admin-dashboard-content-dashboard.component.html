@@ -1,0 +1,32 @@
+<div class="dashboard-page" *ngIf="adminService.user">
+  <span class="spacer"></span>
+  <h2>
+    {{adminService.text(greeting)}}, {{adminService.user.username}}!
+  </h2>
+  <h1>
+    {{adminService.text('Willkommen zur Project-Manager Administration')}}
+  </h1>
+  <span class="spacer"></span>
+  <mat-list class="dashboard-navigation-list navigation-list" role="list">
+    <ng-container *ngFor="let page of adminService.dashboard.pages">
+      <mat-list-item *ngIf="(page.dashboard && page.dashboard()) && page.name !== adminService.dashboard.page.name" class="dashboard-navigation-entry"
+                     role="listitem"
+                     (click)="adminService.dashboard.showPage(page)">
+        <mat-card class="full-width">
+          <mat-card-content class="full-content text-center">
+            <span class="spacer"></span>
+            <mat-icon>{{page.icon || 'home'}}</mat-icon>
+            <span>
+              {{adminService.text(page.name)}}
+              <span *ngIf="page.databaseEntries" class="padding-left">
+                <sup><sub><small>{{adminService.entriesLengthByName(page.databaseEntries)}}x</small></sub></sup>
+              </span>
+            </span>
+            <span class="spacer"></span>
+          </mat-card-content>
+        </mat-card>
+      </mat-list-item>
+    </ng-container>
+  </mat-list>
+  <span class="spacer"></span>
+</div>

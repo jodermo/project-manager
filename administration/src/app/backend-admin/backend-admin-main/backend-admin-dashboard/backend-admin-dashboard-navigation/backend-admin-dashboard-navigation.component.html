@@ -1,0 +1,46 @@
+<div class="admin-dashboard-navigation" [ngClass]="{open:(adminService.dashboard.showMenu)}">
+  <div class="menu-button">
+    <button mat-icon-button (click)="adminService.dashboard.showMenu = !adminService.dashboard.showMenu">
+      <mat-icon *ngIf="!adminService.dashboard.showMenu">menu</mat-icon>
+      <mat-icon *ngIf="adminService.dashboard.showMenu">arrow_back_ios</mat-icon>
+    </button>
+  </div>
+  <div class="image-container">
+    <img src="assets/svg/app_logo.svg">
+  </div>
+  <mat-list class="navigation-list" role="list">
+    <ng-container *ngFor="let page of adminService.dashboard.pages">
+      <mat-list-item *ngIf="page.menu && page.menu()" class="navigation-entry" role="listitem"
+                     [ngClass]="{active:(adminService.dashboard.page === page)}"
+                     (click)="adminService.dashboard.showPage(page)">
+        <mat-icon *ngIf="!page.icon">arrow_right_alt</mat-icon>
+        <mat-icon *ngIf="page.icon">{{page.icon}}</mat-icon>
+        <span>{{adminService.text(page.name)}}</span>
+
+      </mat-list-item>
+      <ng-container *ngIf="adminService.dashboard.page === page && page.options && page.options.length">
+        <mat-list>
+          <mat-list-item
+            *ngFor="let option of page.options; let i = index;" class="navigation-entry sub-entry" role="listitem"
+            [ngClass]="{active:(page.optionIndex === i)}"
+            (click)="adminService.dashboard.selectPageOption(option, i)">
+            <mat-icon *ngIf="!option.icon">arrow_right_alt</mat-icon>
+            <mat-icon *ngIf="option.icon">{{option.icon}}</mat-icon>
+            <span>{{adminService.text(option.name)}}</span>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+    </ng-container>
+
+  </mat-list>
+  <div class="dashboard-options">
+    <ng-container *ngFor="let menuOption of adminService.menuOptions; let i = index">
+      <button mat-flat-button (click)="menuOption.event()">
+        <mat-icon *ngIf="menuOption.icon">{{menuOption.icon}}</mat-icon>
+        <span *ngIf="menuOption.title">{{adminService.text(menuOption.title)}}</span>
+      </button>
+      <span class="spacer" *ngIf="i + 1 !== adminService.menuOptions.length"></span>
+    </ng-container>
+  </div>
+</div>
+

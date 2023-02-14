@@ -1,0 +1,96 @@
+<div class="overlay" *ngIf="entry">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span class="icon-box margin-right">
+          <mat-icon>label</mat-icon>
+        </span>
+        <span *ngIf="!entry.id"> <b>{{adminService.text('New Attribute')}}</b></span>
+        <span *ngIf="entry.id"> <b>{{entry.key || ('ID ' + entry.id)}} <sup><sub><small><i>({{entry.type}})</i></small></sub></sup></b></span>
+        <span class="spacer"></span>
+        <button *ngIf="tabIndex === 1"
+                mat-icon-button
+                (click)="editPoiMap()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading">
+        <mat-tab-group  animationDuration="0ms"
+                        headerPosition="below"
+                        class="overlay-tab-group" *ngIf="entry" mat-align-tabs="center" [selectedIndex]="tabIndex"
+
+                        (selectedIndexChange)="tabIndex = $event"
+        >
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Product Details')">
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Attribute Key')}}</mat-label>
+              <input matInput type="text" name="product_name" [(ngModel)]="entry.key"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Type')}}</mat-label>
+              <mat-select [(ngModel)]="entry.type">
+                <mat-option *ngFor="let type of adminService.attributeTypes" [value]="type">
+                  {{adminService.text(type)}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Value')}}</mat-label>
+              <textarea matInput name="description" [(ngModel)]="entry.value"
+                        (keyup.enter)="saveEntry()"></textarea>
+            </mat-form-field>
+
+
+            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Attribute Image')" [entry]="entry"
+                              (onChange)="setData($event)"></app-file-upload>
+
+
+          </mat-tab>
+
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Location')" [disabled]="!entry.id">
+
+
+
+            <app-database-table-field-poi-entry *ngIf="entry.id"
+                                                [entry]="entry"
+                                                [layout]="'extended'"
+                                                (onChange)="setData($event)"
+                                                #poiField></app-database-table-field-poi-entry>
+
+
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Files')" [disabled]="!entry.id">
+            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Attribute Images')"
+                              [entry]="entry"
+                              [fieldKey]="'imageIds'" [multiple]="true"
+                              (onChange)="setData($event)"></app-file-upload>
+
+            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Attribute Documents')" [entry]="entry"
+                             [fieldKey]="'fileIds'" [multiple]="true"
+                             (onChange)="setData($event)"></app-file-upload>
+          </mat-tab>
+
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

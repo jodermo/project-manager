@@ -1,0 +1,51 @@
+<div *ngIf="showPaginator">
+  <mat-toolbar class="white no-padding">
+    <button mat-icon-button (click)="newEntry()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page"></mat-paginator>
+  </mat-toolbar>
+  <app-edit-task #overviewEditComponent></app-edit-task>
+</div>
+<div class="task-list card-list" *ngIf="ready && dataSource && renderData && renderData.length">
+  <div class="task-list-item card-list-item" *ngFor="let company of renderData">
+    <mat-card class="task-card card-list-card">
+      <mat-card-title (click)="setEditEntry(company)">
+        <span class="icon-box margin-right">
+          <mat-icon>store</mat-icon>
+        </span>
+        <span *ngIf="company.name">{{adminService.text(company.name)}}</span>
+        <span *ngIf="!company.name">{{company.id}}</span>
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <p *ngIf="company.description">
+          {{company.description}}
+        </p>
+        <app-poi-map *ngIf="showPoi && company.poiId" [poiId]="company.poiId"></app-poi-map>
+        <app-image-preview *ngIf="company.imageId" [id]="company.imageId"></app-image-preview>
+
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="company.active"
+                            (change)="adminService.toggleEntry(company, $event)">
+            {{company.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <span class="spacer"></span>
+        <button *ngIf="company.poiId" mat-icon-button (click)="showPoi = !showPoi" [disabled]="!company.id">
+          <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteEntry(company);" [disabled]="!company.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(company)" [disabled]="!company.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

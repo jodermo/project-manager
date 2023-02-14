@@ -1,0 +1,46 @@
+
+<div *ngIf="ready && !(edit && editable) && column" class="database-table-field" (dblclick)="edit = editable">
+  <span *ngIf="adminService.formFieldType(column).type === 'default'">
+    {{value}}
+  </span>
+  <span *ngIf="adminService.formFieldType(column).type === 'poi'">
+    <app-database-table-field-poi-entry
+      [entry]="entry"
+      [fieldKey]="column"
+      [multiple]="adminService.formFieldType(column).multiple"
+      [editable]="editable"
+      [edit]="edit"
+    ></app-database-table-field-poi-entry>
+  </span>
+  <button *ngIf="editable" mat-icon-button (click)="edit = !edit">
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>
+<div *ngIf="ready && (edit && editable) && column" class="database-table-field">
+
+  <ng-container *ngIf="adminService.formFieldType(column).type === 'default'">
+    <mat-form-field class="database-table-field-form-field" appearance="fill">
+      <mat-label *ngIf="column">{{column}}</mat-label>
+      <input matInput type="text" name="username"
+             [(ngModel)]="value"
+             (keydown)="setValue()"
+             (keyup)="setValue()"
+             (keyup.enter)="save()">
+    </mat-form-field>
+  </ng-container>
+  <ng-container *ngIf="adminService.formFieldType(column).type === 'poi'">
+    <app-database-table-field-poi-entry
+      [entry]="entry"
+      [fieldKey]="column"
+      [multiple]="adminService.formFieldType(column).multiple"
+      [editable]="editable"
+      [edit]="edit"
+    ></app-database-table-field-poi-entry>
+  </ng-container>
+  <button *ngIf="options" mat-icon-button (click)="save()">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button *ngIf="options" mat-icon-button (click)="cancel()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

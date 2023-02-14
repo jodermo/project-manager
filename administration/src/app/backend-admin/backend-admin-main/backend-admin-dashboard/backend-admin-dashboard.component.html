@@ -1,0 +1,7 @@
+<div class="admin-dashboard-wrapper">
+  <app-backend-admin-dashboard-header></app-backend-admin-dashboard-header>
+  <div class="admin-dashboard-main"  *ngIf="adminService.ready && adminService.setting">
+    <app-backend-admin-dashboard-navigation></app-backend-admin-dashboard-navigation>
+    <app-backend-admin-dashboard-content></app-backend-admin-dashboard-content>
+  </div>
+</div>

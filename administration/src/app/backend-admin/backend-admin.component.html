@@ -1,0 +1,6 @@
+<div class="backend-admin">
+  <app-backend-admin-main></app-backend-admin-main>
+</div>
+<app-backend-configuration *ngIf="adminService.ready && !adminService.setting"></app-backend-configuration>
+<app-loading-screen *ngIf="!adminService.ready"></app-loading-screen>
+<app-error-message></app-error-message>

@@ -1,0 +1,10 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "ProjectManager",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "windowsAndroidStudioPath": "G:\\Android\\Android Studio\\bin\\studio64.exe",
+  "server": {
+    "iosScheme": "ionic"
+  }
+}

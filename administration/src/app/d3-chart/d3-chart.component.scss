@@ -1,0 +1,42 @@
+.d3-chart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: all .25s ease;
+}
+
+.d3-chart-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+
+  a, button, .pointer {
+    pointer-events: all;
+  }
+
+  .d3-chart-overlay-header {
+  }
+
+  .d3-chart-overlay-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .d3-chart-loader {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .d3-chart-overlay-footer {
+  }
+}

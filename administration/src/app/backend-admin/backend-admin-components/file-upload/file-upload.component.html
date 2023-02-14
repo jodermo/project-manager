@@ -1,0 +1,55 @@
+<div *ngIf="ready" class="file-upload">
+  <mat-label *ngIf="label">
+    {{adminService.text(label)}}
+  </mat-label>
+  <ng-container  *ngIf="showUpload">
+    <div class="horizontal-flex">
+      <button mat-flat-button color="secundary" (click)="selectExistingFile = !selectExistingFile">
+        <mat-icon *ngIf="!selectExistingFile">search</mat-icon>
+        <mat-icon *ngIf="selectExistingFile">upload</mat-icon>
+        <span *ngIf="!selectExistingFile">
+          {{adminService.text('Existing file')}}
+        </span>
+        <span *ngIf="selectExistingFile">
+          {{adminService.text('New file')}}
+        </span>
+      </button>
+    </div>
+    <app-file-selection [fileType]="fileType" [multiple]="multiple" [file]="file" [files]="databaseFiles"  *ngIf="selectExistingFile" (onChangeFiles)="onChangeFiles($event)"></app-file-selection>
+    <ngx-dropzone *ngIf="!selectExistingFile" (change)="select($event); saveFile();" [accept]="accept">
+      <ngx-dropzone-label>{{adminService.text(dropzoneLabel)}}</ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="remove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+  </ng-container>
+  <div class="file-preview">
+    <mat-list role="list" class="file-preview-list">
+      <mat-list-item *ngFor="let loadingFile of filesLoading" class="file-preview-list-item" role="listitem">
+        <mat-icon>document</mat-icon>
+        <span target="_blank">
+          {{loadingFile.file.name}}
+        </span>
+        <div class="upload-progress">
+          <mat-progress-bar mode="determinate" [value]="loadingFile.progress"></mat-progress-bar>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <mat-list role="list">
+      <mat-list-item *ngFor="let file of databaseFiles" class="file-preview-list-item" role="listitem">
+        <mat-icon>document</mat-icon>
+        <a [href]="rootPath + file.path" target="_blank">
+          {{file.name}}
+        </a>
+        <button mat-icon-button color="primary" (click)="deleteFile(file)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="file-preview" *ngIf="(!databaseFiles ||!databaseFiles.length) && !filesLoading.length && fileValue()">
+    <button mat-icon-button color="primary" (click)="deleteFileId(fileValue())">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="overlay" *ngIf="adminService.configVisible">
+  <div class="overlay-background" (click)="adminService.hideConfig()"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span>{{adminService.text('My Device')}}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="adminService.hideConfig();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content">
+        <app-client-device-user-agent></app-client-device-user-agent>
+        <app-client-device-orientation></app-client-device-orientation>
+        <app-client-device-compass></app-client-device-compass>
+        <app-client-device-customization></app-client-device-customization>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

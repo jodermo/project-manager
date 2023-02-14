@@ -1,0 +1,40 @@
+<div *ngIf="showPaginator" >
+  <mat-toolbar class="white no-padding" >
+    <button mat-icon-button (click)="newEntry()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page"></mat-paginator>
+  </mat-toolbar>
+  <app-edit-task #overviewEditComponent></app-edit-task>
+</div>
+<div class="task-list card-list" *ngIf="ready && dataSource && renderData">
+  <div class="task-list-item card-list-item" *ngFor="let attribute of renderData">
+    <mat-card class="task-card card-list-card">
+      <mat-card-title (click)="setEditEntry(attribute)">
+        <span class="icon-box margin-right">
+          <mat-icon>label</mat-icon>
+        </span>
+        <span *ngIf="attribute.key">{{adminService.text(attribute.key)}}</span>
+        <span *ngIf="!attribute.key">{{attribute.id}}</span>
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <app-database-attribute [attribute]="attribute" [editable]="false"></app-database-attribute>
+        <app-image-preview *ngIf="attribute.imageId" [id]="attribute.imageId"></app-image-preview>
+
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="deleteEntry(attribute);" [disabled]="!attribute.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(attribute)" [disabled]="!attribute.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="task-list card-list" *ngIf="!ready || !dataSource || !renderData">
+</div>

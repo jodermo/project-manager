@@ -1,0 +1,28 @@
+@import "imports";
+
+:root {
+  --ion-background-color: $gradient_primary;
+  --ion-background: $gradient_primary;
+
+  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', sans-serif;
+}
+
+.ios {
+  --ion-text-color: $color-light;
+}
+
+.md {
+  --ion-text-color: $color-light;
+}
+
+.spacer {
+  flex: 1;
+}
+
+html, body {
+  height: 100%;
+}
+
+:root {
+  --ion-font-family: $font-family-default;
+}

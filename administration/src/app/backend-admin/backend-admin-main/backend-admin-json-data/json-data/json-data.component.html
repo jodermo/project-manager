@@ -1,0 +1,50 @@
+<mat-card *ngIf="jsonData">
+  <mat-card-content>
+    <app-table-toolbar></app-table-toolbar>
+    <table class="default-layout">
+      <thead *ngIf="jsonData.currentDataAttributes">
+      <tr>
+        <th *ngFor="let dataAttr of jsonData.currentDataAttributes">
+          <span>{{dataAttr}}</span>
+        </th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody *ngIf="jsonData.currentDataEntries">
+      <ng-container *ngFor="let entry of jsonData.currentDataEntries">
+        <tr>
+          <td *ngFor="let dataAttr of jsonData.currentDataAttributes">
+            <span *ngIf="dataAttr  && entry[dataAttr]" (click)="selectJsonData()">
+              {{entry[dataAttr]}}
+            </span>
+          </td>
+          <td class="text-right">
+            <ng-container *ngIf="entry?.id && jsonData.currentDataChildren[entry?.id]?.length">
+              <button mat-icon-button (click)="toggle(entry?.id)">
+                <mat-icon *ngIf="expanded[entry?.id]">expand_less</mat-icon>
+                <mat-icon *ngIf="!expanded[entry?.id]">expand_more</mat-icon>
+              </button>
+            </ng-container>
+            <app-json-data-form (click)="jsonData.editEntry = entry" [id]="entry.id"  [parentId]="jsonData.getParentId(entry)"  (onOpenDialog)="openDialog()"></app-json-data-form>
+          </td>
+        </tr>
+        <ng-container *ngIf="entry?.id && jsonData.currentDataChildren[entry?.id]?.length && expanded[entry?.id]">
+          <tr *ngFor="let subEntry of jsonData.currentDataChildren[entry?.id]" class="secondary">
+            <td *ngFor="let dataAttr of jsonData.currentDataAttributes">
+            <span *ngIf="dataAttr  && subEntry[dataAttr]" (click)="selectJsonData()">
+              {{subEntry[dataAttr]}}
+            </span>
+            </td>
+            <td class="text-right">
+              <app-json-data-form (click)="jsonData.editEntry = subEntry" [id]="subEntry.id"  [parentId]="jsonData.getParentId(subEntry)" (onOpenDialog)="openDialog()"></app-json-data-form>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+      </tbody>
+    </table>
+  </mat-card-content>
+  <button mat-icon-button (click)="jsonData.newEntry(); openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-card>

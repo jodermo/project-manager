@@ -1,0 +1,71 @@
+<div class="admin-dashboard-content" *ngIf="adminService.dashboard.page">
+
+  <app-backend-admin-dashboard-content-dashboard
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Dashboard'"
+  >
+  </app-backend-admin-dashboard-content-dashboard>
+
+
+  <app-backend-admin-dashboard-game-settings
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Game'">
+  </app-backend-admin-dashboard-game-settings>
+
+  <app-backend-admin-dashboard-game-data
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Data'">
+  </app-backend-admin-dashboard-game-data>
+
+  <app-backend-admin-dashboard-game-test
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Testing'">
+  </app-backend-admin-dashboard-game-test>
+
+  <app-backend-admin-dashboard-shop-settings
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Shop'">
+  </app-backend-admin-dashboard-shop-settings>
+
+  <app-backend-admin-dashboard-shop-data
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Attributes'">
+  </app-backend-admin-dashboard-shop-data>
+
+  <app-backend-admin-dashboard-memos
+    class="dashboard-content"
+    [entries]="adminService.apiData['memo']"
+    *ngIf="adminService.dashboard.page.name === 'Memos'">
+  </app-backend-admin-dashboard-memos>
+
+
+  <app-backend-admin-dashboard-content-account
+    class="dashboard-content"
+
+    *ngIf="adminService.dashboard.page.name === 'Account'">
+  </app-backend-admin-dashboard-content-account>
+
+
+
+
+  <app-backend-admin-dashboard-settings
+    class="dashboard-content"
+    *ngIf="adminService.dashboard.page.name === 'Settings'">
+  </app-backend-admin-dashboard-settings>
+
+
+
+
+
+
+
+
+
+
+
+  <app-backend-settings *ngIf="adminService.ready"></app-backend-settings>
+
+  <app-backend-admin-dashboard-edit-views></app-backend-admin-dashboard-edit-views>
+
+
+</div>

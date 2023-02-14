@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+AuthUserFile "/usr/www/users/heldenqb/frontend/.htpasswd"
+AuthName "ProjectManager"
+AuthType Basic
+require valid-user

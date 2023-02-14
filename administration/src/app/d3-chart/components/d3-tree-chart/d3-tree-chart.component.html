@@ -1,0 +1,13 @@
+<div class="d3-chart d3-tree-chart" [ngStyle]="chartStyle" #svgContainer>
+</div>
+<div class="d3-chart-overlay">
+  <div class="d3-chart-overlay-header">
+  </div>
+  <div class="d3-chart-overlay-content">
+    <div *ngIf="!loaded" class="d3-chart-loader">
+      <mat-spinner color="secondary"></mat-spinner>
+    </div>
+  </div>
+  <div class="d3-chart-overlay-footer">
+  </div>
+</div>

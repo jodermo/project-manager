@@ -1,0 +1,27 @@
+<div *ngIf="ready && attribute" class="database-attribute">
+
+  <div class="horizontal-flex">
+
+    <div *ngIf="iconVisible()" class="flex-item vertical-flex flex-center">
+      <mat-label>{{adminService.text(attribute.formData().iconTitle)}}:</mat-label>
+      <mat-icon>{{attribute.icon}}</mat-icon>
+    </div>
+
+    <div *ngIf="keyVisible()" class="flex-item vertical-flex flex-center">
+      <mat-label>{{adminService.text(attribute.formData().keyTitle)}}:</mat-label>
+      <span>{{(attribute.key || '-')}}</span>
+    </div>
+
+    <div *ngIf="valueVisible()" class="flex-item vertical-flex flex-center">
+      <mat-label>{{adminService.text(attribute.formData().valueTitle)}}:</mat-label>
+      <span>{{(attribute.value || '-')}}</span>
+    </div>
+
+    <div *ngIf="editable" class="flex-item vertical-flex flex-center">
+      <button mat-icon-button (click)="deleteAttribute()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</div>

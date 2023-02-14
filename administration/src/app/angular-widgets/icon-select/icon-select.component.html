@@ -1,0 +1,33 @@
+<div class="angular-widget icon-select">
+  <button mat-flat-button color="secondary" [disabled]="!selectedIcon" (click)="chooseIcon()">
+    <mat-icon>{{selectedIcon ? selectedIcon : '-'}}</mat-icon>
+  </button>
+  <mat-form-field appearance="fill">
+    <mat-label>{{label}} ({{iconsCount}})</mat-label>
+    <mat-select [(ngModel)]="selectedIcon" (ngModelChange)="onChange()">
+      <mat-option>-</mat-option>
+      <mat-optgroup *ngFor="let iconCategory of availableCategories" [label]="iconCategory.name"
+                    [disabled]="!iconCategory.icons">
+        <mat-option *ngFor="let icon of iconCategory.icons" [value]="icon.ligature">
+          <mat-icon *ngIf="selectedIcon !== icon.ligature">{{icon.ligature}}</mat-icon>
+          <span>{{icon.ligature}}</span>
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button color="secondary" (click)="showSearch = !showSearch">
+    <mat-icon>search</mat-icon>
+  </button>
+  <mat-form-field *ngIf="showSearch" class="example-form-field">
+    <mat-label>{{searchLabel}}</mat-label>
+    <input matInput type="text" [(ngModel)]="searchQuery" (keyup)="changeSearchQuery()">
+    <button matSuffix mat-icon-button aria-label="Clear" [disabled]="!searchQuery"
+            (click)="searchQuery=''; changeSearchQuery()">
+      <mat-icon *ngIf="searchQuery">close</mat-icon>
+      <mat-icon *ngIf="!searchQuery">search</mat-icon>
+    </button>
+  </mat-form-field>
+
+</div>
+
+

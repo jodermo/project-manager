@@ -1,0 +1,10 @@
+{
+  "name": "ProjectManager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "preference": {
+    "AllowInlineMediaPlayback": true
+  }
+}

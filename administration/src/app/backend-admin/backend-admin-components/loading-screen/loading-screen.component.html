@@ -1,0 +1,9 @@
+<div class="loading-screen-container">
+  <mat-spinner color="primary"></mat-spinner>
+  <div *ngIf="adminService.autoReload" class="auto-reload-container">
+    <h2 *ngIf="adminService.autoReload">
+      {{adminService.text('Automatically reload in ')}} {{adminService.timeToAutoReload()}}
+    </h2>
+    <mat-progress-bar mode="determinate" [value]="adminService.percentToAutoReload()"></mat-progress-bar>
+  </div>
+</div>

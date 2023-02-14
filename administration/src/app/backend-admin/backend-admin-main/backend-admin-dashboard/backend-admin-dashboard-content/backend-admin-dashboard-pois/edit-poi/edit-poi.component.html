@@ -1,0 +1,109 @@
+<div class="overlay" *ngIf="entry">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span class="icon-box margin-right">
+          <mat-icon>place</mat-icon>
+        </span>
+        <span *ngIf="!entry.id">{{adminService.text('New POI')}}</span>
+        <span *ngIf="entry.id">{{entry.name || ('ID ' + entry.id)}}</span>
+        <span class="spacer"></span>
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="entry.active">
+            {{entry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <button *ngIf="tabIndex === 1" mat-icon-button (click)="toggleEdit()"
+                [ngClass]="{active:(editPoiLocation)}"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading || entry.dataIsLoading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading && !entry.dataIsLoading">
+        <mat-tab-group class="overlay-tab-group" *ngIf="entry" mat-align-tabs="center" [selectedIndex]="tabIndex"
+                       animationDuration="0ms"
+                       headerPosition="below"
+                       (selectedIndexChange)="tabIndex = $event"
+        >
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Location')">
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Name')}}</mat-label>
+              <input matInput type="text" name="name" [(ngModel)]="entry.name"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Description')}}</mat-label>
+              <textarea matInput name="description" [(ngModel)]="entry.description"
+                        (keyup.enter)="saveEntry()"></textarea>
+            </mat-form-field>
+
+            <div class="horizontal-flex">
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Latitude')}}</mat-label>
+                <input matInput type="number" name="latitude" [(ngModel)]="entry.latitude"
+                       (keyup.enter)="saveEntry()">
+              </mat-form-field>
+
+              <mat-form-field class="backend-admin-form-field" appearance="fill">
+                <mat-label>{{adminService.text('Longitude')}}</mat-label>
+                <input matInput type="number" name="longitude" [(ngModel)]="entry.longitude" (keyup.enter)="saveEntry()">
+              </mat-form-field>
+
+
+            </div>
+
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'imageId'"  [label]="adminService.text('Location Image')"
+                              (onChange)="setData($event)"></app-image-upload>
+
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'markerImageId'"  [label]="adminService.text('Marker Image')"
+                              (onChange)="setData($event)"></app-image-upload>
+
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'locationPreviewImageId'" [label]="adminService.text('Location Preview')"
+                              (onChange)="setData($event)"></app-image-upload>
+
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Map')">
+            <app-poi-map *ngIf="tabIndex === 1 && mapVisible"
+                         [showCursor]="editPoiLocation"
+                         [updatePoi]="editPoiLocation"
+                         [poi]="entry"
+                         [pois]="[entry]"
+                         [latitude]="entry.latitude"
+                         [longitude]="entry.longitude"
+                         [userInteraction]="editPoiLocation"
+            ></app-poi-map>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Files')" [disabled]="!entry.id">
+            <app-file-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'imageIds'" [label]="adminService.text('Location Images')"        [multiple]="true"
+                              (onChange)="setData($event)"></app-file-upload>
+
+            <app-file-upload [label]="adminService.text('Files')" [entry]="entry" [fieldKey]="'fileIds'" [label]="adminService.text('Location Documents')"
+                             [multiple]="true"
+                             (onChange)="setData($event)"></app-file-upload>
+          </mat-tab>
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('Memos')" [disabled]="!entry.id">
+            <app-memo-overview *ngIf="!entry.dataIsLoading" [poi]="entry" [memos]="adminService.apiData['memo']" (onDelete)="reload()" (onSave)="reload()"></app-memo-overview>
+          </mat-tab>
+
+
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

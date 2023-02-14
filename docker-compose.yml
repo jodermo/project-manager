@@ -1,0 +1,61 @@
+version: "3.9"
+services:
+  heldenreise-database:
+    container_name: heldenreise-database
+    hostname: heldenreise-database
+    image: postgres:latest
+    volumes:
+      - ./postgres-database/:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    env_file:
+      - environments/dev.env
+    networks:
+      - heldenreise-database
+    restart: unless-stopped
+  heldenreise-json-server:
+    container_name: heldenreise-json-server
+    hostname: heldenreise-json-server
+    build: json-server
+    command: npm run dev
+    volumes:
+      - ./json-server:/app
+    ports:
+      - 8080:8080
+    env_file:
+      - environments/dev.env
+    networks:
+      - heldenreise-json-server
+    restart: unless-stopped
+  heldenreise-server:
+    container_name: heldenreise-server
+    image: nestjs-api-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:debug
+    ports:
+      - 80:80
+    env_file:
+      - environments/dev.env
+    networks:
+      - heldenreise-database
+      - heldenreise-json-server
+      - heldenreise-server
+    volumes:
+      - ./server:/usr/src/app/server
+      - ./assets:/usr/app/assets
+      - /usr/src/app/node_modules
+    depends_on:
+      - heldenreise-database
+      - heldenreise-json-server
+    restart: unless-stopped
+
+networks:
+  heldenreise-database:
+    driver: bridge
+  heldenreise-json-server:
+    driver: bridge
+  heldenreise-server:
+    driver: bridge

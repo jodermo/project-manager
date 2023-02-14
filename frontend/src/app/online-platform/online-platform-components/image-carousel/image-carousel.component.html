@@ -1,0 +1,48 @@
+<div class="image-carousel" *ngIf="carousel"
+     (mousemove)="carousel.checkSwipe($event,  platform);"
+     (touchmove)="carousel.checkSwipe($event,  platform)"
+     (mouseup)="carousel.checkSwipe($event,  platform); carousel.leave($event,  platform)"
+     (touchend)="carousel.checkSwipe($event, platform); carousel.leave($event,  platform)"
+     (mouseleave)="carousel.leave($event,  platform);"
+     (touchcancel)="carousel.leave($event,  platform);"
+     (mouseout)="carousel.leave($event,  platform)"
+     [ngClass]="{'mouse-move': (platform.mouse.move)}"
+>
+  <div class="carousel-slides"
+  >
+    <div class="carousel-slides-wrapper" [style]="{
+       'left': -(carousel.index * itemWidth) + '%'
+    }">
+      <div class="carousel-slide-image-item" *ngFor="let imageSource of carousel.data"
+           [style]="{
+              'width': (itemWidth) + '%',
+              'minWidth': (itemWidth) + '%'
+           }"
+      >
+        <div class="carousel-slide-item-content">
+          <div class="image-container">
+            <img [src]="imageSource">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-options" *ngIf="carousel.data.length > 1">
+    <div *ngIf="carousel.prevSlide" class="carousel-options-prev" (click)="carousel.prev()">
+      <button mat-button>prev</button>
+    </div>
+    <span class="spacer"></span>
+    <div *ngIf="carousel.nextSlide" class="carousel-options-next" (click)="carousel.next()">
+      <button mat-button>next</button>
+    </div>
+  </div>
+  <div class="carousel-navigation" *ngIf="navigation && carousel.data.length > 1">
+    <div class="spacer"></div>
+    <div class="carousel-navigation-point"
+         *ngFor="let imageSource of carousel.data; let i = index"
+         (click)="carousel.index = i"
+         [ngClass]="{'active': (carousel.index === i)}"
+    ></div>
+    <div class="spacer"></div>
+  </div>
+</div>

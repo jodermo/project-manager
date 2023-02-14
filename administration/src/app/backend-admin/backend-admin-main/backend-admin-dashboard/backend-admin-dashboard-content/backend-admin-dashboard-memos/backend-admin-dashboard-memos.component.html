@@ -1,0 +1,57 @@
+
+<mat-toolbar color="primary" class="content-page-header" *ngIf="adminService.dashboard.page">
+  <mat-icon class="margin-right" *ngIf="adminService.dashboard.page.icon">{{adminService.dashboard.page.icon}}</mat-icon>
+  <span>
+      {{adminService.text(adminService.dashboard.page.name)}}
+  </span>
+</mat-toolbar>
+
+<mat-toolbar>
+  <span>{{adminService.text('Memos')}}</span>
+  <span class="spacer"></span>
+  <small *ngIf="loaded">
+    <i>
+      <span *ngIf="renderData">{{renderData.length}} / </span>
+      <span *ngIf="entries">{{entries.length}}</span>
+    </i>
+  </small>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+
+
+
+
+<div *ngIf="loaded && ready" class="full-height">
+  <div class="tab-content vertical-scroll">
+    <app-memo-overview
+      [dataSource]="dataSource"
+      [entries]="entries"
+      [entry]="entry"
+      [fieldKey]="fieldKey"
+      [displayedColumns]="displayedColumns"
+      [paginator]="paginator"
+      [sort]="sort"
+      [pageSizeOptions]="pageSizeOptions"
+      [filterInput]="input"
+      [edit]="edit"
+      [editable]="editable"
+      [editComponent]="editComponent"
+      (onSave)="onSaveEntry($event)"
+      (onDelete)="onDeleteEntry()"
+      #overviewComponent></app-memo-overview>
+  </div>
+</div>
+
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="applyFilter()" aria-label="Select page"
+                 #paginator></mat-paginator>
+</mat-toolbar>
+<app-edit-memo (onSave)="onSaveEntry($event)"
+               (onDelete)="onDeleteEntry()" #editComponent></app-edit-memo>

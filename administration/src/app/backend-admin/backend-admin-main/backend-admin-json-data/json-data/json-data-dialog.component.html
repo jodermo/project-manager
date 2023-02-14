@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>
+  <span *ngIf="jsonData.editEntry?.id">{{adminService.text('Eintrag bearbeiten')}}</span>
+  <span *ngIf="!jsonData.editEntry?.id">{{adminService.text('Neuen Eintrag erstellen')}}</span>
+</h2>
+<mat-dialog-content class="mat-typography">
+  <table *ngIf="jsonData.editEntry" class="default-layout">
+    <thead *ngIf="jsonData.currentDataAttributes">
+    <tr>
+      <th *ngFor="let dataAttr of jsonData.currentDataAttributes">
+        <span>{{dataAttr}}</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td *ngFor="let dataAttr of jsonData.currentDataAttributes">
+        <input [(ngModel)]="jsonData.editEntry[dataAttr]">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="primary" (click)="jsonData.saveEntry(adminService, jsonData.editEntry)">
+    <mat-icon>save</mat-icon>
+    <span>{{adminService.text('Speichern')}}</span>
+  </button>
+</mat-dialog-actions>

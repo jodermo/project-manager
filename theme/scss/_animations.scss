@@ -1,0 +1,99 @@
+$animation-time-fast: .25s;
+$animation-time-default: .75s;
+$animation-time-slow: 1.5s;
+
+
+.animated {
+
+  .ani {
+    opacity: 1;
+    transition: all $animation-time-default ease;
+
+
+    &.from-left, &.from-right {
+      transform: translateY(0);
+    }
+
+    &.fade-in {
+      opacity: 1;
+    }
+  }
+
+
+  &.isAnimating {
+
+
+    .ani {
+      display: block;
+      opacity: 0;
+
+      &.from-left {
+        transform: translateX(-100vw);
+      }
+
+      &.from-right {
+        transform: translateX(100vw);
+      }
+
+      &.from-top {
+        transform: translateY(-100vh);
+      }
+
+      &.from-bottom {
+        transform: translateY(100vh);
+      }
+
+      &.fade-in {
+        opacity: 0;
+      }
+    }
+
+    .animated {
+
+
+      .ani {
+        transition: all $animation-time-default ease;
+
+        &.from-left, &.from-right {
+          transform: translateY(0);
+        }
+
+        &.fade-in {
+          opacity: 1;
+        }
+      }
+
+      &.isAnimating {
+        .ani {
+          display: block;
+
+          &.from-left {
+            transform: translateX(-100vw);
+          }
+
+          &.from-right {
+            transform: translateX(100vw);
+          }
+
+          &.from-top {
+            transform: translateY(-100vh);
+          }
+
+          &.from-bottom {
+            transform: translateY(100vh);
+          }
+
+          &.fade-in {
+            opacity: 0;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+

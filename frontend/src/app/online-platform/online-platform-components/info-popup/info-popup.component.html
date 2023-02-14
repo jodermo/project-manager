@@ -1,0 +1,11 @@
+<div class="overlay animated" [ngClass]="{'isAnimating': (!platform.showDetailInfos)}">
+  <div class="overlay-background ani fade-in" (click)="platform.showDetailInfos = false"></div>
+  <mat-card class="overlay-content ani from-bottom">
+    <mat-card-content *ngIf="platform.showDetailInfos">
+      <div class="overlay-wrapper">
+        <game-detail-page></game-detail-page>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

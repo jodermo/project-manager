@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" *ngIf="adminService.user">
+  <span>{{adminService.title}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <b>{{adminService.user?.username}}</b>
+  <button mat-menu-item *ngFor="let menuOption of adminService.menuOptions" (click)="menuOption.event()">
+    <mat-icon *ngIf="menuOption.icon">{{menuOption.icon}}</mat-icon>
+    <span *ngIf="menuOption.title">{{adminService.text(menuOption.title)}}</span>
+  </button>
+</mat-menu>

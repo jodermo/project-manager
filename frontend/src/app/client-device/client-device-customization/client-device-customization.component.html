@@ -1,0 +1,58 @@
+<div>
+  <table>
+    <tbody>
+    <tr>
+      <th>
+        {{platform.text('Custom Rotation')}}
+      </th>
+      <td>
+        <mat-slide-toggle color="primary"
+          [(ngModel)]="clientDevice.customRotation.active"></mat-slide-toggle>
+      </td>
+      <td>
+          <label>{{clientDevice.customRotation.rotation}}</label>
+        <mat-slider color="primary"
+          [(ngModel)]="clientDevice.customRotation.rotation"
+          [disabled]="!clientDevice.customRotation.active"
+          (input)="clientDevice.update()"
+          (change)="clientDevice.update()"
+          min="0" max="360"
+        ></mat-slider>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        {{platform.text('Location')}}
+      </th>
+      <td>
+        <mat-slide-toggle color="primary"
+          [(ngModel)]="clientDevice.customLocation.active">{{platform.text('Custom location')}}</mat-slide-toggle>
+      </td>
+      <td>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <label>{{platform.text('Latitude')}}</label>
+          <input type="number" matInput
+                 [placeholder]="platform.text('Latitude')"
+                 [(ngModel)]="clientDevice.customLocation.latitude"
+                 [disabled]="!clientDevice.customLocation.active"
+                 step="0.0001"
+                 (keyup)="clientDevice.update()"
+                 (change)="clientDevice.update()"
+          >
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <label>{{platform.text('Longitude')}}</label>
+          <input type="number" matInput
+                 [placeholder]="platform.text('Longitude')"
+                 [(ngModel)]="clientDevice.customLocation.longitude"
+                 [disabled]="!clientDevice.customLocation.active"
+                 step="0.0001"
+                 (keyup)="clientDevice.update()"
+                 (change)="clientDevice.update()"
+          >
+        </mat-form-field>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

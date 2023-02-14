@@ -1,0 +1,8 @@
+<mat-list class="sub-task-preview" role="list" *ngIf="ready && subTasks && subTasks.length">
+  <mat-list-item *ngFor="let task of subTasks" role="listitem" (click)="subTaskClick($event, task)">
+    <span class="margin-right">
+          <mat-icon>not_listed_location</mat-icon>
+        </span>
+    <span>{{task.title}}</span>
+  </mat-list-item>
+</mat-list>

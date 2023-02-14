@@ -1,0 +1,83 @@
+<div *ngIf="showPaginator">
+  <mat-toolbar class="white no-padding">
+    <button mat-icon-button (click)="newEntry()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page" #paginator></mat-paginator>
+  </mat-toolbar>
+</div>
+<h2 *ngIf="!renderData">no render data</h2>
+<div class="task-list card-list" *ngIf="ready && renderData && renderData.length">
+  <div class="task-list-item card-list-item" *ngFor="let taskEntry of renderData">
+    <mat-card class="task-card card-list-card">
+      <mat-card-title (click)="setEditEntry(taskEntry)">
+        <span class="icon-box margin-right">
+          <mat-icon>not_listed_location</mat-icon>
+        </span>
+        <div class="vertical-flex">
+          <span *ngIf="taskEntry.title">
+            {{adminService.text(taskEntry.title)}}
+          </span>
+          <sub><sup>
+            <small><i>{{adminService.text(taskEntry.type)}}</i></small>
+          </sup></sub>
+        </div>
+
+        <span *ngIf="!taskEntry.title">{{taskEntry.id}}</span>
+
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <p *ngIf="taskEntry.description">
+          {{taskEntry.description}}
+        </p>
+        <ng-container *ngIf="taskEntry.type === 'ar-model'">
+          <app-database-table-field-ar-model-entry
+            *ngIf="taskEntry.arModelId"
+            [entry]="taskEntry"
+          ></app-database-table-field-ar-model-entry>
+          <app-image-preview
+            *ngIf="taskEntry.arModelMarkerImageId && taskEntry.arModelType=== 'marker' && !(taskEntry.arModelId && showArModel)"
+            [id]="taskEntry.arModelMarkerImageId"></app-image-preview>
+
+          <app-ar-model-preview *ngIf="taskEntry.arModelId && showArModel"
+                                [arModelId]="taskEntry.arModelId"></app-ar-model-preview>
+
+        </ng-container>
+        <app-poi-map *ngIf="showPoi && taskEntry.poiId" [poiId]="taskEntry.poiId"></app-poi-map>
+        <app-image-preview *ngIf="taskEntry.imageId" [id]="taskEntry.imageId"></app-image-preview>
+        <app-file-preview *ngIf="taskEntry.fileId" [id]="taskEntry.fileId"></app-file-preview>
+        <app-sub-tasks-preview [task]="taskEntry" (clickSubTask)="setEditEntry($event, true)"></app-sub-tasks-preview>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="taskEntry.active"
+                            (change)="adminService.toggleEntry(taskEntry, $event)">
+            {{taskEntry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <span class="spacer"></span>
+        <button *ngIf="taskEntry.type === 'ar-model'" mat-icon-button (click)="showArModel = !showArModel"
+                [disabled]="!taskEntry.arModelId">
+          <mat-icon *ngIf="!showArModel">visibility</mat-icon>
+          <mat-icon *ngIf="showArModel">visibility_off</mat-icon>
+        </button>
+        <button *ngIf="taskEntry.poiId" mat-icon-button (click)="showPoi = !showPoi" [disabled]="!taskEntry.id">
+          <mat-icon>map</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteEntry(taskEntry);" [disabled]="!taskEntry.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(taskEntry)" [disabled]="!taskEntry.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="ready && renderData && !renderData.length && filterInput" class="filter-error">
+  {{adminService.text('No data matching the filter')}} "{{filterInput.value}}"
+</div>
+

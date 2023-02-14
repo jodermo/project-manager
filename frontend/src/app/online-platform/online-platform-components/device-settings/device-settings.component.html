@@ -1,0 +1,35 @@
+<div class="overlay animated" [ngClass]="{'isAnimating': (!platform.showDeviceSettings)}">
+  <div class="overlay-background ani fade-in" (click)="platform.showDeviceSettings = false"></div>
+  <mat-card class="overlay-content ani from-bottom">
+    <mat-card-header>
+      <div class="spacer"></div>
+      <h2>{{platform.text('Device')}}</h2>
+      <div class="spacer"></div>
+      <button mat-icon-button (click)="platform.showDeviceSettings = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="platform.showDeviceSettings">
+      <div class="overlay-wrapper">
+
+        <mat-tab-group
+          mat-align-tabs="center"
+          animationDuration="0ms"
+          headerPosition="below"
+        >
+          <mat-tab [label]="platform.text('Orientation')">
+            <app-client-device-orientation></app-client-device-orientation>
+          </mat-tab>
+          <mat-tab [label]="platform.text('Customize')">
+            <app-client-device-customization></app-client-device-customization>
+          </mat-tab>
+          <mat-tab [label]="platform.text('User Agent')">
+            <app-client-device-user-agent></app-client-device-user-agent>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

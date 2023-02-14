@@ -1,0 +1,19 @@
+<div class="overlay animated" [ngClass]="{'isAnimating': (!platform.showSettings)}">
+  <div class="overlay-background ani fade-in" (click)="platform.showSettings = false"></div>
+  <mat-card class="overlay-content ani from-bottom">
+    <mat-card-header>
+      <div class="spacer"></div>
+      <h2>{{platform.text('Einstellungen')}}</h2>
+      <div class="spacer"></div>
+      <button mat-icon-button (click)="platform.showSettings = false">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="platform.showSettings">
+      <div class="overlay-wrapper">
+        <app-game-settings></app-game-settings>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

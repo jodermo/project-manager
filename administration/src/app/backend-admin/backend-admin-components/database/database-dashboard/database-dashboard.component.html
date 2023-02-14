@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <span *ngIf="apiRoute">{{apiRoute}}</span>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+<mat-tab-group *ngIf="loaded && ready" mat-align-tabs="center" [selectedIndex]="tabIndex"
+               animationDuration="0ms"
+               (selectedIndexChange)="tabIndex = $event"
+>
+  <mat-tab [label]="adminService.text('Overview')">
+    <div class="tab-content vertical-scroll">
+      <app-database-overview
+        [dataSource]="dataSource"
+        [editComponent]="editComponent"
+        [edit]="edit"
+        [filterInput]="input"
+        [paginator]="paginator"
+        [sort]="sort"
+        [pageSizeOptions]="pageSizeOptions"
+        #overviewComponent></app-database-overview>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="adminService.text('Database')">
+    <div class="tab-content vertical-scroll horizontal-scroll">
+      <app-database-table
+        [dataSource]="dataSource"
+        [editComponent]="editComponent"
+        [edit]="edit"
+        [filterInput]="input"
+        [paginator]="paginator"
+        [sort]="sort"
+        [pageSizeOptions]="pageSizeOptions"
+        #databaseTable
+      ></app-database-table>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page"></mat-paginator>
+</mat-toolbar>
+<app-database-edit-entry [apiRoute]="apiRoute" #editComponent></app-database-edit-entry>

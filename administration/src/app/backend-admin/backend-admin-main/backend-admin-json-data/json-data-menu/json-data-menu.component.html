@@ -1,0 +1,6 @@
+<mat-list class="sidebar-list" *ngIf="adminService.jsonData && adminService.jsonData.dataAttributes.length">
+  <ng-container *ngFor="let attribute of adminService.jsonData.dataAttributes">
+    <mat-list-item [ngClass]="{'active': (attribute === adminService.jsonData.currentAttribute)}" (click)="adminService.jsonData.selectAttribute(attribute)">{{attribute}}</mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>

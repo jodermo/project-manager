@@ -1,0 +1,30 @@
+<div class="sidebar-content" [style]="{
+'left': (platform.sidebar ? 0: 100) + '%'
+}">
+  <mat-list role="list">
+    <ng-container *ngFor="let page of platform.pages">
+      <mat-list-item role="listitem" *ngIf="page.menuPage"
+                     (click)="platform.showPage(page)"
+                     [ngClass]="{active:(platform.page?.name === page.name)}">
+      <span>
+        {{platform.text(page.menuTitle || page.name)}}
+      </span>
+      </mat-list-item>
+    </ng-container>
+    <mat-list-item role="listitem"
+                   (click)="platform.showSettingsMenu()"
+                   [ngClass]="{active:(platform.showSettings === true)}">
+      <span>
+        {{platform.text('Einstellungen')}}
+      </span>
+    </mat-list-item>
+    <mat-list-item role="listitem"
+                   (click)="platform.showDeviceSettings = true; platform.sidebar = false;"
+                   [ngClass]="{active:(platform.showDeviceSettings === true)}">
+      <span>
+        {{platform.text('Device')}}
+      </span>
+    </mat-list-item>
+  </mat-list>
+</div>
+

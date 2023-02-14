@@ -1,0 +1,14 @@
+<button mat-icon-button (click)="openDialog()">
+  <mat-icon>edit</mat-icon>
+</button>
+<button *ngIf="id && adminService.jsonData" mat-icon-button (click)="adminService.jsonData.deleteEntryById(adminService, id);">
+  <mat-icon>delete</mat-icon>
+</button>
+<button
+  *ngIf="adminService.jsonData && adminService.jsonData.currentAttribute && adminService.jsonData.parentKeys[adminService.jsonData.currentAttribute] && id && !parentId"
+  mat-icon-button (click)="adminService.jsonData.newEntry(id); openDialog()">
+  <mat-icon>add</mat-icon>
+</button>
+<button mat-icon-button
+  *ngIf="adminService.jsonData && (!adminService.jsonData.currentAttribute || !adminService.jsonData.parentKeys[adminService.jsonData.currentAttribute] || !id || parentId)">
+</button>

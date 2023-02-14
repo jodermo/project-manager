@@ -1,0 +1,95 @@
+<div class="login-page">
+  <div Class="login-logo">
+    <div class="login-image-content">
+      <div class="image-container">
+        <img src="assets/svg/app_logo.svg">
+      </div>
+    </div>
+  </div>
+  <div Class="login-form">
+    <div class="login-form-content" *ngIf="!adminService.user && !adminService.loading">
+      <h1>{{adminService.text('Ruffsolar - Online Dashboard')}}</h1>
+
+
+      <div class="login-message" *ngIf="adminService.successfulRegistered">
+        {{adminService.text('Account successfully activated')}}
+        {{adminService.text('We have send an activation email to:')}}
+        <b> {{adminService.successfulRegistered}} </b>
+        {{adminService.text('Please check your inbox')}}
+      </div>
+
+      <div class="login-message" *ngIf="adminService.successfulActivated">
+        <div>
+          {{adminService.text('Account')}}
+          <b> {{adminService.successfulActivated}} </b>
+          {{adminService.text('Account successfully activated')}}
+        </div>
+        <div>
+          <button mat-button (click)="adminService.successfulActivated = undefined">
+            <span>{{adminService.text('Login')}}</span>
+          </button>
+        </div>
+      </div>
+
+
+      <div *ngIf="!adminService.successfulActivated && !adminService.successfulRegistered">
+
+
+        <div class="login-form-inputs">
+          <input matInput type="text" name="login"
+                 placeholder="{{adminService.text('Username')}}"
+                 [(ngModel)]="adminService.userCredentials.username"
+                 (keyup.enter)="adminService.login()"
+                 autocomplete>
+          <input *ngIf="register" matInput type="email" name="email"
+                 placeholder="{{adminService.text('Email')}}"
+                 [(ngModel)]="adminService.userCredentials.email"
+                 (keyup.enter)="adminService.login()"
+                 autocomplete>
+          <input matInput type="password"
+                 [(ngModel)]="adminService.userCredentials.password"
+                 (keyup.enter)="adminService.login()"
+                 placeholder="{{adminService.text('Passwort')}}"
+                 autocomplete>
+
+          <input *ngIf="register" matInput type="password" name="password" [(ngModel)]="adminService.passwordConfirm"
+                 (keyup.enter)="adminService.login()"
+                 placeholder="{{adminService.text('Passwort bestätigen')}}"
+          >
+
+          <p *ngIf="adminService.loginError">
+            {{adminService.loginError.message}}
+          </p>
+
+        </div>
+
+
+        <div>
+          <button mat-flat-button color="secondary" (click)="register = !register">
+            <span *ngIf="!register">{{adminService.text('Register')}}</span>
+            <span *ngIf="register">{{adminService.text('Login')}}</span>
+          </button>
+
+          <button mat-flat-button color="primary"
+                  *ngIf="!register"
+                  [disabled]="!adminService.userCredentials.username && !adminService.userCredentials.password"
+                  (click)="adminService.login()">
+            {{adminService.text('Login')}}
+          </button>
+
+          <button mat-flat-button color="primary"
+                  *ngIf="register"
+                  [disabled]="!adminService.userCredentials.username && !adminService.userCredentials.password && adminService.userCredentials.password !== adminService.passwordConfirm"
+                  (click)="adminService.register(adminService.userCredentials)">
+            {{adminService.text('Register')}}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

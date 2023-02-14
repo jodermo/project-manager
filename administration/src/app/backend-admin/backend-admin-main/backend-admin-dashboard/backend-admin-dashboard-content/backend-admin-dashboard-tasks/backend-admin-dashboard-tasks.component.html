@@ -1,0 +1,61 @@
+<mat-toolbar>
+  <span>{{adminService.text('Tasks')}}</span>
+  <span class="spacer"></span>
+  <small *ngIf="loaded">
+    <i>
+      <span *ngIf="renderData">{{renderData.length}} / </span>
+      <span *ngIf="entries">{{entries.length}}</span>
+    </i>
+  </small>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+<mat-tab-group *ngIf="loaded && tasks && input" mat-align-tabs="center" [selectedIndex]="tabIndex"
+               animationDuration="0ms"
+               headerPosition="below"
+               class="secondary-color"
+               (selectedIndexChange)="tabIndex = $event"
+>
+  <mat-tab [label]="adminService.text('Overview')">
+    <div class="tab-content vertical-scroll">
+      <app-task-overview
+        [dataSource]="dataSource"
+        [entries]="entries"
+        [entry]="entry"
+        [fieldKey]="fieldKey"
+        [displayedColumns]="displayedColumns"
+        [paginator]="paginator"
+        [sort]="sort"
+        [pageSizeOptions]="pageSizeOptions"
+        [filterInput]="input"
+        [edit]="edit"
+        [editable]="editable"
+        [editComponent]="editComponent"
+        (onSave)="onSaveEntry($event)"
+        (onDelete)="onDeleteEntry()"
+        #overviewComponent
+      ></app-task-overview>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="adminService.text('Node Editor')">
+    <app-d3-tree-chart *ngIf="tabIndex === 1" [id]="'task-node-editor'"
+                       [nameKey]="'title'"
+                       [data]="adminService.apiData.task"
+                       (onAddNew)="adminService.addNewTask($event)"
+    ></app-d3-tree-chart>
+  </mat-tab>
+</mat-tab-group>
+
+
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="applyFilter()" aria-label="Select page"
+                 #paginator></mat-paginator>
+</mat-toolbar>
+<app-edit-task (onEntrySaved)="getCustomData()" (onSave)="getCustomData()"
+               (onDelete)="getCustomData()" (onUpdate)="getCustomData()" #editComponent></app-edit-task>

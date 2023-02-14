@@ -1,0 +1,19 @@
+<div class="online-platform animated"
+     *ngIf="!platform.connectionError"
+     [ngClass]="{isAnimating:(platform.isAnimating)}"
+     #hammerMainElement>
+  <app-online-platform-main></app-online-platform-main>
+  <app-online-platform-footer></app-online-platform-footer>
+  <app-online-platform-sidebar></app-online-platform-sidebar>
+</div>
+<div class="connection-error" *ngIf="platform.connectionError && platform.apiRequired">
+  <div class="error-wrapper">
+    <h1>{{platform.text('Du bist gerade offline')}}</h1>
+    <p>{{platform.text('Stelle in Internetverbindung her, damit wir die aktuellen Daten laden können')}}</p>
+    <div>
+      <button mat-flat-button (click)="platform.reload()">
+        {{platform.text('Ich bin wieder online')}}
+      </button>
+    </div>
+  </div>
+</div>

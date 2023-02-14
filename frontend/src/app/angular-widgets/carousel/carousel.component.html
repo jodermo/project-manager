@@ -1,0 +1,16 @@
+<div class="carousel-container" #carouselContainer>
+  <div class="carousel-items" #itemWrapper>
+    <div class="carousel-item" *ngFor="let item of items " (click)="clickItem(item)">
+
+    </div>
+  </div>
+  <div class="carousel-controls">
+    <button *ngIf="showLeftControl" mat-icon-button (click)="prevItem();">
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button *ngIf="showRightControl" mat-icon-button (click)="nextItem();">
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="client-device-orientation">
+  <table>
+    <tbody>
+    <tr>
+      <th>Device rotation</th>
+      <td>
+        {{value(clientDevice.rotation) }}
+      </td>
+    </tr>
+    <tr>
+      <th>Latitude</th>
+      <td>
+        {{clientDevice.latitude }}
+      </td>
+    </tr>
+    <tr>
+      <th>Longitude</th>
+      <td>
+        {{clientDevice.longitude}}
+      </td>
+    </tr>
+    <tr>
+      <th>Gyro</th>
+      <td>
+        <table>
+          <tbody>
+          <tr>
+            <th>alpha</th>
+            <td>{{value(clientDevice.gyro.alpha)}}</td>
+          </tr>
+          <tr>
+            <th>beta</th>
+            <td>{{ value(clientDevice.gyro.beta) }}</td>
+          </tr>
+          <tr>
+            <th>gamma</th>
+            <td> {{ value(clientDevice.gyro.gamma) }}</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

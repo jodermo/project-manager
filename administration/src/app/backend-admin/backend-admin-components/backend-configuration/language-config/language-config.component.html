@@ -1,0 +1,61 @@
+<div *ngIf="adminService.newConfiguration">
+  <div *ngIf="adminService.newConfiguration.defaultLanguageId > 0 ">
+    <mat-label>{{adminService.text('Default Language')}}</mat-label>
+    <br>
+    <b>
+      {{defaultLanguage(adminService.newConfiguration.defaultLanguageId)}}
+    </b>
+    <button mat-icon-button color="primary" (click)="adminService.newConfiguration.defaultLanguageId = 0">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="adminService.newConfiguration.defaultLanguageId === 0 && adminService.languages?.length">
+    <mat-form-field class="backend-admin-form-field" appearance="fill">
+      <mat-label>{{adminService.text('Select Default Language')}}</mat-label>
+      <br>
+      <mat-select [(ngModel)]="adminService.newConfiguration.defaultLanguageId">
+        <mat-option *ngFor="let language of adminService.languages" [value]="language.id">
+          {{language.name}} ({{language.iso}})
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+  <div *ngIf="!adminService.languages?.length">
+    <mat-label>{{adminService.text('Add a new languages')}}</mat-label>
+  </div>
+  <div *ngIf="adminService.languages?.length">
+    <mat-label>{{adminService.text('Languages')}}</mat-label>
+    <mat-list role="list">
+      <mat-list-item *ngFor="let language of adminService.languages" role="listitem">
+        <mat-icon>language</mat-icon>
+        <span>{{language.name}} ({{language.iso}})</span>
+        <button mat-icon-button color="primary" (click)="deleteLanguage(language)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div *ngIf="adminService.newLanguage">
+    <mat-label>{{adminService.text('New Language')}}</mat-label>
+    <br>
+    <mat-form-field class="backend-admin-form-field" appearance="fill">
+      <mat-label>{{adminService.text('Language Name')}}</mat-label>
+      <input matInput type="text" name="username"
+             [(ngModel)]="adminService.newLanguage.name"
+             (keyup.enter)="adminService.saveNewLanguage()">
+    </mat-form-field>
+    <mat-form-field class="backend-admin-form-field" appearance="fill">
+      <mat-label>{{adminService.text('Language Iso')}}</mat-label>
+      <input matInput type="text" name="username"
+             [(ngModel)]="adminService.newLanguage.iso"
+             (keyup.enter)="adminService.saveNewLanguage()">
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="adminService.saveNewLanguage()"
+            [disabled]="(adminService.newLanguage.name.length < 3 || adminService.newLanguage.iso.length < 2)"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

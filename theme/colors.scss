@@ -1,0 +1,24 @@
+$color-light: rgba(255, 255, 255, 1);
+$color-medium-light: rgb(221, 221, 221);
+$color-medium: #c7b97c;
+$color-medium-dark: #595337;
+$color-dark: #1d1d1b;
+$color-primary: #1d1d1b;
+$color-primary-contrast: rgb(255, 255, 255);
+$color-secondary: rgb(255, 255, 255);
+$color-secondary-contrast: #1d1d1b;
+
+
+$color-highlight: rgb(255, 217, 0);
+$color-highlight-contrast: #1d1d1b;
+
+$gradient_primary: linear-gradient(0deg, $color-light 0%, $color-medium-light 40%, $color-medium-dark 60%, $color-light 100%);
+
+$transparent-dark: rgba(0, 0, 0, 0.33);
+$transparent-light-dark: rgba(0, 0, 0, 0.25);
+
+$box-shadow-default: 0 0 8px 0 rgba(0, 0, 0, 0.66);
+
+$menu-shadow: drop-shadow(-4px 0 3px rgba(0, 0, 0, 0.15));
+
+$menu-button-shadow: drop-shadow(0 0 5px $color-medium-dark);

@@ -1,0 +1,6 @@
+<button mat-flat-button (click)="getGeolocation()" [disabled]="loading">
+  <mat-icon *ngIf="!loading">my_location</mat-icon>
+  <mat-icon *ngIf="loading">hourglass_empty</mat-icon>
+  <span  *ngIf="!loading" class="padding-left">{{adminService.text('Add my location')}}</span>
+  <span *ngIf="loading" class="padding-left">{{adminService.text('loading')}}</span>
+</button>

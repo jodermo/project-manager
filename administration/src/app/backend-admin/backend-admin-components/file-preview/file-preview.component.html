@@ -1,0 +1,5 @@
+<div class="file-preview" *ngIf="ready && files.length">
+  <ng-container *ngFor="let file of files">
+    <app-preview-file [file]="file" [showMedia]="showMedia" [download]="download" [preview]="preview"></app-preview-file>
+  </ng-container>
+</div>

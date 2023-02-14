@@ -1,0 +1,39 @@
+<div *ngIf="showPaginator">
+  <mat-toolbar class="white no-padding">
+    <button mat-icon-button (click)="newEntry()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page"></mat-paginator>
+  </mat-toolbar>
+  <app-edit-task #overviewEditComponent></app-edit-task>
+</div>
+<div class="task-list card-list"
+     *ngIf="ready && renderData && renderData.length">
+  <div class="task-list-item card-list-item" *ngFor="let file of renderData">
+    <mat-card class="task-card card-list-card">
+      <mat-card-title (click)="setEditEntry(file)">
+        <span class="icon-box margin-right">
+          <mat-icon>file_copy</mat-icon>
+        </span>
+        <b>{{file.name}}</b><br>
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <app-file-preview [file]="file"></app-file-preview>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="adminService.downloadFile(file)">
+          <mat-icon>download</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteEntry(file);" [disabled]="!file.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(file)" [disabled]="!file.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

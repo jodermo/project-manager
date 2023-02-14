@@ -1,0 +1,56 @@
+<div class="company-entry">
+  <mat-card class="company-card" *ngIf="editCompany">
+    <mat-card-content>
+      <div>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Company')}}</mat-label>
+          <mat-select [(ngModel)]="editCompany" (ngModelChange)="companyChange()" >
+            <mat-option *ngFor="let selectCompany of adminService.apiData['company']" [value]="selectCompany">
+              {{(selectCompany.name ? selectCompany.name : selectCompany.id)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Name')}}</mat-label>
+          <input matInput type="text" name="name"
+                 [(ngModel)]="editCompany.name">
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Type')}}</mat-label>
+          <mat-select [(ngModel)]="editCompany.type">
+            <mat-option *ngFor="let companyType of adminService.companyTypes" [value]="companyType">
+              {{adminService.text(companyType)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-toolbar>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="saveCompany()" [disabled]="!editCompany.name">
+          <mat-icon>save</mat-icon>
+        </button>
+      </mat-toolbar>
+    </mat-card-actions>
+  </mat-card>
+
+
+  <mat-card class="company-card" *ngIf="!editCompany && company">
+    <mat-card-title *ngIf="company.name">
+      {{company.name}}
+    </mat-card-title>
+    <mat-card-content>
+      <app-image-upload *ngIf="company.id" [label]="adminService.text('Company image')" [entry]="company"></app-image-upload>
+    </mat-card-content>
+    <mat-card-actions>
+      <mat-toolbar>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="editCompany = company">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-toolbar>
+    </mat-card-actions>
+  </mat-card>
+
+</div>

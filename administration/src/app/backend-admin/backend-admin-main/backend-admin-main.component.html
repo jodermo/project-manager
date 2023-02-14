@@ -1,0 +1,4 @@
+<app-login *ngIf="!adminService.user"></app-login>
+<div class="admin-dashboard" *ngIf="adminService.user">
+  <app-backend-admin-dashboard></app-backend-admin-dashboard>
+</div>

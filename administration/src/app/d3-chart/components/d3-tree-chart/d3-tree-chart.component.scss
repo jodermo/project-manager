@@ -1,0 +1,75 @@
+$color-link-stroke: #ccc;
+
+$color-circle-fill: #fff;
+$color-circle-stroke: #ccc;
+
+$color-circle-children-fill: #ccc;
+$color-circle-children-stroke: #000;
+
+$color-circle-selected-fill: #0bb100;
+$color-circle-selected-stroke: #000;
+
+$color-circle-focused-fill: #0bb100;
+$color-circle-focused-stroke: #000;
+
+
+.d3-tree-chart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+
+    .node {
+      circle {
+        fill: $color-circle-fill;
+        stroke: $color-circle-stroke;
+        stroke-width: 3px;
+      }
+
+      text {
+        stroke: #222;
+      }
+
+      &.children {
+        circle {
+          fill: $color-circle-children-fill;
+          stroke: $color-circle-children-stroke;
+        }
+      }
+
+      &.open {
+
+      }
+
+      &.selected {
+        circle {
+          fill: $color-circle-selected-fill;
+          stroke: $color-circle-selected-stroke;
+        }
+
+        &.focused {
+          circle {
+            fill: $color-circle-focused-fill;
+            stroke: $color-circle-focused-stroke;
+          }
+        }
+
+
+      }
+
+    }
+
+    .link {
+      fill: none;
+      stroke: $color-link-stroke;
+      stroke-width: 3px;
+    }
+
+
+  }
+}
