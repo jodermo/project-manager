@@ -7,12 +7,11 @@ import {NgUserEntity} from './angular-entities/ng.user.entity';
 import {NgApiEntity} from './ng.api.entity';
 import {NgTaskEntity} from './angular-entities/ng.task.entity';
 import {NgCompanyEntity} from './angular-entities/ng.company.entity';
-import {NgMemoEntity} from './angular-entities/ng.memo.entity';
-import {NgPoiEntity} from './angular-entities/ng.poi.entity';
 import {NgFileEntity} from './angular-entities/ng.file.entity';
 import {DefaultTranslation} from '../translations/default.translation';
 import {NgAppSettingsEntity} from "./angular-entities/ng.app-settings.entity";
 import {NgAttributeEntity} from "./angular-entities/ng.attribute.entity";
+import {NgLocationEntity} from "./angular-entities/ng.location.entity";
 
 
 export const XMLHttpRequestMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -243,11 +242,8 @@ export class NgApiService {
         'company': (data: any) => {
             return new NgCompanyEntity(this).setData(data);
         },
-        'memo': (data: any) => {
-            return new NgMemoEntity(this).setData(data);
-        },
-        'poi': (data: any) => {
-            return new NgPoiEntity(this).setData(data);
+        'location': (data: any) => {
+            return new NgLocationEntity(this).setData(data);
         },
         'file': (data: any) => {
             return new NgFileEntity(this).setData(data);

@@ -1,9 +1,9 @@
 import {NgApiError, NgApiLog, NgApiService} from './ng.api.service';
-import {NgPoiEntity} from "./angular-entities/ng.poi.entity";
+import {NgLocationEntity} from "./angular-entities/ng.location.entity";
 
 export const ApiRoutes = [
     'task',
-    'poi',
+    'location',
     'quest',
     'user'
 ]
@@ -344,7 +344,7 @@ export class NgApiEntity {
                             (this as any)[key] = []
                         }
                         (this as any)[key].push(entry);
-                        if (!this.api.apiData[route].find((poi: NgPoiEntity) => poi.id === entry.id)) {
+                        if (!this.api.apiData[route].find((location: NgLocationEntity) => location.id === entry.id)) {
                             this.api.apiData[route].push(entry)
                         }
                     });
@@ -359,7 +359,7 @@ export class NgApiEntity {
                     if (!this.api.apiData[route]) {
                         this.api.apiData[route] = [];
                     }
-                    if (!this.api.apiData[route].find((poi: NgPoiEntity) => poi.id === (this as any)[key]?.id)) {
+                    if (!this.api.apiData[route].find((location: NgLocationEntity) => location.id === (this as any)[key]?.id)) {
                         this.api.apiData[route].push((this as any)[key])
                     }
                     this.dataLoading[key] = false;

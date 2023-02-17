@@ -45,7 +45,7 @@
                                 [arModelId]="taskEntry.arModelId"></app-ar-model-preview>
 
         </ng-container>
-        <app-poi-map *ngIf="showPoi && taskEntry.poiId" [poiId]="taskEntry.poiId"></app-poi-map>
+        <app-location-map *ngIf="showLocation && taskEntry.locationId" [locationId]="taskEntry.locationId"></app-location-map>
         <app-image-preview *ngIf="taskEntry.imageId" [id]="taskEntry.imageId"></app-image-preview>
         <app-file-preview *ngIf="taskEntry.fileId" [id]="taskEntry.fileId"></app-file-preview>
         <app-sub-tasks-preview [task]="taskEntry" (clickSubTask)="setEditEntry($event, true)"></app-sub-tasks-preview>
@@ -64,7 +64,7 @@
           <mat-icon *ngIf="!showArModel">visibility</mat-icon>
           <mat-icon *ngIf="showArModel">visibility_off</mat-icon>
         </button>
-        <button *ngIf="taskEntry.poiId" mat-icon-button (click)="showPoi = !showPoi" [disabled]="!taskEntry.id">
+        <button *ngIf="taskEntry.locationId" mat-icon-button (click)="showLocation = !showLocation" [disabled]="!taskEntry.id">
           <mat-icon>map</mat-icon>
         </button>
         <button mat-icon-button (click)="deleteEntry(taskEntry);" [disabled]="!taskEntry.id">

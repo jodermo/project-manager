@@ -21,7 +21,7 @@ export class AttributeOverviewComponent extends DatabaseTableComponent {
   renderData: NgAttributeEntity[] = [];
   showPaginator = false;
   apiRoute = 'attribute';
-  showPoi = false;
+  showLocation = false;
   @Output() onSave = new EventEmitter<NgAttributeEntity>();
   @Output() onDelete = new EventEmitter();
 

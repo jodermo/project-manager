@@ -8,7 +8,7 @@ import { DatabaseEditEntryComponent } from '../../../../../backend-admin-compone
 import { DatabaseTableComponent } from '../../../../../backend-admin-components/database/database-table/database-table.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { NgPoiEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.poi.entity';
+import { NgLocationEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.location.entity';
 import { NgApiEntity } from '../../../../../../../../../angular-classes/ng.api.entity';
 
 @Component({
@@ -24,7 +24,7 @@ export class TaskOverviewComponent extends TaskDatabaseTableComponent {
   renderData: NgTaskEntity[] = [];
   showPaginator = false;
   apiRoute = 'task';
-  showPoi = false;
+  showLocation = false;
   @Input() task?: NgTaskEntity;
   @Output() onSave = new EventEmitter<NgTaskEntity>();
   @Output() onDelete = new EventEmitter();

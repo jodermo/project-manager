@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewC
 import { NgTaskEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.task.entity';
 import { DatabaseEditEntryComponent } from '../../../../../backend-admin-components/database/database-edit-entry/database-edit-entry.component';
 import { NgCompanyEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.company.entity';
-import { DatabaseTableFieldPoiEntryComponent } from '../../../../../backend-admin-components/database/database-table/database-table-field/database-table-field-poi-entry/database-table-field-poi-entry.component';
+import { DatabaseTableFieldLocationEntryComponent } from '../../../../../backend-admin-components/database/database-table/database-table-field/database-table-field-location-entry/database-table-field-location-entry.component';
 
 @Component({
   selector: 'app-edit-task',
@@ -11,8 +11,8 @@ import { DatabaseTableFieldPoiEntryComponent } from '../../../../../backend-admi
 })
 export class EditTaskComponent extends DatabaseEditEntryComponent implements OnChanges {
 
-  @ViewChild('poiField', {static: false}) poiField?: DatabaseTableFieldPoiEntryComponent;
-  @ViewChild('arModelPoiField', {static: false}) arModelPoiField?: DatabaseTableFieldPoiEntryComponent;
+  @ViewChild('locationField', {static: false}) locationField?: DatabaseTableFieldLocationEntryComponent;
+  @ViewChild('arModelLocationField', {static: false}) arModelLocationField?: DatabaseTableFieldLocationEntryComponent;
 
   @Input() parentFieldKey: string = 'taskIds';
   @Input() task?: NgTaskEntity;
@@ -171,21 +171,21 @@ export class EditTaskComponent extends DatabaseEditEntryComponent implements OnC
     this.onUpdate.emit(this.entry);
   }
 
-  togglePoiMap() {
-    if (this.poiField) {
-      this.poiField.toggleMap();
+  toggleLocationMap() {
+    if (this.locationField) {
+      this.locationField.toggleMap();
     }
-    if (this.arModelPoiField) {
-      this.arModelPoiField.toggleMap();
+    if (this.arModelLocationField) {
+      this.arModelLocationField.toggleMap();
     }
   }
 
-  editPoiMap() {
-    if (this.poiField && this.entry.type === 'location') {
-      this.poiField.toggleEditPoi();
+  editLocationMap() {
+    if (this.locationField && this.entry.type === 'location') {
+      this.locationField.toggleEditLocation();
     }
-    if (this.arModelPoiField && this.entry.type === 'ar-model') {
-      this.arModelPoiField.toggleEditPoi();
+    if (this.arModelLocationField && this.entry.type === 'ar-model') {
+      this.arModelLocationField.toggleEditLocation();
     }
   }
 }

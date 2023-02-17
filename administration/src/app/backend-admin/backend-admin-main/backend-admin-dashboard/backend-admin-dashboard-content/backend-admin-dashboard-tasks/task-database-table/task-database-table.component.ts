@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BackendAdminService } from '../../../../../backend-admin.service';
 import { DatabaseTableComponent } from '../../../../../backend-admin-components/database/database-table/database-table.component';
 import { NgTaskEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.task.entity';
-import { NgPoiEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.poi.entity';
+import { NgLocationEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.location.entity';
 
 @Component({
   selector: 'app-task-database-table',
@@ -13,7 +13,7 @@ export class TaskDatabaseTableComponent extends DatabaseTableComponent {
   @Input() entries?: NgTaskEntity[];
   renderData: NgTaskEntity[] = [];
   @Input() task?: NgTaskEntity;
-  @Input() poi?: NgPoiEntity;
+  @Input() location?: NgLocationEntity;
 
   apiRoute = 'task';
 

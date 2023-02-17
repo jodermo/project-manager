@@ -1,0 +1,71 @@
+<div class="location-list card-list" *ngIf="ready && renderData && renderData.length">
+
+  <div class="location-list-item card-list-item" *ngFor="let location of renderData">
+    <mat-card class="location-card card-list-card">
+      <mat-card-title (click)="setEditEntry(location)">
+        <span class="icon-box margin-right">
+          <mat-icon>place</mat-icon>
+        </span>
+        <span *ngIf="location.name">{{adminService.text(location.name)}}</span>
+        <span *ngIf="!location.name">{{location.id}}</span>
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <div *ngIf="location.imageId">
+          <app-image-preview *ngIf="location.imageId" [id]="location.imageId"></app-image-preview>
+        </div>
+        <p *ngIf="location.description">
+          {{location.description}}
+        </p>
+        <div *ngIf="!location.id || !showMap[location.id]">
+          <table>
+            <tbody>
+            <tr>
+              <th>{{adminService.text('Latitude')}}</th>
+              <td><i>{{location.latitude}}</i></td>
+            </tr>
+            <tr>
+              <th>{{adminService.text('Longitude')}}</th>
+              <td><i>{{location.longitude}}</i></td>
+            </tr>
+            <tr *ngIf="location.markerImageId">
+              <th>{{adminService.text('Marker Image')}}</th>
+              <td>
+                <app-image-preview *ngIf="location.markerImageId" [id]="location.markerImageId"></app-image-preview>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <app-file-preview *ngIf="location.fileId" [id]="location.fileId"></app-file-preview>
+        </div>
+
+        <div *ngIf="location.id && showMap[location.id]">
+          <app-location-map
+            [location]="location"
+            [locations]="[location]"
+            [latitude]="location.latitude"
+            [longitude]="location.longitude"
+          ></app-location-map>
+        </div>
+
+      </mat-card-content>
+
+
+      <mat-card-actions align="end">
+        <button mat-icon-button (click)="toggleLocationMap(location)" [disabled]="!location.id">
+          <mat-icon>map</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="deleteEntry(location)" [disabled]="!location.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(location)" [disabled]="!location.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+

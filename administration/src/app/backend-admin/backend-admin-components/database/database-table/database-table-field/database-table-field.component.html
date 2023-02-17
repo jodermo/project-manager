@@ -3,14 +3,14 @@
   <span *ngIf="adminService.formFieldType(column).type === 'default'">
     {{value}}
   </span>
-  <span *ngIf="adminService.formFieldType(column).type === 'poi'">
-    <app-database-table-field-poi-entry
+  <span *ngIf="adminService.formFieldType(column).type === 'location'">
+    <app-database-table-field-location-entry
       [entry]="entry"
       [fieldKey]="column"
       [multiple]="adminService.formFieldType(column).multiple"
       [editable]="editable"
       [edit]="edit"
-    ></app-database-table-field-poi-entry>
+    ></app-database-table-field-location-entry>
   </span>
   <button *ngIf="editable" mat-icon-button (click)="edit = !edit">
     <mat-icon>edit</mat-icon>
@@ -28,14 +28,14 @@
              (keyup.enter)="save()">
     </mat-form-field>
   </ng-container>
-  <ng-container *ngIf="adminService.formFieldType(column).type === 'poi'">
-    <app-database-table-field-poi-entry
+  <ng-container *ngIf="adminService.formFieldType(column).type === 'location'">
+    <app-database-table-field-location-entry
       [entry]="entry"
       [fieldKey]="column"
       [multiple]="adminService.formFieldType(column).multiple"
       [editable]="editable"
       [edit]="edit"
-    ></app-database-table-field-poi-entry>
+    ></app-database-table-field-location-entry>
   </ng-container>
   <button *ngIf="options" mat-icon-button (click)="save()">
     <mat-icon>save</mat-icon>

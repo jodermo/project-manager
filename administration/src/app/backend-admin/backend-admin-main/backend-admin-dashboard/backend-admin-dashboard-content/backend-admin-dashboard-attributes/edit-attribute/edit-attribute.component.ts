@@ -3,8 +3,8 @@ import {
   DatabaseEditEntryComponent
 } from '../../../../../backend-admin-components/database/database-edit-entry/database-edit-entry.component';
 import {
-  DatabaseTableFieldPoiEntryComponent
-} from '../../../../../backend-admin-components/database/database-table/database-table-field/database-table-field-poi-entry/database-table-field-poi-entry.component';
+  DatabaseTableFieldLocationEntryComponent
+} from '../../../../../backend-admin-components/database/database-table/database-table-field/database-table-field-location-entry/database-table-field-location-entry.component';
 import {
   NgAttributeEntity
 } from "../../../../../../../../../angular-classes/angular-entities/ng.attribute.entity";
@@ -15,7 +15,7 @@ import {
   styleUrls: ['./edit-attribute.component.scss']
 })
 export class EditAttributeComponent extends DatabaseEditEntryComponent {
-  @ViewChild('poiField', {static: false}) poiField?: DatabaseTableFieldPoiEntryComponent;
+  @ViewChild('locationField', {static: false}) locationField?: DatabaseTableFieldLocationEntryComponent;
 
   @Input() parentFieldKey: string = 'productId';
   @Input() entry?: NgAttributeEntity;
@@ -80,15 +80,15 @@ export class EditAttributeComponent extends DatabaseEditEntryComponent {
   }
 
 
-  togglePoiMap() {
-    if (this.poiField) {
-      this.poiField.toggleMap();
+  toggleLocationMap() {
+    if (this.locationField) {
+      this.locationField.toggleMap();
     }
   }
 
-  editPoiMap() {
-    if (this.poiField) {
-      this.poiField.toggleEditPoi();
+  editLocationMap() {
+    if (this.locationField) {
+      this.locationField.toggleEditLocation();
     }
   }
 }

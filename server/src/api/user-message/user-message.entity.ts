@@ -40,7 +40,7 @@ export class UserMessage extends ApiEntity {
     @Column({nullable: true, default: null, length: 500})
     receiverEmail: string;
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     readDate: Date;
 
 }

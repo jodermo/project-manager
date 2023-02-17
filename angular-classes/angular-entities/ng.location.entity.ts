@@ -1,18 +1,27 @@
-import { NgApiEntity } from '../ng.api.entity';
-import { NgApiService } from '../ng.api.service';
+import {NgApiService} from '../ng.api.service';
+import {NgApiAttributeEntity} from '../ng.api-attribute.entity';
 
-export type NgLocationType = 'gastronomy';
+export class NgLocationEntity extends NgApiAttributeEntity {
 
-export class NgLocationEntity extends NgApiEntity {
-
+    poiTypeId: number = 0;
     name: string = '';
-    type: NgLocationType = 'gastronomy';
-    icon: string = '';
-    image: string = '';
     description: string = '';
-
     latitude: number = 0;
     longitude: number = 0;
+    imageId: number = 0;
+    markerImageId: number = 0;
+    locationPreviewImageId: number = 0;
+    fileId: number = 0;
+    imageIds: any = [];
+    fileIds: any = [];
+    poiIds: any = [];
+
+
+    jsonKeys = [
+        'imageIds',
+        'fileIds',
+        'poiIds'
+    ];
 
     constructor(api: NgApiService, testData = false) {
         super('location', api, testData);

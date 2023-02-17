@@ -1,6 +1,6 @@
 import { Collada, ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader';
 import { NgArModelEntity } from '../../../../../angular-classes/angular-entities/ng.ar-model.entity';
-import { NgPoiEntity } from '../../../../../angular-classes/angular-entities/ng.poi.entity';
+import { NgLocationEntity } from '../../../../../angular-classes/angular-entities/ng.location.entity';
 import { NgTaskEntity } from '../../../../../angular-classes/angular-entities/ng.task.entity';
 import { NgFileEntity } from '../../../../../angular-classes/angular-entities/ng.file.entity';
 
@@ -10,7 +10,7 @@ export type AFrameModelType = typeof AFrameModelTypes[number];
 export class AFrameModel {
   arModel?: NgArModelEntity;
   task?: NgTaskEntity;
-  poi?: NgPoiEntity;
+  location?: NgLocationEntity;
   image?: NgFileEntity;
   entityEl?: HTMLElement;
   collada?: Collada;
@@ -64,8 +64,8 @@ export class AFrameModel {
     return this;
   }
 
-  setPoi(poi = this.poi) {
-    this.poi = poi;
+  setLocation(location = this.location) {
+    this.location = location;
     return this;
   }
 

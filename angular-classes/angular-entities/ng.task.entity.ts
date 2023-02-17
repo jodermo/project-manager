@@ -55,6 +55,9 @@ export class NgTaskEntity extends NgApiAttributeEntity {
     fileIds: any = [];
     poiIds: any = [];
 
+    locationIds: any = [];
+    locationId: number = 0;
+
     jsonKeys = [
         'imageIds',
         'fileIds',

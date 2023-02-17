@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { BackendAdminService } from '../../../backend-admin.service';
-import { NgMemoEntity } from '../../../../../../../angular-classes/angular-entities/ng.memo.entity';
 import { NgAppSettingsEntity } from '../../../../../../../angular-classes/angular-entities/ng.app-settings.entity';
 import { NgLanguageEntity } from '../../../../../../../angular-classes/angular-entities/ng.language.entity';
 import { NgLocationEntity } from '../../../../../../../angular-classes/angular-entities/ng.location.entity';
-import { NgPoiEntity } from '../../../../../../../angular-classes/angular-entities/ng.poi.entity';
 import { NgTaskEntity } from '../../../../../../../angular-classes/angular-entities/ng.task.entity';
 import { NgTranslationEntity } from '../../../../../../../angular-classes/angular-entities/ng.translation.entity';
 import { NgUserEntity } from '../../../../../../../angular-classes/angular-entities/ng.user.entity';
@@ -136,10 +134,8 @@ export class DatabaseTableComponent implements OnInit, AfterViewInit, OnChanges 
           parsedData.push(new NgLanguageEntity(this.adminService).setData(entry));
         } else if (this.apiRoute === 'location') {
           parsedData.push(new NgLocationEntity(this.adminService).setData(entry));
-        } else if (this.apiRoute === 'memo') {
-          parsedData.push(new NgMemoEntity(this.adminService).setData(entry));
-        } else if (this.apiRoute === 'poi') {
-          parsedData.push(new NgPoiEntity(this.adminService).setData(entry));
+        }  else if (this.apiRoute === 'location') {
+          parsedData.push(new NgLocationEntity(this.adminService).setData(entry));
         }else if (this.apiRoute === 'task') {
           parsedData.push(new NgTaskEntity(this.adminService).setData(entry));
         } else if (this.apiRoute === 'translation') {
@@ -218,10 +214,6 @@ export class DatabaseTableComponent implements OnInit, AfterViewInit, OnChanges 
       object = new NgLanguageEntity(this.adminService).data();
     } else if (this.apiRoute === 'location') {
       object = new NgLocationEntity(this.adminService).data();
-    } else if (this.apiRoute === 'memo') {
-      object = new NgMemoEntity(this.adminService).data();
-    } else if (this.apiRoute === 'poi') {
-      object = new NgPoiEntity(this.adminService).data();
     }  else if (this.apiRoute === 'task') {
       object = new NgTaskEntity(this.adminService).data();
     } else if (this.apiRoute === 'file') {
@@ -250,10 +242,6 @@ export class DatabaseTableComponent implements OnInit, AfterViewInit, OnChanges 
       this.editEntry = new NgLanguageEntity(this.adminService);
     } else if (this.apiRoute === 'location') {
       this.editEntry = new NgLocationEntity(this.adminService);
-    } else if (this.apiRoute === 'memo') {
-      this.editEntry = new NgMemoEntity(this.adminService);
-    } else if (this.apiRoute === 'poi') {
-      this.editEntry = new NgPoiEntity(this.adminService);
     }  else if (this.apiRoute === 'task') {
       this.editEntry = new NgTaskEntity(this.adminService);
     } else if (this.apiRoute === 'file') {

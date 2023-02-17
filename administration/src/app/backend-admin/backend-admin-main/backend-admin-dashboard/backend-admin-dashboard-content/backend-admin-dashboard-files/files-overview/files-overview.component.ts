@@ -6,7 +6,7 @@ import { DatabaseEditEntryComponent } from '../../../../../backend-admin-compone
 import { BackendAdminService } from '../../../../../backend-admin.service';
 import { NgApiEntity } from '../../../../../../../../../angular-classes/ng.api.entity';
 import { NgFileEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.file.entity';
-import { NgPoiEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.poi.entity';
+import { NgLocationEntity } from '../../../../../../../../../angular-classes/angular-entities/ng.location.entity';
 
 @Component({
   selector: 'app-files-overview',

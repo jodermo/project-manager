@@ -76,6 +76,7 @@
     "@ar-js-org/ar.js": "^3.4.0",
     "@grapecity/activereports-angular": "^3.2.0",
     "@mediapipe/pose": "^0.5.1635988162",
+    "@nestjs/swagger": "^6.2.1",
     "@tensorflow-models/pose-detection": "^2.0.0",
     "@tensorflow/tfjs-backend-webgl": "^4.0.0",
     "@tensorflow/tfjs-converter": "^4.0.0",

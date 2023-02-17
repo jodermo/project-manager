@@ -27,7 +27,7 @@ export class Address extends ApiEntity {
     @Column({nullable: true, default: null, length: 500, unique: false})
     lastName: string;
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     birthday: Date;
 
     @Column({nullable: true, default: null, length: 500, unique: false})

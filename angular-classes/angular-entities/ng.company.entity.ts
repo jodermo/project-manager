@@ -1,8 +1,8 @@
 import {NgApiService} from '../ng.api.service';
 import {NgApiAttributeEntity} from '../ng.api-attribute.entity';
-import {NgPoiEntity} from "./ng.poi.entity";
 import {NgFileEntity} from "./ng.file.entity";
 import {NgUserEntity} from "./ng.user.entity";
+import {NgLocationEntity} from "./ng.location.entity";
 
 
 export const NgCompanyTypes = [
@@ -48,7 +48,7 @@ export class NgCompanyEntity extends NgApiAttributeEntity {
     ];
 
 
-    poi?: NgPoiEntity;
+    location?: NgLocationEntity;
     image?: NgFileEntity;
     locationImage?: NgFileEntity;
     images?: NgFileEntity[];
@@ -61,7 +61,7 @@ export class NgCompanyEntity extends NgApiAttributeEntity {
         this.ignoreKeys([
             'mainCompanyAttributes',
             'secondaryCompanyAttributes',
-            'poi',
+            'location',
             'image',
             'locationImage',
             'file',
@@ -84,7 +84,7 @@ export class NgCompanyEntity extends NgApiAttributeEntity {
     loadData(fromDatabase = false) {
 
         if (this.poiId) {
-            this.loadApiData(this.poiId, 'poi', 'poi', NgPoiEntity);
+            this.loadApiData(this.poiId, 'location', 'location', NgLocationEntity);
         }
 
 

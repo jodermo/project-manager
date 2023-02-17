@@ -1,0 +1,67 @@
+<mat-toolbar>
+  <span>{{adminService.text('Locations')}}</span>
+  <span class="spacer"></span>
+  <small *ngIf="loaded">
+    <i>
+      <span *ngIf="renderData">{{renderData.length}} / </span>
+      <span *ngIf="entries">{{entries.length}}</span>
+    </i>
+  </small>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+
+
+<mat-tab-group *ngIf="loaded && ready" mat-align-tabs="center" [selectedIndex]="tabIndex"
+               animationDuration="0ms"
+               headerPosition="below"
+               class="secondary-color"
+               (selectedIndexChange)="tabIndex = $event; tabChange();"
+>
+
+
+  <mat-tab [label]="adminService.text('Overview')">
+    <div class="tab-content vertical-scroll">
+      <app-locations-overview
+        [entries]="entries"
+        [dashboardComponent]="this"
+        [dataSource]="dataSource"
+        [editComponent]="editComponent"
+        [edit]="edit"
+        [filterInput]="input"
+        [paginator]="paginator"
+        [sort]="sort"
+        [pageSizeOptions]="pageSizeOptions"
+        (onSave)="onSaveEntry($event)"
+        (onDelete)="onDeleteEntry()"
+        #overviewComponent></app-locations-overview>
+    </div>
+  </mat-tab>
+  <mat-tab [label]="adminService.text('Map')">
+    <div class="tab-content vertical-scroll">
+      <app-locations-map *ngIf="tabIndex === 1"
+                   [positionMarker]="true"
+                   [locations]="renderData"
+                   [userInteraction]="true"
+                   [zoom]="14"
+                   [minZoom]="10"
+                   [maxZoom]="18"
+                   (onClickLocation)="setEditEntry($event)"
+                   #mapComponent></app-locations-map>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="applyFilter()" #paginator></mat-paginator>
+</mat-toolbar>
+
+<app-edit-location
+  (onSave)="onSaveEntry($event)"
+  (onDelete)="onDeleteEntry()"
+  #editComponent></app-edit-location>

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { DatabaseDashboardComponent } from '../../../../backend-admin-components/database/database-dashboard/database-dashboard.component';
 import { NgTaskEntity } from '../../../../../../../../angular-classes/angular-entities/ng.task.entity';
-import { NgPoiEntity } from '../../../../../../../../angular-classes/angular-entities/ng.poi.entity';
+import { NgLocationEntity } from '../../../../../../../../angular-classes/angular-entities/ng.location.entity';
 import { DatabaseOverviewComponent } from '../../../../backend-admin-components/database/database-overview/database-overview.component';
 import { TaskDatabaseTableComponent } from './task-database-table/task-database-table.component';
 
@@ -18,7 +18,7 @@ export class BackendAdminDashboardTasksComponent extends DatabaseDashboardCompon
   @ViewChild('editComponent', {static: false}) editComponent?: EditTaskComponent;
   @Input() tasks: NgTaskEntity[] = [];
   @Input() task?: NgTaskEntity;
-  @Input() poi?: NgPoiEntity;
+  @Input() location?: NgLocationEntity;
   @Input() entries?: NgTaskEntity[];
   renderData: NgTaskEntity[] = [];
 
@@ -68,16 +68,16 @@ export class BackendAdminDashboardTasksComponent extends DatabaseDashboardCompon
     }
 
     this.initData(this.tasks);
-    if (this.poi) {
+    if (this.location) {
       this.tasks.filter(task => {
         let exist = false;
-        if (task.poiIds?.length) {
-          if (task.poiIds.find((taskId: number) => taskId === this.task?.id) !== undefined) {
+        if (task.locationIds?.length) {
+          if (task.locationIds.find((taskId: number) => taskId === this.task?.id) !== undefined) {
             exist = true;
           }
         }
-        if (task.poiId) {
-          if (task.poiId === this.poi?.id) {
+        if (task.locationId) {
+          if (task.locationId === this.location?.id) {
             exist = true;
           }
         }

@@ -186,6 +186,13 @@ class ConfigService {
         };
     }
 
+    public getDocumentationConfig() {
+        return {
+            username: this.getValue('API_DOCUMENTATION_LOGIN', false) || 'Documentation',
+            password:  this.getValue('API_DOCUMENTATION_PASSWORD', false) ||'Test1234',
+            route:  this.getValue('API_DOCUMENTATION_ROUTE', false) ||'documentation'
+        };
+    }
 }
 
 const configService = new ConfigService(process.env)

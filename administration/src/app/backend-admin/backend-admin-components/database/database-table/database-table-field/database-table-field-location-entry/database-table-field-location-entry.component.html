@@ -1,0 +1,167 @@
+
+  <b *ngIf="label">{{adminService.text(label)}}</b>
+
+
+<div *ngIf="editLocation">
+  <mat-form-field class="backend-admin-form-field" appearance="fill">
+    <mat-label>{{adminService.text('Select Location')}}</mat-label>
+    <mat-select [(ngModel)]="editLocation" (ngModelChange)="selectLocationChange()">
+      <mat-option [value]="newLocation">
+        {{adminService.text('New Location')}}
+      </mat-option>
+      <mat-option *ngFor="let location of adminService.apiData['location']" [value]="location">
+        {{location.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<ng-container *ngIf=" layout === 'simple'">
+  <div class="location-entry" *ngIf="editLocation">
+  </div>
+  <div class="location-entry" *ngIf="!editLocation && location">
+
+    <div>
+      {{location.name}}
+    </div>
+    <div class="horizontal-flex">
+      <div>
+        {{adminService.text('Latitude')}}: {{location.latitude}}
+      </div>
+      <span class="spacer"></span>
+      <div>
+        {{adminService.text('Longitude')}}: {{location.latitude}}
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="layout !== 'simple'">
+  <div class="location-entry" *ngIf="editLocation">
+    <div class="location-map" *ngIf="mapVisible">
+      <app-location-map [showCursor]="true" [updateLocation]="showEditLocation" [autoSaveLocation]="showEditLocation" [location]="editLocation"
+                   [latitude]="editLocation.latitude" [longitude]="editLocation.longitude"
+                   [userInteraction]="showEditLocation"></app-location-map>
+    </div>
+    <div *ngIf="!mapVisible">
+
+
+      <mat-form-field class="backend-admin-form-field" appearance="fill">
+        <mat-label>{{adminService.text('Name')}}</mat-label>
+        <input matInput type="text" name="name"
+               [(ngModel)]="editLocation.name">
+      </mat-form-field>
+      <div class="horizontal-flex">
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Latitude')}}</mat-label>
+          <input matInput type="text" name="latitude"
+                 [disabled]="clientLocationComponent.loading"
+                 [(ngModel)]="editLocation.latitude">
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Longitude')}}</mat-label>
+          <input matInput type="text" name="longitude"
+                 [disabled]="clientLocationComponent.loading"
+                 [(ngModel)]="editLocation.longitude">
+        </mat-form-field>
+
+        <app-get-client-location [confirm]="true" (onGetGeolocation)="setGeolocation($event)"
+                                 #clientLocationComponent></app-get-client-location>
+      </div>
+      <div class="horizontal-flex flex-gap flex-wrap">
+
+        <app-image-upload *ngIf="editable && editLocation.id" [entry]="editLocation" [fieldKey]="'imageId'"
+                          [label]="adminService.text('Location Image')"></app-image-upload>
+
+        <div class="vertical-flex">
+          <div class="flex-item">
+            <app-image-upload *ngIf="editable && editLocation.id" [entry]="editLocation" [fieldKey]="'markerImageId'"
+                              [label]="adminService.text('Marker Image')"></app-image-upload>
+          </div>
+          <div>
+            <app-marker-preview *ngIf="editMarkerSrc" [src]="editMarkerSrc"></app-marker-preview>
+          </div>
+        </div>
+
+
+        <app-image-upload *ngIf="editable && editLocation.id" [entry]="editLocation" [fieldKey]="'locationPreviewImageId'"
+                          [label]="adminService.text('Location Preview')"></app-image-upload>
+
+      </div>
+    </div>
+    <mat-toolbar *ngIf="controls">
+      <button mat-icon-button (click)="mapVisible = !mapVisible"
+              [ngClass]="{active:(mapVisible)}"
+      >
+        <mat-icon>map</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="mapVisible" (click)="setShowEditLocation(!showEditLocation)"
+              [ngClass]="{active:(editLocation)}"
+      >
+        <mat-icon *ngIf="!editLocation">edit</mat-icon>
+        <mat-icon *ngIf="editLocation">close</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="saveLocation()" [disabled]="!editLocation.name">
+        <mat-icon>save</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  <div class="location-entry" *ngIf="!editLocation && location">
+    <div>
+      {{location.name}}
+    </div>
+    <div *ngIf="mapVisible">
+      <app-location-map [location]="location"></app-location-map>
+    </div>
+    <div *ngIf="!mapVisible">
+
+      <div class="horizontal-flex">
+        <div>
+          {{adminService.text('Latitude')}}: {{location.latitude}}
+        </div>
+        <span class="spacer"></span>
+        <div>
+          {{adminService.text('Longitude')}}: {{location.latitude}}
+        </div>
+      </div>
+
+      <div class="horizontal-flex flex-wrap">
+        <app-image-upload *ngIf="editable && location.id" [entry]="location" [fieldKey]="'imageId'"
+                          [label]="adminService.text('Location Image')"></app-image-upload>
+
+        <div class="vertical-flex">
+          <div class="flex-item">
+            <app-image-upload *ngIf="editable && location.id" [entry]="location" [fieldKey]="'markerImageId'"
+                              [label]="adminService.text('Marker Image')"></app-image-upload>
+          </div>
+          <div>
+            <app-marker-preview *ngIf="markerSrc" [src]="markerSrc"></app-marker-preview>
+          </div>
+        </div>
+
+
+        <app-image-upload *ngIf="editable && location.id" [entry]="location" [fieldKey]="'locationPreviewImageId'"
+                          [label]="adminService.text('Location Preview')"></app-image-upload>
+      </div>
+
+
+
+
+    </div>
+
+
+    <mat-toolbar *ngIf="controls">
+      <button mat-icon-button (click)="toggleMap()"
+              [ngClass]="{active:(mapVisible)}"
+      >
+        <mat-icon>map</mat-icon>
+      </button>
+      <span class="spacer"></span>
+      <button *ngIf="editable" mat-icon-button (click)="toggleEditMap()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+</ng-container>
+
+
+

@@ -36,10 +36,10 @@ export class Project extends ApiEntity {
     @ManyToMany(() => File)
     files:  File[];
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     startDate: Date;
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     endDate: Date;
 
     @ManyToMany(() => Team)

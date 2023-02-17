@@ -12,8 +12,7 @@ import { LanguageModule } from './language/language.module';
 import { TranslationModule } from './translation/translation.module';
 import { AppSettingsModule } from './app-settings/app-settings.module';
 import { FrontendModule } from '../frontend/frontend.module';
-import { LocationModule } from './location/poi.module';
-import { MemoModule } from './memo/memo.module';
+import { LocationModule } from './location/location.module';
 import { TaskModule } from './task/task.module';
 import { UserGroupModule } from './user-group/user-group.module';
 import { UserRoleModule } from './user-role/user-role.module';
@@ -45,7 +44,6 @@ import { ProjectTemplateModule } from './project-template/project-template.modul
         AppSettingsModule,
         FrontendModule,
         LocationModule,
-        MemoModule,
         TaskModule,
         AttributeModule,
         ProjectModule,

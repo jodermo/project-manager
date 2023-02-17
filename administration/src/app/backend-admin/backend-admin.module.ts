@@ -70,11 +70,8 @@ import {
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-account/backend-admin-dashboard-content-account.component';
 import {DatabaseTableComponent} from './backend-admin-components/database/database-table/database-table.component';
 import {
-  BackendAdminDashboardMemosComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-memos/backend-admin-dashboard-memos.component';
-import {
-  BackendAdminDashboardPoisComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-pois/backend-admin-dashboard-pois.component';
+  BackendAdminDashboardLocationsComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-locations/backend-admin-dashboard-locations.component';
 import {
   BackendAdminDashboardTasksComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/backend-admin-dashboard-tasks.component';
@@ -93,8 +90,8 @@ import {
   DatabaseTableFieldDataEntryComponent
 } from './backend-admin-components/database/database-table/database-table-field/database-table-field-data-entry/database-table-field-data-entry.component';
 import {
-  DatabaseTableFieldPoiEntryComponent
-} from './backend-admin-components/database/database-table/database-table-field/database-table-field-poi-entry/database-table-field-poi-entry.component';
+  DatabaseTableFieldLocationEntryComponent
+} from './backend-admin-components/database/database-table/database-table-field/database-table-field-location-entry/database-table-field-location-entry.component';
 import {
   DatabaseTableFieldTaskEntryComponent
 } from './backend-admin-components/database/database-table/database-table-field/database-table-field-task-entry/database-table-field-task-entry.component';
@@ -102,25 +99,20 @@ import {
   DatabaseTableFieldTaskEntriesComponent
 } from './backend-admin-components/database/database-table/database-table-field/database-table-field-task-entries/database-table-field-task-entries.component';
 import {
-  DatabaseTableFieldPoiEntriesComponent
-} from './backend-admin-components/database/database-table/database-table-field/database-table-field-poi-entries/database-table-field-poi-entries.component';
+  DatabaseTableFieldLocationEntriesComponent
+} from './backend-admin-components/database/database-table/database-table-field/database-table-field-location-entries/database-table-field-location-entries.component';
 import {
   DatabaseTableFieldDataEntriesComponent
 } from './backend-admin-components/database/database-table/database-table-field/database-table-field-data-entries/database-table-field-data-entries.component';
+
+import {LocationsMapComponent} from './backend-admin-components/locations-map/locations-map.component';
 import {
-  MemoOverviewComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-memos/memo-overview/memo-overview.component';
-import {PoiMapComponent} from './backend-admin-components/poi-map/poi-map.component';
-import {
-  PoiOverviewComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-pois/poi-overview/poi-overview.component';
+  LocationsOverviewComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-locations/locations-overview/locations-overview.component';
 import {
   TaskOverviewComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/task-overview/task-overview.component';
 import {ClientDeviceModule} from '../client-device/client-device.module';
-import {
-  EditMemoComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-memos/edit-memo/edit-memo.component';
 import {FileUploadComponent} from './backend-admin-components/file-upload/file-upload.component';
 import {NgxDropzoneModule} from 'ngx-dropzone';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -130,8 +122,8 @@ import {
   EditTaskComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/edit-task/edit-task.component';
 import {
-  EditPoiComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-pois/edit-poi/edit-poi.component';
+  EditLocationComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-locations/edit-location/edit-location.component';
 import {
   DatabaseOverviewComponent
 } from './backend-admin-components/database/database-overview/database-overview.component';
@@ -141,15 +133,13 @@ import {
 import {
   DatabaseDashboardComponent
 } from './backend-admin-components/database/database-dashboard/database-dashboard.component';
-import {
-  MemoDatabaseTableComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-memos/memo-database-table/memo-database-table.component';
+
 import {
   TaskDatabaseTableComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/task-database-table/task-database-table.component';
 import {
-  PoiDatabaseTableComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-pois/poi-database-table/poi-database-table.component';
+  LocationsDatabaseTableComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-locations/locations-database-table/locations-database-table.component';
 import {
   BackendAdminDashboardCompaniesComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-companies/backend-admin-dashboard-companies.component';
@@ -236,30 +226,26 @@ import {D3ChartModule} from "../d3-chart/d3-chart.module";
     BackendAdminDashboardContentDashboardComponent,
     BackendAdminDashboardContentAccountComponent,
     DatabaseTableComponent,
-    BackendAdminDashboardMemosComponent,
-    BackendAdminDashboardPoisComponent,
+    BackendAdminDashboardLocationsComponent,
     BackendAdminDashboardTasksComponent,
     BackendAdminDashboardSettingsComponent,
     DatabaseTableFieldComponent,
     DatabaseTableLabelComponent,
     DatabaseTableFieldDataEntryComponent,
-    DatabaseTableFieldPoiEntryComponent,
+    DatabaseTableFieldLocationEntryComponent,
     DatabaseTableFieldTaskEntryComponent,
     DatabaseTableFieldTaskEntriesComponent,
-    DatabaseTableFieldPoiEntriesComponent,
+    DatabaseTableFieldLocationEntriesComponent,
     DatabaseTableFieldDataEntriesComponent,
-    MemoOverviewComponent,
-    MemoDatabaseTableComponent,
-    PoiMapComponent,
-    PoiOverviewComponent,
+    LocationsMapComponent,
+    LocationsOverviewComponent,
     TaskOverviewComponent,
     TaskDatabaseTableComponent,
-    PoiDatabaseTableComponent,
-    EditMemoComponent,
+    LocationsDatabaseTableComponent,
     FileUploadComponent,
     FilePreviewComponent,
     EditTaskComponent,
-    EditPoiComponent,
+    EditLocationComponent,
     DatabaseOverviewComponent,
     DatabaseEditEntryComponent,
     DatabaseDashboardComponent,

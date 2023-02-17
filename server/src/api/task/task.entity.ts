@@ -29,10 +29,10 @@ export class Task extends ApiEntity {
     @ManyToMany(() => File)
     files:  File[];
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     startDate: Date;
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     endDate: Date;
 
     @ManyToMany(() => Question, (question) => question.task)

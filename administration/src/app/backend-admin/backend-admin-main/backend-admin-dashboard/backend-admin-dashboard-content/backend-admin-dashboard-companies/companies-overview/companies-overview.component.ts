@@ -19,7 +19,7 @@ export class CompaniesOverviewComponent extends DatabaseTableComponent {
   renderData: NgCompanyEntity[] = [];
   showPaginator = false;
   apiRoute = 'company';
-  showPoi = false;
+  showLocation = false;
   @Output() onSave = new EventEmitter<NgCompanyEntity>();
   @Output() onDelete = new EventEmitter();
 

@@ -1,0 +1,35 @@
+<div class="map-view">
+  <div class="map-view-content">
+    <div id="{{id}}" class="openstreetmap-map" #map></div>
+    <div class="openstreetmap-map-overlay">
+      <div class="center-cursor" *ngIf="showCursor">
+        <div *ngIf="updateLocation && location">{{location.latitude}}, {{location.longitude}}</div>
+      </div>
+      <div *ngIf="userInteraction" class="user-interactions">
+        <button mat-icon-button (click)="zoomIn()">
+          <mat-icon>zoom_in</mat-icon>
+        </button>
+        <button mat-icon-button (click)="zoomOut()">
+          <mat-icon>zoom_out</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>location_searching</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="setMyLocation(true)">
+            <mat-icon>my_location</mat-icon>
+            <span>{{adminService.text('My location')}}</span>
+          </button>
+          <button mat-menu-item *ngFor="let location of locations" (click)="centerLocation(location)">
+            <mat-icon>place</mat-icon>
+            <span *ngIf="location.name">{{location.name}}</span>
+            <span *ngIf="!location.name">{{location.id}}</span>
+            <sup><sub><small>{{adminService.locationDistance(location, clientDevice.latitude, clientDevice.longitude)}} km</small></sub></sup>
+          </button>
+        </mat-menu>
+
+      </div>
+    </div>
+  </div>
+</div>
+

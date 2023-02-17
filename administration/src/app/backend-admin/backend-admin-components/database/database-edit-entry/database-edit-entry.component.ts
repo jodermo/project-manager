@@ -32,14 +32,14 @@ export class DatabaseEditEntryComponent {
     return true;
   }
 
-  addNew(taskId?: number, poiId?: number) {
+  addNew(taskId?: number, locationId?: number) {
     if (this.apiRoute) {
       this.entry = new NgApiEntity(this.apiRoute, this.adminService);
       if (taskId) {
         this.entry.taskIds = [taskId];
       }
-      if (poiId) {
-        this.entry.poiId = poiId;
+      if (locationId) {
+        this.entry.locationId = locationId;
       }
       this.tabIndex = 0;
     }

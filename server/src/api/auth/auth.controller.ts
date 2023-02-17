@@ -4,6 +4,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
 import { MailService } from '../mail/mail.service';
 import { configService } from '../../config/config.service';
+import {ApiOperation, ApiParam, ApiTags} from "@nestjs/swagger";
 
 
 @Controller('auth')
@@ -17,6 +18,16 @@ export class AuthController {
         private readonly mailService: MailService) {
     }
 
+    @ApiOperation({ summary: 'User Login' })
+    @ApiParam({
+        name: 'password',
+        type: 'string'
+    })
+    @ApiParam({
+        name: 'username',
+        type: 'string',
+        description: 'Username'
+    })
     @Post('login')
     async loginUser(@Response() res: any, @Body() body: User) {
         if (!(body && (body.username || body.email) && body.password)) {

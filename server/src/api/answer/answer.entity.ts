@@ -26,7 +26,7 @@ export class Answer extends ApiEntity {
     @Column({nullable: true, default: true})
     checked: boolean = true;
 
-    @Column({type: 'datetime'})
+    @Column({type: 'timestamptz'})
     date: Date;
 
     @ManyToMany(() => File, (file) => file.id)

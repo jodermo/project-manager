@@ -5,16 +5,15 @@ import {JsonDataService} from './backend-admin-main/backend-admin-json-data/json
 import {NgAppSettingsEntity} from '../../../../angular-classes/angular-entities/ng.app-settings.entity';
 import {NgLanguageEntity} from '../../../../angular-classes/angular-entities/ng.language.entity';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgMemoEntity} from '../../../../angular-classes/angular-entities/ng.memo.entity';
 import {
   NgMainTaskTypes, NgSubTaskTypes,
   NgTaskArModelTypes,
   NgTaskEntity,
   NgTaskTypes
 } from '../../../../angular-classes/angular-entities/ng.task.entity';
-import {NgPoiEntity} from '../../../../angular-classes/angular-entities/ng.poi.entity';
+import {NgLocationEntity} from '../../../../angular-classes/angular-entities/ng.location.entity';
 import {NgUserEntity} from '../../../../angular-classes/angular-entities/ng.user.entity';
-import {PoiMapComponent} from './backend-admin-components/poi-map/poi-map.component';
+import {LocationsMapComponent} from './backend-admin-components/locations-map/locations-map.component';
 import {MapLayer} from './classes/map-layer';
 import {FormBuilder} from '@angular/forms';
 import {NgFileEntity} from '../../../../angular-classes/angular-entities/ng.file.entity';
@@ -27,11 +26,8 @@ import {
   EditFileComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-files/edit-file/edit-file.component';
 import {
-  EditMemoComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-memos/edit-memo/edit-memo.component';
-import {
-  EditPoiComponent
-} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-pois/edit-poi/edit-poi.component';
+  EditLocationComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-locations/edit-location/edit-location.component';
 import {
   EditTaskComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/edit-task/edit-task.component';
@@ -232,7 +228,7 @@ export class BackendAdminService extends NgUserService {
   jsonData?: JsonDataService;
   currentBackendError?: BackendAdminError;
   backendErrors: BackendAdminError[] = [];
-  private mapComponent?: PoiMapComponent;
+  private mapComponent?: LocationsMapComponent;
   mapLayers: MapLayer[] = [];
   private fallbackImage = 'assets/svg/app_logo.svg';
   taskTypes = NgTaskTypes;
@@ -243,15 +239,13 @@ export class BackendAdminService extends NgUserService {
   configVisible = false;
   editCompanyComponent?: EditCompanyComponent;
   editFileComponent?: EditFileComponent;
-  editMemoComponent?: EditMemoComponent;
-  editPoiComponent?: EditPoiComponent;
+  editLocationComponent?: EditLocationComponent;
   editTaskComponent?: EditTaskComponent;
 
   apiData: any = {
     'task': [] as NgTaskEntity[],
     'company': [] as NgCompanyEntity[],
-    'memo': [] as NgMemoEntity[],
-    'poi': [] as NgPoiEntity[],
+    'location': [] as NgLocationEntity[],
     'file': [] as NgFileEntity[],
     'user': [] as NgUserEntity[],
     'user-group': [] as NgTaskEntity[]
@@ -503,12 +497,12 @@ export class BackendAdminService extends NgUserService {
     return length;
   }
 
-  poiDistance(poi: NgPoiEntity, latitude: number, longitude: number) {
+  locationDistance(location: NgLocationEntity, latitude: number, longitude: number) {
     let distance = 0;
-    if (poi.latitude && poi.latitude) {
+    if (location.latitude && location.latitude) {
       distance = this.distance({
-        latitude: poi.latitude,
-        longitude: poi.longitude
+        latitude: location.latitude,
+        longitude: location.longitude
       }, {
         latitude: latitude,
         longitude: longitude
@@ -519,9 +513,9 @@ export class BackendAdminService extends NgUserService {
 
   formFieldType(column: string) {
     const fields: any = {
-      'poi': {
-        single: ['poiId'],
-        multiple: ['poiIds'],
+      'location': {
+        single: ['locationId'],
+        multiple: ['locationIds'],
         name: {
           single: 'POI',
           multiple: 'POIs',
