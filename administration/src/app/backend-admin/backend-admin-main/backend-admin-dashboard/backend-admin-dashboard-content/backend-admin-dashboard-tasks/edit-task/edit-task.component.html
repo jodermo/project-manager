@@ -29,11 +29,6 @@
                 (click)="editLocationMap()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="entry.locationId &&  tabIndex === 1 && (entry.type === 'location' || entry.type === 'ar-model')"
-                mat-icon-button
-                (click)="toggleLocationMap()">
-          <mat-icon>map</mat-icon>
-        </button>
         <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
           <mat-icon>save</mat-icon>
         </button>
@@ -82,129 +77,8 @@
                         (keyup.enter)="saveEntry()"></textarea>
             </mat-form-field>
 
-            <app-image-upload *ngIf="entry.id" [entry]="entry" (onChange)="setData($event)"></app-image-upload>
-
           </mat-tab>
 
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'location'" [label]="adminService.text('Location')"
-                   [disabled]="!entry.id">
-            <app-database-table-field-location-entry
-              *ngIf="entry.id"
-              [entry]="entry"
-              [layout]="'extended'"
-              (onChange)="setData($event)"
-              #locationField></app-database-table-field-location-entry>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'ar-model'" [label]="adminService.text('AR Model')"
-                   [disabled]="!entry.id">
-
-            <app-database-table-field-ar-model-entry
-              *ngIf="entry.id"
-              [entry]="entry"
-            ></app-database-table-field-ar-model-entry>
-
-            <mat-form-field class="backend-admin-form-field" appearance="fill">
-              <mat-label>{{adminService.text('Model Type')}}</mat-label>
-              <mat-select [(ngModel)]="entry.arModelType">
-                <mat-option *ngFor="let arModelType of adminService.arModelTypes" [value]="arModelType">
-                  {{adminService.text(arModelType)}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <app-database-table-field-location-entry
-              *ngIf="entry.arModelType && entry.arModelType === 'location'"
-              [entry]="entry"
-              [layout]="'extended'"
-              (onChange)="setData($event)"
-              #arModelLocationField
-            ></app-database-table-field-location-entry>
-
-            <div
-              *ngIf="entry.arModelType && entry.arModelType === 'location' && !(arModelLocationField && arModelLocationField.mapVisible)"
-              class="margin-top">
-              <mat-form-field class="backend-admin-form-field" appearance="fill">
-                <mat-label>{{adminService.text('Distance')}}</mat-label>
-                <input matInput type="number" name="name"
-                       [(ngModel)]="entry.arModelDistance"
-                       [min]="adminService.arModelDistance.min"
-                       [max]="adminService.arModelDistance.max"
-                       [step]="adminService.arModelDistance.step">
-                <span matSuffix>{{adminService.text('m')}}</span>
-              </mat-form-field>
-              <mat-slider
-                color="primary"
-                [(ngModel)]="entry.arModelDistance"
-                [min]="adminService.arModelDistance.min"
-                [max]="adminService.arModelDistance.max"
-                [step]="adminService.arModelDistance.step"
-              ></mat-slider>
-            </div>
-
-            <app-file-upload
-              *ngIf="entry.arModelType && entry.arModelType === 'marker'"
-              [accept]="'.patt'"
-              [entry]="entry"
-              [fieldKey]="'arModelMarkerPatternId'"
-              (onChange)="setData($event)"
-            ></app-file-upload>
-
-            <app-image-upload
-              *ngIf="entry.arModelType && entry.arModelType === 'marker'"
-              [entry]="entry"
-              [fieldKey]="'arModelMarkerImageId'"
-              (onChange)="setData($event)"
-            ></app-image-upload>
-
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'company'" [label]="adminService.text('Company')"
-                   [disabled]="!entry.id">
-            <app-database-table-field-company-entry [entry]="entry"
-                                                    (onChange)="setData($event)"></app-database-table-field-company-entry>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'quest'" [label]="adminService.text('Quest')"
-                   [disabled]="!entry.id">
-            <h2>{{adminService.text('Coming soon...')}}</h2>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'quiz'" [label]="adminService.text('Quiz')"
-                   [disabled]="!entry.id">
-            <h2>{{adminService.text('Coming soon...')}}</h2>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'mini-game'" [label]="adminService.text('Mini Game')"
-                   [disabled]="!entry.id">
-            <h2>{{adminService.text('Coming soon...')}}</h2>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'special-event'"
-                   [label]="adminService.text('Special Event')" [disabled]="!entry.id">
-            <h2>{{adminService.text('Coming soon...')}}</h2>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" *ngIf="entry.type === 'advertisement'"
-                   [label]="adminService.text('Advertisement')" [disabled]="!entry.id">
-            <h2>{{adminService.text('Coming soon...')}}</h2>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" [label]="adminService.text('Files')" [disabled]="!entry.id">
-            <app-image-upload *ngIf="entry.id" [label]="adminService.text('Images')"
-                              [entry]="entry"
-                              [fieldKey]="'imageIds'" [multiple]="true"
-                              (onChange)="setData($event)"></app-image-upload>
-
-            <app-file-upload *ngIf="entry.id" [label]="adminService.text('Documents')" [entry]="entry"
-                             [fieldKey]="'fileIds'" [multiple]="true"
-                             (onChange)="setData($event)"></app-file-upload>
-          </mat-tab>
-
-          <mat-tab class="overlay-tab" [label]="adminService.text('Sub Tasks')" [disabled]="!entry.id">
-            <app-task-overview *ngIf="entry.id" [task]="entry" (onDelete)="update()"
-                               (onSave)="update()"></app-task-overview>
-          </mat-tab>
 
 
         </mat-tab-group>

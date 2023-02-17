@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="content-page-header" *ngIf="adminService.dashboard.page">
+  <mat-icon class="margin-right"
+            *ngIf="adminService.dashboard.page.icon">{{adminService.dashboard.page.icon}}</mat-icon>
+  <span>
+    {{adminService.text(adminService.dashboard.page.name)}}
+  </span>
+</mat-toolbar>
+
+<mat-tab-group *ngIf="adminService.dashboard.page" animationDuration="0ms"
+               class="content-tab-group" mat-align-tabs="center"
+               [selectedIndex]="adminService.dashboard.page.optionIndex"
+               (selectedIndexChange)="adminService.dashboard.page.optionIndex = $event"
+>
+
+
+
+  <mat-tab [label]="adminService.text('Users')">
+    <app-users-table></app-users-table>
+  </mat-tab>
+
+  <mat-tab [label]="adminService.text('Teams')">
+    <app-backend-admin-dashboard-teams></app-backend-admin-dashboard-teams>
+  </mat-tab>
+
+  <mat-tab [label]="adminService.text('User Groups')">
+
+  </mat-tab>
+
+  <mat-tab [label]="adminService.text('User Roles')">
+
+  </mat-tab>
+
+
+</mat-tab-group>
+<app-edit-user *ngIf="adminService.editUser" [entry]="adminService.editUser"></app-edit-user>

@@ -23,9 +23,6 @@
         <p *ngIf="company.description">
           {{company.description}}
         </p>
-        <app-location-map *ngIf="showLocation && company.locationId" [locationId]="company.locationId"></app-location-map>
-        <app-image-preview *ngIf="company.imageId" [id]="company.imageId"></app-image-preview>
-
       </mat-card-content>
 
       <mat-card-actions align="end">
@@ -36,9 +33,6 @@
           </mat-slide-toggle>
         </div>
         <span class="spacer"></span>
-        <button *ngIf="company.locationId" mat-icon-button (click)="showLocation = !showLocation" [disabled]="!company.id">
-          <mat-icon>map</mat-icon>
-        </button>
         <button mat-icon-button (click)="deleteEntry(company);" [disabled]="!company.id">
           <mat-icon>delete</mat-icon>
         </button>

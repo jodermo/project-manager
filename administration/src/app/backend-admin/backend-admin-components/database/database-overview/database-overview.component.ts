@@ -42,11 +42,11 @@ export class DatabaseOverviewComponent extends DatabaseTableComponent {
     }
   }
 
-  setEditEntry(location: any) {
+  setEditEntry(poi: any) {
     if (this.editable) {
-      this.editEntry = location;
+      this.editEntry = poi;
       if (this.editComponent) {
-        this.editComponent.editEntry(location);
+        this.editComponent.editEntry(poi);
       }
     }
   }

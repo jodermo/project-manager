@@ -6,9 +6,12 @@
   <h1>
     {{adminService.text('Willkommen zur Project-Manager Administration')}}
   </h1>
+  <app-file-upload [entry]="adminService.user" [fieldKey]="'img'"  ></app-file-upload>
   <span class="spacer"></span>
+
   <mat-list class="dashboard-navigation-list navigation-list" role="list">
     <ng-container *ngFor="let page of adminService.dashboard.pages">
+
       <mat-list-item *ngIf="(page.dashboard && page.dashboard()) && page.name !== adminService.dashboard.page.name" class="dashboard-navigation-entry"
                      role="listitem"
                      (click)="adminService.dashboard.showPage(page)">

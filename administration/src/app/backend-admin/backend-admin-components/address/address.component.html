@@ -1,0 +1,189 @@
+<b *ngIf="label">{{adminService.text(label)}}</b>
+
+<div *ngIf="!address && !(editable && edit)" class="address">
+
+
+  <div class=="address-option" *ngIf="editable && options">
+    <button mat-icon-button *ngIf="editable" (click)="edit = false">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <button mat-icon-button *ngIf="editable" (click)="saveNewAddress()">
+      <mat-icon>save</mat-icon>
+    </button>
+  </div>
+
+
+  <app-data-field [label]="'Name/Anschrift'"></app-data-field>
+
+
+  <div class="form-group">
+
+
+    <app-data-field [label]="'Straße'"></app-data-field>
+
+    <app-data-field [label]="'Nummer'"></app-data-field>
+  </div>
+
+  <div class="form-group">
+
+    <app-data-field [label]="'Postleitzahl'"></app-data-field>
+
+    <app-data-field [label]="'Ort'"></app-data-field>
+  </div>
+  <button mat-flat-button *ngIf="editable && !address" (click)="addNewAddress()">
+    {{adminService.text('Adresse anlegen')}}
+  </button>
+</div>
+<div *ngIf="address && !(editable && edit)" class="address">
+
+  <div class="horizontal-flex">
+    <div class="flex-item">
+      <table>
+
+        <tbody>
+        <tr *ngIf="!hideName">
+          <th *ngIf="detailed">
+            <mat-label>{{adminService.text('Firma')}}</mat-label>
+          </th>
+          <td *ngIf="company">
+            <span *ngIf="company.name">
+              {{company.name}}
+            </span>
+          </td>
+          <td *ngIf="!company">
+            <span *ngIf="address.companyName">
+              {{address.companyName}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th *ngIf="detailed">
+            <mat-label>{{adminService.text('Ansprechpartner:in')}}</mat-label>
+          </th>
+          <td>
+            <span *ngIf="address.firstName">
+              {{address.firstName}}
+            </span>
+            <span *ngIf="address.lastName">
+              {{address.lastName}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th *ngIf="detailed">
+            <mat-label>{{adminService.text('Straße/Nr')}}</mat-label>
+          </th>
+          <td>
+            <span *ngIf="address.street">
+              {{address.street}}
+            </span>
+            <span *ngIf="address.streetNumber">
+              {{address.streetNumber}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <th *ngIf="detailed">
+            <mat-label>{{adminService.text('PLZ/Ort')}}</mat-label>
+          </th>
+          <td>
+            <span *ngIf="address.postcode">
+              {{address.postcode}}
+            </span>
+            <span *ngIf="address.city">
+              {{address.city}}
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="editable">
+
+      <button mat-icon-button *ngIf="editable" (click)="edit = !edit">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button *ngIf="editable" (click)="deleteAddress()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+
+</div>
+<div *ngIf="address && (editable && edit)" class="address">
+  <div class="horizontal-flex">
+    <div class="flex-item">
+
+      <mat-label *ngIf="!company">{{adminService.text('Firma')}}</mat-label>
+
+      <mat-form-field *ngIf="!company" class="backend-admin-form-field margin-bottom" appearance="fill">
+        <input matInput type="text" name="company_name" placeholder="{{adminService.text('Name')}}"
+               [(ngModel)]="address.companyName"/>
+      </mat-form-field>
+
+
+      <mat-label>{{adminService.text('Ansprechpartner:in')}}</mat-label>
+
+      <mat-form-field class="backend-admin-form-field" appearance="fill">
+        <mat-label>{{adminService.text('Anrede')}}</mat-label>
+        <mat-select [(ngModel)]="address.salutation" [placeholder]="adminService.text('Bitte auswählen')">
+          <mat-option *ngFor="let salutation of adminService.salutations" [value]="salutation.value">
+            {{salutation.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="form-group margin-bottom">
+
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Vorname')}}</mat-label>
+          <input matInput type="text" name="firstName" [(ngModel)]="address.firstName"/>
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Nachname')}}</mat-label>
+          <input matInput type="text" name="lastName" [(ngModel)]="address.lastName"/>
+        </mat-form-field>
+      </div>
+
+      <mat-label>{{adminService.text('Adresse')}}</mat-label>
+
+      <div class="form-group">
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Straße')}}</mat-label>
+          <input matInput type="text" name="street" [(ngModel)]="address.street"/>
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Nummer')}}</mat-label>
+          <input matInput type="text" name="streetNumber" [(ngModel)]="address.streetNumber"/>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('PLZ')}}</mat-label>
+          <input matInput type="text" name="postcode" [(ngModel)]="address.postcode"/>
+        </mat-form-field>
+        <mat-form-field class="backend-admin-form-field" appearance="fill">
+          <mat-label>{{adminService.text('Ort')}}</mat-label>
+          <input matInput type="text" name="city" [(ngModel)]="address.city"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="editable && options">
+      <button *ngIf="newAddress" mat-icon-button (click)="edit = false; newAddress = false;">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button *ngIf="!newAddress" mat-icon-button (click)="edit = false;">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <button mat-icon-button (click)="saveAddress(); edit = false;">
+        <mat-icon *ngIf="address.id">save</mat-icon>
+        <mat-icon *ngIf="!address.id">save</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>

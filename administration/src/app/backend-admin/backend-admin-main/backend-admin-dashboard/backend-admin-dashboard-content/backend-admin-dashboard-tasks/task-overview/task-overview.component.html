@@ -32,20 +32,6 @@
         <p *ngIf="taskEntry.description">
           {{taskEntry.description}}
         </p>
-        <ng-container *ngIf="taskEntry.type === 'ar-model'">
-          <app-database-table-field-ar-model-entry
-            *ngIf="taskEntry.arModelId"
-            [entry]="taskEntry"
-          ></app-database-table-field-ar-model-entry>
-          <app-image-preview
-            *ngIf="taskEntry.arModelMarkerImageId && taskEntry.arModelType=== 'marker' && !(taskEntry.arModelId && showArModel)"
-            [id]="taskEntry.arModelMarkerImageId"></app-image-preview>
-
-          <app-ar-model-preview *ngIf="taskEntry.arModelId && showArModel"
-                                [arModelId]="taskEntry.arModelId"></app-ar-model-preview>
-
-        </ng-container>
-        <app-location-map *ngIf="showLocation && taskEntry.locationId" [locationId]="taskEntry.locationId"></app-location-map>
         <app-image-preview *ngIf="taskEntry.imageId" [id]="taskEntry.imageId"></app-image-preview>
         <app-file-preview *ngIf="taskEntry.fileId" [id]="taskEntry.fileId"></app-file-preview>
         <app-sub-tasks-preview [task]="taskEntry" (clickSubTask)="setEditEntry($event, true)"></app-sub-tasks-preview>

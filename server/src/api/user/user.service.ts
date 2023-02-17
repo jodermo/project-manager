@@ -35,7 +35,10 @@ export class UserService {
     }
 
     async createUser(user: User): Promise<User> {
-        user.passwordHash = await this.getHash(user.password);
+        console.log('createUser', user);
+        if(user.password){
+            user.passwordHash = await this.getHash(user.password);
+        }
         // clear password as we don't persist passwords
         user.password = undefined;
         return this.userRepository.save(user);

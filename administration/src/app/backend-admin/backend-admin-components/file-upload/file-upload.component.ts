@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
-import { BackendAdminService } from '../../backend-admin.service';
-import { NgApiEntity } from '../../../../../../angular-classes/ng.api.entity';
-import { NgFileEntity } from '../../../../../../angular-classes/angular-entities/ng.file.entity';
+import {AfterViewInit, Component, EventEmitter, Input, Output} from '@angular/core';
+import {BackendAdminService} from '../../backend-admin.service';
+import {NgApiEntity} from '../../../../../../angular-classes/ng.api.entity';
+import {NgFileEntity} from '../../../../../../angular-classes/angular-entities/ng.file.entity';
 
 interface LoadingFile {
   file: File;
@@ -16,7 +16,7 @@ interface LoadingFile {
 export class FileUploadComponent implements AfterViewInit {
   @Input() file?: NgFileEntity;
   @Input() entry?: NgApiEntity;
-  @Input() fieldKey: string = 'fileId';
+  @Input() fieldKey: string = 'file';
   @Input() label?: string;
   @Input() dropzoneLabel: string = 'Click to upload or drop file here';
   @Input() accept: string = '*';
@@ -64,18 +64,10 @@ export class FileUploadComponent implements AfterViewInit {
       if (value) {
         if (this.multiple) {
           this.showUpload = true;
-          for (const id of value) {
-            const file = this.adminService.apiData['file'].find((file: NgFileEntity) => file.id === id);
-            if (file) {
-              this.databaseFiles.push(file);
-            }
-          }
+          this.databaseFiles = this.adminService.fileById(value);
         } else {
-          const file = this.adminService.apiData['file'].find((file: NgFileEntity) => file.id === value);
-          if (file) {
-            this.showUpload = false;
-            this.databaseFiles.push(file);
-          }
+          this.showUpload = false;
+          this.databaseFiles.push(this.adminService.fileById(value));
         }
       } else {
         this.showUpload = true;
@@ -96,7 +88,7 @@ export class FileUploadComponent implements AfterViewInit {
       if (this.multiple) {
         this.setEntryValue(this.fieldKey, []);
       } else {
-        this.setEntryValue(this.fieldKey, 0);
+        this.setEntryValue(this.fieldKey, undefined);
       }
       this.fileNotFound = false;
     }
@@ -105,7 +97,7 @@ export class FileUploadComponent implements AfterViewInit {
   private setEntryValue(attribute: string, value: any, entry: any = this.entry) {
     if (this.entry) {
       for (const key in this.entry) {
-        if (key === attribute) {
+        if (key === attribute && entry[key] !== value) {
           entry[key] = value;
           entry.setData(entry);
           entry.update(() => {
@@ -160,29 +152,12 @@ export class FileUploadComponent implements AfterViewInit {
         }
       }, (resultFile: any) => {
         resultFile = new NgFileEntity(this.adminService).setData(resultFile);
+        console.log('resultFile', resultFile);
         this.databaseFiles.push(resultFile);
         this.adminService.apiData['file'].push(resultFile);
         databaseFiles.push(resultFile);
-        if (this.entry && this.fieldKey && resultFile.id) {
-          if (this.multiple) {
-            if (!(this.entry as any)[this.fieldKey]) {
-              (this.entry as any)[this.fieldKey] = [];
-            }
-            if ((this.entry as any)[this.fieldKey].find && !(this.entry as any)[this.fieldKey].find((existingId: any) => resultFile.id == existingId)) {
-              (this.entry as any)[this.fieldKey].push(resultFile.id);
-            }
-          } else {
-            (this.entry as any)[this.fieldKey] = resultFile.id;
-          }
-          this.entry.update(() => {
-            done()
-          }, () => {
-            done()
-          })
-        } else {
-          done()
-        }
         this.setEntryFile(databaseFiles);
+        done()
       }, () => {
         done();
       });
@@ -201,19 +176,21 @@ export class FileUploadComponent implements AfterViewInit {
   }
 
   setEntryFile(databaseFiles: NgApiEntity[]) {
-    const ids = [];
-    for (const databaseFile of databaseFiles) {
-      if (databaseFile.id) {
-        ids.push(databaseFile.id);
-      }
-    }
-    if (this.entry && this.fieldKey) {
+    if (this.entry && this.fieldKey && databaseFiles.length) {
       if (this.multiple) {
-        this.setEntryValue(this.fieldKey, ids.length ? ids : []);
-      } else {
-        this.setEntryValue(this.fieldKey, ids.length ? ids[0] : 0);
+        if (!(this.entry as any)[this.fieldKey]) {
+          (this.entry as any)[this.fieldKey] = [];
+        }
+        for (const file of databaseFiles) {
+          if(!(this.entry as any)[this.fieldKey].find((id: number)=> id === file.id )){
+            (this.entry as any)[this.fieldKey].push(file.id);
+          }
+        }
+      } else if(!this.multiple) {
+        (this.entry as any)[this.fieldKey] = databaseFiles[0].id;
       }
     }
+    console.log('setEntryFile', this.entry);
   }
 
   saveFileEntry(onDone?: () => void) {
@@ -268,7 +245,7 @@ export class FileUploadComponent implements AfterViewInit {
   }
 
   deleteFileId(fileId: number) {
-    const file = this.adminService.apiData['file'].find((file: NgFileEntity)  => file.id === fileId);
+    const file = this.adminService.apiData['file'].find((file: NgFileEntity) => file.id === fileId);
     if (this.entry && file) {
       this.deleteFile(file);
     } else if (this.multiple && this.entry && this.fieldKey) {
@@ -299,7 +276,7 @@ export class FileUploadComponent implements AfterViewInit {
   }
 
   onChangeFiles(files?: NgFileEntity[]) {
-    if(files && files.length){
+    if (files && files.length) {
       this.setEntryFile(files);
     }
   }

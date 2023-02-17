@@ -312,6 +312,7 @@ export class NgApiService {
     private entityOpeningHoursLoading: any = {};
     private entityAttributes: any = {};
     private entityAttributesLoading: any = {};
+    private fallbackImage = 'assets/svg/app_logo.svg';
 
     constructor(private httpClient: any, private formBuilder: any, private headers: any, public staticData?: any) {
         console.log('isMobile', this.isMobile);
@@ -343,6 +344,10 @@ export class NgApiService {
         }
     }
 
+    public  fileById(fileId: number){
+        return this.apiData.file.find((file: NgFileEntity) => file.id === fileId);
+
+    }
     public sortData(data: any, sortKey = 'id', reverse = false) {
         data = data.sort((a: any, b: any) => {
             return (a[sortKey] || 0) - (b[sortKey] || 0);
@@ -499,6 +504,17 @@ export class NgApiService {
     url(testData = this.environment.testData, staticTestData = this.environment.staticTestData) {
         const url = (testData ? (staticTestData ? this.staticTestDataURL : this.environment.apiURL) : this.apiURL);
         return url;
+    }
+
+    fileUrl() {
+        return 'https://project-manager-uploads.witali-ruff.de/';
+    }
+
+    filePath(file: NgFileEntity) {
+        if (file.path) {
+            return this.fileUrl() + file.path;
+        }
+        return this.fallbackImage;
     }
 
     setStaticData(data: any) {

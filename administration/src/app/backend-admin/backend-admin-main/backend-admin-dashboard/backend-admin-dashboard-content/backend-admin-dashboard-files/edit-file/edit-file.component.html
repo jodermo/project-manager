@@ -31,7 +31,7 @@
             <input matInput type="text" name="title" [(ngModel)]="entry.name"
                    (keyup.enter)="saveEntry()">
           </mat-form-field>
-        <app-file-preview [file]="entry"></app-file-preview>
+        <app-file-preview *ngIf="entry.path" [file]="entry"></app-file-preview>
 
       </mat-card-content>
     </mat-card>

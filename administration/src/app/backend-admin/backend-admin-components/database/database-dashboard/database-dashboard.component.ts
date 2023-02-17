@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {DatabaseTableComponent} from '../database-table/database-table.component';
-import {BackendAdminService} from '../../../backend-admin.service';
-import {DatabaseOverviewComponent} from '../database-overview/database-overview.component';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { DatabaseTableComponent } from '../database-table/database-table.component';
+import { BackendAdminService } from '../../../backend-admin.service';
+import { DatabaseOverviewComponent } from '../database-overview/database-overview.component';
 
 @Component({
   selector: 'app-database-dashboard',
@@ -29,8 +29,6 @@ export class DatabaseDashboardComponent extends DatabaseTableComponent {
 
   getCustomData(): any {
     super.getCustomData();
-    setTimeout(() => {
-      this.loaded = true;
-    }, 0);
+    this.loaded = true;
   }
 }

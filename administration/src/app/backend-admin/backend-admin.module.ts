@@ -196,6 +196,25 @@ import {
   DatabaseAttributeComponent
 } from './backend-admin-components/database/database-attribute/database-attribute.component';
 import {D3ChartModule} from "../d3-chart/d3-chart.module";
+import {
+  BackendAdminDashboardContentUsersComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-users/backend-admin-dashboard-content-users.component";
+import {
+  UsersTableComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-users/users-table/users-table.component";
+import {
+  EditUserComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-users/edit-user/edit-user.component";
+import {
+  EditUserCompanyComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-users/edit-user/edit-user-company/edit-user-company.component";
+import {AddressComponent} from "./backend-admin-components/address/address.component";
+import { BackendAdminDashboardTeamsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-teams/backend-admin-dashboard-teams.component';
+import { BackendAdminDashboardUserRolesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-roles/backend-admin-dashboard-user-roles.component';
+import { BackendAdminDashboardUserGroupsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-groups/backend-admin-dashboard-user-groups.component';
+import { BackendAdminDashboardAddressesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-addresses/backend-admin-dashboard-addresses.component';
+import { BackendAdminDashboardProjectsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/backend-admin-dashboard-projects.component';
+import { BackendAdminDashboardDataComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-data/backend-admin-dashboard-data.component';
 
 @NgModule({
   declarations: [
@@ -267,7 +286,18 @@ import {D3ChartModule} from "../d3-chart/d3-chart.module";
     EditAttributeComponent,
     AttributeDatabaseTableComponent,
     AttributeOverviewComponent,
-    DatabaseAttributeComponent
+    DatabaseAttributeComponent,
+    BackendAdminDashboardContentUsersComponent,
+    UsersTableComponent,
+    EditUserComponent,
+    EditUserCompanyComponent,
+    AddressComponent,
+    BackendAdminDashboardTeamsComponent,
+    BackendAdminDashboardUserRolesComponent,
+    BackendAdminDashboardUserGroupsComponent,
+    BackendAdminDashboardAddressesComponent,
+    BackendAdminDashboardProjectsComponent,
+    BackendAdminDashboardDataComponent
   ],
   imports: [
     CommonModule,

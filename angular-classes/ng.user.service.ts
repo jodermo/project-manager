@@ -1,5 +1,7 @@
 import {NgApiService} from './ng.api.service';
 import {NgUserEntity} from './angular-entities/ng.user.entity';
+import {NgCompanyEntity} from "./angular-entities/ng.company.entity";
+import {NgAddressEntity} from "./angular-entities/ng.address.entity";
 
 export class NgUserAuthError {
     code = 505;
@@ -27,7 +29,6 @@ export class NgUserAuthError {
 export class NgUserService extends NgApiService {
 
     user?: NgUserEntity;
-
     /*
     userCredentials = {
         username: this.user?.username,

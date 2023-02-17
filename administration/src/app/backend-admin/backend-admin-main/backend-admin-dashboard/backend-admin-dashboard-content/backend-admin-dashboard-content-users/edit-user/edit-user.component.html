@@ -1,0 +1,73 @@
+<div class="overlay" *ngIf="entry">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span *ngIf="!entry.id">{{adminService.text('Neuer Benutzer')}}</span>
+        <span *ngIf="entry.id">{{adminService.text('Benutzer')}}
+          : {{(entry.username || entry.email || 'ID: ' + entry.id)}}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading">
+
+
+<mat-form-field *ngIf="!entry.id || !entry.username" class="backend-admin-form-field" appearance="fill">
+            <mat-label>{{adminService.text('Username')}}</mat-label>
+            <input matInput type="text" name="username" [(ngModel)]="entry.username"
+                   (keyup.enter)="saveEntry()">
+          </mat-form-field>
+          <div class="margin-bottom horizontal-flex" *ngIf="entry.id && entry.username">
+            <div>
+              <b>{{adminService.text('Username')}}</b><br>
+              <span>{{entry.username}}</span>
+            </div>
+            <span class="spacer"></span>
+            <mat-slide-toggle [(ngModel)]="entry.active">
+              <span *ngIf="entry.active">{{adminService.text('Aktiv')}}</span>
+              <span *ngIf="!entry.active">{{adminService.text('Inaktiv')}}</span>
+            </mat-slide-toggle>
+          </div>
+          <mat-form-field class="backend-admin-form-field" appearance="fill">
+            <mat-label>{{adminService.text('Email')}}</mat-label>
+            <input matInput type="email" name="email" [(ngModel)]="entry.email" (keyup.enter)="saveEntry()">
+          </mat-form-field>
+
+
+
+
+
+
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button  mat-flat-button color="primary"
+                (click)="activateUser()">
+          {{adminService.text('Aktivieren')}}
+        </button>
+        <button  mat-flat-button color="secondary"
+                (click)="deactivateUser()">
+          {{adminService.text('Deaktivieren')}}
+        </button>
+        <button  mat-flat-button color="secondary"
+                (click)="deleteEntry(entry)">
+          {{adminService.text('Löschen')}}
+        </button>
+        <button *ngIf="!entry.id" mat-flat-button color="primary" (click)="saveEntry();"
+                [disabled]="!valid() || loading">
+          {{adminService.text('Benutzer jetzt anlegen')}}
+        </button>
+        <button *ngIf="entry.id" mat-flat-button color="primary" (click)="saveEntry();"
+                [disabled]="!valid() || loading">
+          {{adminService.text('Speichern')}}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

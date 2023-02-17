@@ -11,12 +11,19 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {CarouselComponent} from './carousel/carousel.component';
 import {MarkerPreviewComponent} from './marker-preview/marker-preview.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {FlatpickrModule} from "angularx-flatpickr";
+
 
 @NgModule({
   declarations: [
     IconSelectComponent,
     CarouselComponent,
-    MarkerPreviewComponent
+    MarkerPreviewComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -28,14 +35,21 @@ import {MarkerPreviewComponent} from './marker-preview/marker-preview.component'
     MatButtonModule,
     FormsModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     FormBuilder
   ],
   exports: [
     IconSelectComponent,
-    MarkerPreviewComponent
+    MarkerPreviewComponent,
+    CalendarComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

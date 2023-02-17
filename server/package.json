@@ -33,6 +33,7 @@
     "aws-sdk": "^2.1162.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.0",
+    "formidable": "^2.1.1",
     "jsonwebtoken": "^8.5.1",
     "nest-sftp": "^2.0.1",
     "passport": "^0.5.2",
@@ -42,6 +43,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "sqlite3": "^5.0.2",
+    "ssh2-sftp-client": "^9.0.4",
     "typeorm": "^0.2.42",
     "uuidv4": "^6.2.13"
   },

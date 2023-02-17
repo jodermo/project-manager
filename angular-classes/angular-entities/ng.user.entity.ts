@@ -1,17 +1,16 @@
 import { NgApiEntity } from '../ng.api.entity';
 import { NgApiService } from '../ng.api.service';
+import {NgUserRoleEntity} from "./ng.user-role.entity";
+import {NgUserGroupEntity} from "./ng.user-group.entity";
 
 export class NgUserEntity extends NgApiEntity {
 
     username: string = '';
     email: string = '';
-    groups: number[] = [];
     password?: string;
 
-    coins: number = 0;
-    rings: number = 0;
-    eggs: number = 0;
-
+    groups: NgUserGroupEntity[] =[];
+    roles: NgUserRoleEntity[] = [];
     isLocal = false;
 
     constructor(api: NgApiService) {

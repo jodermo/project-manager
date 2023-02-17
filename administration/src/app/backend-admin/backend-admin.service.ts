@@ -32,6 +32,8 @@ import {
   EditTaskComponent
 } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-tasks/edit-task/edit-task.component';
 import {NgAttributeTypes} from "../../../../angular-classes/angular-entities/ng.attribute.entity";
+import {NgAddressEntity} from "../../../../angular-classes/angular-entities/ng.address.entity";
+import {BackendAdminPages} from "./backend-admin.pages";
 
 export class BackendAdminError {
   time = 0;
@@ -49,7 +51,23 @@ export class BackendAdminError {
 export class BackendAdminService extends NgUserService {
   title = 'Project Manager - Administration';
   frontendUrl = 'https://project-manager.witali-ruff.de';
-
+  sharingRoute = this.frontendUrl + '/share/';
+  editUser?: NgUserEntity;
+  previewUser?: NgUserEntity;
+  paginatorRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length > pageSize) {
+      const startValue = (page * pageSize) + 1;
+      let endValue = startValue + pageSize - 1;
+      if (endValue > length) {
+        endValue = length;
+      }
+      return startValue + ' - ' + endValue + ' von ' + length;
+    } else if (length) {
+      return '1 - ' + length + '';
+    } else {
+      return 'Keine Einträge';
+    }
+  };
   menuOptions = [
     {
       title: 'Logout',
@@ -65,132 +83,8 @@ export class BackendAdminService extends NgUserService {
       }
     }
   ];
-
   dashboard = {
-    pages: [
-      {
-        name: 'Dashboard',
-        icon: 'home',
-        optionIndex: 0,
-        menu: () => {
-          return true;
-        },
-      },
-      {
-        name: 'Projects',
-        icon: 'work',
-        menu: () => {
-          return true;
-        },
-        dashboard: () => {
-          return true;
-        },
-      },
-      {
-        name: 'Tasks',
-        icon: 'assignment_turned_in',
-        menu: () => {
-          return true;
-        },
-        dashboard: () => {
-          return true;
-        },
-      },
-      {
-        name: 'Users',
-        icon: 'people',
-        optionIndex: 0,
-        options: [
-          {
-            name: 'Companies',
-            icon: 'business',
-          },
-          {
-            name: 'Teams',
-            icon: 'group_work',
-          },
-          {
-            name: 'Employees',
-            icon: 'person',
-          },
-          {
-            name: 'Administration',
-            icon: 'supervised_user_circle',
-          }
-        ],
-        menu: () => {
-          return true;
-        },
-        dashboard: () => {
-          return true;
-        },
-      },
-      {
-        name: 'Attributes',
-        icon: 'edit_attributes',
-        optionIndex: 0,
-        options: [
-          {
-            name: 'Global Attributes',
-            icon: 'label',
-          },
-          {
-            name: 'Product Categories',
-            icon: 'shop_two',
-          },
-        ],
-        menu: () => {
-          return false;
-        },
-        dashboard: () => {
-          return false;
-        },
-      },
-      {
-        name: 'Data',
-        icon: 'storage',
-        optionIndex: 0,
-        options: [
-          {
-            name: 'Locations',
-            icon: 'location_on',
-          },
-          {
-            name: 'Files',
-            icon: 'file_copy',
-          }
-        ],
-        menu: () => {
-          return true;
-        },
-        dashboard: () => {
-          return true;
-        },
-      },
-      {
-        name: 'Memos',
-        icon: 'list_alt',
-        databaseEntries: 'memo',
-        optionIndex: 0,
-        menu: () => {
-          return false;
-        },
-        dashboard: () => {
-          return false;
-        },
-      },
-      {
-        name: 'Account',
-        icon: 'account_circle',
-        optionIndex: 0,
-        menu: () => {
-          return true;
-        },
-        dashboard: () => {
-          return false;
-        },
-      }
-    ] as any[],
+    pages: BackendAdminPages(this) as any,
     page: (undefined as any),
     showMenu: false,
 
@@ -210,19 +104,7 @@ export class BackendAdminService extends NgUserService {
       this.showMenu = false;
     }
   };
-
-
-  showPage(page: any) {
-    setTimeout(() => {
-      this.dashboard.page = undefined;
-      setTimeout(() => {
-        this.dashboard.page = page;
-        this.dashboard.showMenu = false;
-      }, 0);
-    }, 0);
-
-  }
-
+  newAddress?: NgAddressEntity;
   newConfiguration?: NgAppSettingsEntity;
   newLanguage?: NgLanguageEntity;
   jsonData?: JsonDataService;
@@ -230,7 +112,6 @@ export class BackendAdminService extends NgUserService {
   backendErrors: BackendAdminError[] = [];
   private mapComponent?: LocationsMapComponent;
   mapLayers: MapLayer[] = [];
-  private fallbackImage = 'assets/svg/app_logo.svg';
   taskTypes = NgTaskTypes;
   mainTaskTypes = NgMainTaskTypes;
   subTaskTypes = NgSubTaskTypes;
@@ -250,21 +131,16 @@ export class BackendAdminService extends NgUserService {
     'user': [] as NgUserEntity[],
     'user-group': [] as NgTaskEntity[]
   };
-  arModelDistance = {
-    min: 0.1,
-    max: 50,
-    step: .1
-  };
-
   attributeTypes = NgAttributeTypes;
   companyAttributes: any = {
     'main-attribute': ['icon-text']
   }
-
-
   editTask?: NgTaskEntity;
-
-
+  salutations = [
+    {value: 'Mr.', label: 'Mr.'},
+    {value: 'Mrs.', label: 'Mrs.'},
+    {value: 'Diverse', label: 'Diverse'}
+  ];
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
@@ -315,6 +191,33 @@ export class BackendAdminService extends NgUserService {
   }
 
 
+  saveNewAddress(onSuccess?: (address: NgAddressEntity) => void, onError?: (error: any) => void) {
+    if (this.newAddress) {
+      this.load();
+      this.newAddress.add((result: any) => {
+        this.loaded();
+        if (onSuccess) {
+          onSuccess(result);
+        }
+      }, (error: any) => {
+        this.loaded();
+        if (onError) {
+          onError(error);
+        }
+      });
+    }
+  }
+
+  showPage(page: any) {
+    setTimeout(() => {
+      this.dashboard.page = undefined;
+      setTimeout(() => {
+        this.dashboard.page = page;
+        this.dashboard.showMenu = false;
+      }, 0);
+    }, 0);
+
+  }
   deleteFile(file: NgFileEntity, onSuccess?: () => void, onError?: (error: any) => void) {
     if (confirm('Bist du dir sicher?')) {
       file.delete(() => {
@@ -432,12 +335,6 @@ export class BackendAdminService extends NgUserService {
     }, onError);
   }
 
-  filePath(file: NgFileEntity) {
-    if (file.path) {
-      return this.url() + file.path;
-    }
-    return this.fallbackImage;
-  }
 
 
   downloadFile(file: NgFileEntity) {
@@ -451,28 +348,25 @@ export class BackendAdminService extends NgUserService {
     link.remove();
   }
 
-  deleteEntry(entry: NgApiEntity, onSuccess?: () => void, onError?: (error: any) => void, onDeny?: () => void) {
-    if (confirm('Bist du dir sicher?')) {
-      if (entry.delete) {
-        entry.delete(() => {
-          if (onSuccess) {
-            onSuccess();
-          }
-        }, (error: any) => {
-          if (onError) {
-            onError(error);
-          }
-        });
-      } else {
-        console.error('Con not delete entry:', entry);
-      }
+  deleteEntry(entry: NgApiEntity, onSuccess?: () => void, onError?: (error: any) => void, dataSource?: any, paginator?: any) {
 
-    } else {
-      if (onDeny) {
-        onDeny();
-      }
+    if (confirm('Sind Sie sich sicher?')) {
+      entry.delete((result: any) => {
+        if (onSuccess) {
+          onSuccess()
+        }
+      }, (error: any) => {
+        if (onError) {
+          onError(error);
+        }
+      });
     }
   }
+
+  createNewUser() {
+    this.editUser = new NgUserEntity(this);
+  }
+
 
   randomGreeting() {
     const greetings = [
@@ -572,4 +466,7 @@ export class BackendAdminService extends NgUserService {
   }
 
 
+  getAddressById(addressId: number) {
+    return undefined;
+  }
 }

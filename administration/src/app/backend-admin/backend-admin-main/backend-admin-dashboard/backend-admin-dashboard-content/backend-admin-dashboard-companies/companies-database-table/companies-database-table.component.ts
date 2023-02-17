@@ -19,9 +19,4 @@ export class CompaniesDatabaseTableComponent extends DatabaseTableComponent {
     super(adminService);
   }
 
-
-  loadAllEntries() {
-    this.initData(this.adminService.apiData['task']);
-
-  }
 }

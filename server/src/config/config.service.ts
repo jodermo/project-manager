@@ -126,7 +126,7 @@ class ConfigService {
             port: 22,
             username: 'petzka_17',
             password: 'gEe19L4uuYi9v8js',
-            debug: console.log,
+            //  debug: console.log,
         };
     }
 
@@ -189,8 +189,8 @@ class ConfigService {
     public getDocumentationConfig() {
         return {
             username: this.getValue('API_DOCUMENTATION_LOGIN', false) || 'Documentation',
-            password:  this.getValue('API_DOCUMENTATION_PASSWORD', false) ||'Test1234',
-            route:  this.getValue('API_DOCUMENTATION_ROUTE', false) ||'documentation'
+            password: this.getValue('API_DOCUMENTATION_PASSWORD', false) || 'Test1234',
+            route: this.getValue('API_DOCUMENTATION_ROUTE', false) || 'documentation'
         };
     }
 }

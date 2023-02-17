@@ -15,7 +15,7 @@
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <th class="pointer" mat-header-cell *matHeaderCellDef (click)="setSortColumn(column)">
           <app-database-table-label
             [column]="column"
           ></app-database-table-label>

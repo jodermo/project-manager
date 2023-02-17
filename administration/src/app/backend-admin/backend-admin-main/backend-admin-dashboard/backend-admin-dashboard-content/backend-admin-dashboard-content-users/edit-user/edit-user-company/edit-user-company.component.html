@@ -1,0 +1,22 @@
+<div class="edit-user-company" *ngIf="ready && user">
+
+
+  <mat-form-field class="backend-admin-form-field" appearance="fill">
+    <mat-label>{{adminService.text('Firma')}}</mat-label>
+    <mat-select [(ngModel)]="company" (ngModelChange)="setCompany(company)" >
+      <mat-option [value]="undefined" (click)="createNewCompany()">
+        {{adminService.text('Neue Firma erstellen')}}
+      </mat-option>
+      <mat-option *ngFor="let existingCompany of adminService.apiData.company" [value]="existingCompany" (click)="newCompany = false">
+        {{adminService.text(existingCompany.name)}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button *ngIf="!company && !newCompany" mat-flat-button (click)="createNewCompany()">
+    {{adminService.text('Oder neue Firma erstellen')}}
+  </button>
+
+  <app-edit-company *ngIf="newCompany && company" [entry]="company" [user]="user" (onSave)="setCompany(company)" (onClose)="adminService.editUser = user" #editCompanyComponent></app-edit-company>
+
+</div>

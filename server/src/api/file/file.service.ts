@@ -4,6 +4,8 @@ import {Repository} from 'typeorm';
 import {File} from './file.entity';
 import {AppService} from "../../app.service";
 import {configService} from "../../config/config.service";
+import * as fs from 'fs';
+
 
 @Injectable()
 export class FileService {
@@ -31,14 +33,26 @@ export class FileService {
     }
 
     async uploadFile(file: any, res: any): Promise<any> {
-        console.log('uploadFile result', file);
-        return await this.appService.submit('test', file, configService.getSftpConnectionInfo()).then((result: string) => {
-            console.log('uploadFile result', result);
-            return res.status(HttpStatus.OK).json(result);
+        const completeFilePath = Date.now() + '_' + file.originalname;
+        await this.appService.submit(file.path, completeFilePath, configService.getSftpConnectionInfo()).then((result: string) => {
+            this.createDbFileFromUpload(completeFilePath, file, res);
+            fs.unlinkSync(file.path);
+            return
         }).catch((error: any) => {
-            console.log('uploadFile error', error);
             return res.status(HttpStatus.OK).json(error);
         });
+    }
+
+    async createDbFileFromUpload(completeFilePath: string, file: any, res: any): Promise<any> {
+        const stats = fs.statSync(file.path);
+        const fileSizeInBytes = stats.size;
+        const newFile = await this.createFile({
+            originalname: file.originalname,
+            mimetype: file.mimetype || undefined,
+            path: completeFilePath,
+            size: fileSizeInBytes
+        } as File);
+        res.status(HttpStatus.OK).json(newFile);
     }
 
 

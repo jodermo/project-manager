@@ -17,6 +17,8 @@ import {
 import { FileService } from './file.service';
 import { File } from './file.entity';
 import { AwsService } from '../../aws/aws.service';
+import {extname} from "path";
+import { diskStorage } from 'multer';
 
 @Controller('file')
 export class FileController {
@@ -42,7 +44,24 @@ export class FileController {
     }
 
     @Post('upload')
-    @UseInterceptors(FileInterceptor('file'))
+    @UseInterceptors(FileInterceptor(
+        'file',
+        {
+            storage: diskStorage(
+                {
+                    destination: './upload',
+                    filename: (req, file, cb) => {
+                        let fileName = Date.now() + '_';
+                        if (file.userId || file.userId === 0) {
+                            fileName = file.userId + '_' + fileName;
+                        }
+                        fileName += Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+                        return cb(null, `${fileName}${extname(file.originalname)}`);
+                    },
+                },
+            ),
+        },
+    ))
     uploadS3File(@Response() res: any, @UploadedFile() file: any) {
         this.logger.log('upload file: ' + file.originalname);
         return this.dataService.uploadFile(file, res);

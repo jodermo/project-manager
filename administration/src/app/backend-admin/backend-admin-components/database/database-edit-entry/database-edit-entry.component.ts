@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BackendAdminService } from '../../../backend-admin.service';
 import { NgApiEntity } from '../../../../../../../angular-classes/ng.api.entity';
 
@@ -23,7 +23,7 @@ export class DatabaseEditEntryComponent {
 
   @Input() entry?: NgApiEntity | any;
   @Output() onEntrySaved = new EventEmitter<NgApiEntity | any>();
-  @Output() onClose = new EventEmitter<any>();
+  @Output() onClose = new EventEmitter();
 
   constructor(public adminService: BackendAdminService) {
   }
@@ -32,14 +32,14 @@ export class DatabaseEditEntryComponent {
     return true;
   }
 
-  addNew(taskId?: number, locationId?: number) {
+  addNew(taskId?: number, poiId?: number) {
     if (this.apiRoute) {
       this.entry = new NgApiEntity(this.apiRoute, this.adminService);
       if (taskId) {
         this.entry.taskIds = [taskId];
       }
-      if (locationId) {
-        this.entry.locationId = locationId;
+      if (poiId) {
+        this.entry.poiId = poiId;
       }
       this.tabIndex = 0;
     }
@@ -75,11 +75,11 @@ export class DatabaseEditEntryComponent {
 
   cancel() {
     this.entry = undefined;
+    this.adminService.editUser = undefined;
     this.onClose.emit();
   }
 
   setData(data: any) {
-    console.log('setData', data);
     if (this.entry && data) {
       this.entry.setData(data);
     }

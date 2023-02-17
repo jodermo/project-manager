@@ -1,7 +1,7 @@
 <div class="file-container horizontal-flex" *ngIf="ready && file">
   <ng-container *ngIf="showMedia && fileType === 'image'">
     <div>
-      <app-image-preview [file]="file"></app-image-preview>
+      <img [src]="adminService.filePath(file)">
     </div>
   </ng-container>
   <ng-container *ngIf="!showMedia || fileType !== 'image'">
