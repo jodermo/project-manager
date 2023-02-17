@@ -12,13 +12,20 @@ import { LanguageModule } from './language/language.module';
 import { TranslationModule } from './translation/translation.module';
 import { AppSettingsModule } from './app-settings/app-settings.module';
 import { FrontendModule } from '../frontend/frontend.module';
-import { PoiModule } from './poi/poi.module';
+import { LocationModule } from './location/poi.module';
 import { MemoModule } from './memo/memo.module';
 import { TaskModule } from './task/task.module';
 import { UserGroupModule } from './user-group/user-group.module';
 import { UserRoleModule } from './user-role/user-role.module';
 import { CompanyModule } from './company/company.module';
 import { AttributeModule } from './attribute/attribute.module';
+import { ProjectModule } from './project/project.module';
+import { TeamModule } from './team/team.module';
+import { QuestionModule } from './question/question.module';
+import { AnswerModule } from './answer/answer.module';
+import { AddressModule } from './address/address.module';
+import { UserMessageModule } from './user-message/user-message.module';
+import { ProjectTemplateModule } from './project-template/project-template.module';
 
 
 
@@ -37,10 +44,17 @@ import { AttributeModule } from './attribute/attribute.module';
         TranslationModule,
         AppSettingsModule,
         FrontendModule,
-        PoiModule,
+        LocationModule,
         MemoModule,
         TaskModule,
-        AttributeModule
+        AttributeModule,
+        ProjectModule,
+        TeamModule,
+        QuestionModule,
+        AnswerModule,
+        AddressModule,
+        UserMessageModule,
+        ProjectTemplateModule
     ],
     controllers: [
         MailController,

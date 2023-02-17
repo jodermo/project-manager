@@ -1,12 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, ManyToOne} from 'typeorm';
+import {ApiEntity} from "../api.entity";
+import {User} from "../user/user.entity";
 
 @Entity('File')
-export class File {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class File extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 500})
     location: string;
@@ -17,8 +14,8 @@ export class File {
     @Column({nullable: true, default: null, length: 500})
     key: string;
 
-    @Column({nullable: true, default: null})
-    userId: number;
+    @ManyToOne(() => User)
+    user: User;
 
     @Column({nullable: true, default: null, length: 500})
     type: string;

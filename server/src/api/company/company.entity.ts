@@ -1,12 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, ManyToOne, OneToMany} from 'typeorm';
+import {ApiEntity} from "../api.entity";
+import {File} from "../file/file.entity";
+import {Address} from "../address/address.entity";
+import {Location} from "../location/location.entity";
+import {Project} from "../project/project.entity";
 
 @Entity()
-export class Company {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class Company extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 500, unique: false})
     name: string;
@@ -14,67 +14,24 @@ export class Company {
     @Column({nullable: true, default: 'company', length: 500, unique: false})
     type: string = 'company';
 
+    @ManyToOne(() => File)
+    logo:  File;
+
+    @ManyToOne(() => File)
+    image:  File;
+
     @Column({type: 'text', nullable: true, default: null})
     description: string;
 
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    email: string;
+    @ManyToOne(() => Address)
+    address: Address;
 
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    tel: string;
+    @ManyToOne(() => Address)
+    contact: Address;
 
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    fax: string;
+    @ManyToOne(() => Location)
+    location: Location;
 
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    website: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    street: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    streetNumber: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    postcode: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    city: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    country: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    state: string;
-
-    @Column({type: 'text', nullable: true, default: null})
-    additionalInfo: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    contactFirstName: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    contactLastName: string;
-
-    @Column({nullable: true, default: null, length: 500, unique: false})
-    contactEmail: string;
-
-    @Column({nullable: true, default: null})
-    userId: number = 0;
-
-    @Column({nullable: true, default: null})
-    poiId: number = 0;
-
-    @Column({nullable: true, default: null})
-    imageId: number = 0;
-
-    @Column({nullable: true, default: null})
-    locationImageId: number = 0;
-
-    @Column({type: 'text', nullable: true, default: '[]'})
-    imageIds = '[]';
-
-    @Column({type: 'text', nullable: true, default: '[]'})
-    fileIds = '[]';
-
+    @OneToMany(() => Project,(project) => project.company)
+    projects: Project[];
 }

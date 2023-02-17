@@ -1,12 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
+import {ApiEntity} from "../api.entity";
 
 @Entity()
-export class Language {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class Language extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 4, unique: true})
     iso: string;

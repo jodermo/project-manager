@@ -1,12 +1,10 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {ApiEntity} from "../api.entity";
+import {File} from "../file/file.entity";
 
 @Entity()
-export class Attribute {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class Attribute extends ApiEntity {
 
-    @Column({nullable: true, default: true})
-    active: boolean = true;
 
     @Column({nullable: true, length: 250, unique: false})
     route: string;
@@ -47,11 +45,11 @@ export class Attribute {
     @Column({nullable: true, default: null, length: 60, unique: false})
     icon: string;
 
-    @Column({nullable: true, default: null})
-    imageId: number = 0;
+    @ManyToOne(() => File)
+    image:  File;
 
-    @Column({nullable: true, default: null})
-    fileId: number = 0;
+    @ManyToOne(() => File)
+    file:  File;
 
     @Column({nullable: true, default: null, length: 60, unique: false})
     parentKey: string;

@@ -4,12 +4,15 @@ import {
     ManyToMany,
     ManyToOne
 } from 'typeorm';
+import {UserRole} from "../user-role/user-role.entity";
 import {ApiEntity} from "../api.entity";
 import {File} from "../file/file.entity";
-import {Question} from "../question/question.entity";
+import {Company} from "../company/company.entity";
+import { Task } from '../task/task.entity';
+import {Team} from "../team/team.entity";
 
 @Entity()
-export class Task extends ApiEntity {
+export class ProjectTemplate extends ApiEntity {
 
     @Column({nullable: false, default: 'default', length: 20, unique: false})
     type: string = 'default';
@@ -23,22 +26,11 @@ export class Task extends ApiEntity {
     @Column({type: 'text', nullable: true, default: null})
     details: string;
 
-    @ManyToMany(() => File)
-    images:  File[];
+    @ManyToOne(() => File)
+    image:  File[];
 
-    @ManyToMany(() => File)
-    files:  File[];
+    @ManyToMany(() => Task)
+    tasks: Task[];
 
-    @Column({type: 'datetime'})
-    startDate: Date;
-
-    @Column({type: 'datetime'})
-    endDate: Date;
-
-    @ManyToMany(() => Question, (question) => question.task)
-    questions: Question[];
-
-    @ManyToOne(() => Task, (task) => task.id)
-    nextTask: Task;
 }
 

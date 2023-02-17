@@ -7,14 +7,10 @@
  */
 
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {ApiEntity} from "../api.entity";
 
 @Entity()
-export class Mail {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class Mail extends ApiEntity  {
 
     @Column({nullable: true, default: null, length: 60})
     email: string;

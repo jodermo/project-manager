@@ -1,12 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column} from 'typeorm';
+import {ApiEntity} from "../api.entity";
 
 @Entity()
-export class UserRole {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class UserRole extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 60, unique: false})
     alias: string;

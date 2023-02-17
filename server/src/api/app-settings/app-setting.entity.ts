@@ -1,17 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {Entity, Column, ManyToOne} from 'typeorm';
+import {ApiEntity} from "../api.entity";
+import {Language} from "../language/language.entity";
 
 @Entity()
-export class AppSetting {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: true})
-    active: boolean = true;
+export class AppSetting extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 500, unique: false})
     name: string;
 
-    @Column({nullable: true, default: null})
-    defaultLanguageId: number = 0;
+    @ManyToOne(() => Language)
+    defaultLanguage: Language;
 
 }

@@ -14,8 +14,8 @@ export class TaskService {
 
     }
 
-    async create(poi: Task): Promise<Task> {
-        return this.repository.save(poi);
+    async create(task: Task): Promise<Task> {
+        return this.repository.save(task);
     }
 
     async findAll(): Promise<Task[]> {
@@ -33,8 +33,8 @@ export class TaskService {
     }
 
 
-    async update(id: number, poi: Task): Promise<any> {
-        await this.repository.update({id: id}, poi);
+    async update(id: number, task: Task): Promise<any> {
+        await this.repository.update({id: id}, task);
         return await this.repository.find({id: id});
     }
 

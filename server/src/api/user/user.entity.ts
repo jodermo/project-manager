@@ -1,14 +1,10 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany} from 'typeorm';
 import {UserRole} from "../user-role/user-role.entity";
 import {UserGroup} from "../user-group/user-group.entity";
+import {ApiEntity} from "../api.entity";
 
 @Entity()
-export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({nullable: true, default: false})
-    active: boolean = false;
+export class User extends ApiEntity {
 
     @Column({nullable: true, default: null, length: 50, unique: true})
     username: string;
@@ -22,10 +18,10 @@ export class User {
     @Column({nullable: true, default: null, length: 100})
     passwordHash: string | undefined;
 
-    @ManyToMany(() => UserGroup, (group) => group.id)
+    @ManyToMany(() => UserGroup)
     groups: UserGroup[];
 
-    @ManyToOne(() => UserRole, (userRole) => userRole.id)
-    userRole: UserRole;
+    @ManyToMany(() => UserRole)
+    roles: UserRole[];
 
 }
