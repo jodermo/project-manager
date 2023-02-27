@@ -32,8 +32,8 @@
         <p *ngIf="taskEntry.description">
           {{taskEntry.description}}
         </p>
-        <app-image-preview *ngIf="taskEntry.imageId" [id]="taskEntry.imageId"></app-image-preview>
-        <app-file-preview *ngIf="taskEntry.fileId" [id]="taskEntry.fileId"></app-file-preview>
+        <app-image-preview *ngIf="taskEntry.image" [id]="taskEntry.image"></app-image-preview>
+        <app-file-preview *ngIf="taskEntry.file" [id]="taskEntry.file"></app-file-preview>
         <app-sub-tasks-preview [task]="taskEntry" (clickSubTask)="setEditEntry($event, true)"></app-sub-tasks-preview>
       </mat-card-content>
 
@@ -45,14 +45,6 @@
           </mat-slide-toggle>
         </div>
         <span class="spacer"></span>
-        <button *ngIf="taskEntry.type === 'ar-model'" mat-icon-button (click)="showArModel = !showArModel"
-                [disabled]="!taskEntry.arModelId">
-          <mat-icon *ngIf="!showArModel">visibility</mat-icon>
-          <mat-icon *ngIf="showArModel">visibility_off</mat-icon>
-        </button>
-        <button *ngIf="taskEntry.locationId" mat-icon-button (click)="showLocation = !showLocation" [disabled]="!taskEntry.id">
-          <mat-icon>map</mat-icon>
-        </button>
         <button mat-icon-button (click)="deleteEntry(taskEntry);" [disabled]="!taskEntry.id">
           <mat-icon>delete</mat-icon>
         </button>

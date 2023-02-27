@@ -1,1 +1,12 @@
-<app-calendar></app-calendar>
+<mat-toolbar color="primary" class="content-page-header" *ngIf="adminService.dashboard.page">
+  <mat-icon class="margin-right"
+            *ngIf="adminService.dashboard.page.icon">{{adminService.dashboard.page.icon}}</mat-icon>
+  <span>
+    {{adminService.text(adminService.dashboard.page.name)}}
+  </span>
+</mat-toolbar>
+<div class="calendar-view horizontal-flex">
+    <app-project-calendar [projects]="adminService.projects"></app-project-calendar>
+</div>
+
+<!--<app-project-calendar-event></app-project-calendar-event>-->

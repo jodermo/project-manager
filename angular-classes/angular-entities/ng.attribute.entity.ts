@@ -63,9 +63,9 @@ export class NgAttributeEntity extends NgApiEntity {
 
     icon: string = '';
 
-    imageId: number = 0;
+    image: number = 0;
 
-    fileId: number = 0;
+    file: number = 0;
 
     parentKey: string = '';
 

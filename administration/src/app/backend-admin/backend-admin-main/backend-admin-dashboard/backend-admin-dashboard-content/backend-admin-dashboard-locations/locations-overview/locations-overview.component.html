@@ -11,8 +11,8 @@
         <span class="spacer"></span>
       </mat-card-title>
       <mat-card-content>
-        <div *ngIf="location.imageId">
-          <app-image-preview *ngIf="location.imageId" [id]="location.imageId"></app-image-preview>
+        <div *ngIf="location.image">
+          <app-image-preview *ngIf="location.image" [id]="location.image"></app-image-preview>
         </div>
         <p *ngIf="location.description">
           {{location.description}}
@@ -28,16 +28,16 @@
               <th>{{adminService.text('Longitude')}}</th>
               <td><i>{{location.longitude}}</i></td>
             </tr>
-            <tr *ngIf="location.markerImageId">
+            <tr *ngIf="location.markerImage">
               <th>{{adminService.text('Marker Image')}}</th>
               <td>
-                <app-image-preview *ngIf="location.markerImageId" [id]="location.markerImageId"></app-image-preview>
+                <app-image-preview *ngIf="location.markerImage" [id]="location.markerImage"></app-image-preview>
               </td>
             </tr>
             </tbody>
           </table>
 
-          <app-file-preview *ngIf="location.fileId" [id]="location.fileId"></app-file-preview>
+
         </div>
 
         <div *ngIf="location.id && showMap[location.id]">

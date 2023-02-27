@@ -54,13 +54,13 @@ export class TaskOverviewComponent extends TaskDatabaseTableComponent {
     this.initOverview();
 
     if (this.task?.id) {
-      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => task.parentId === this.task?.id);
+      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => task.nextTask === this.task?.id);
       this.editComponent = this.adminService.editTaskComponent;
     } else if (this.entry && this.fieldKey && (this.entry as any)[this.fieldKey]) {
-      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => this.fieldKey ? task.parentId === (this.entry as any)[this.fieldKey] : false);
+      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => this.fieldKey ? task.nextTask === (this.entry as any)[this.fieldKey] : false);
       this.editComponent = this.adminService.editTaskComponent;
     } else {
-      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => !task.parentId);
+      this.entries = this.adminService.apiData['task'].filter((task: NgTaskEntity) => !task.nextTask);
     }
     this.initData(this.entries);
     this.ready = true;

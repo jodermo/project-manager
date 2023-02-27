@@ -68,22 +68,7 @@ export class BackendAdminDashboardTasksComponent extends DatabaseDashboardCompon
     }
 
     this.initData(this.tasks);
-    if (this.location) {
-      this.tasks.filter(task => {
-        let exist = false;
-        if (task.locationIds?.length) {
-          if (task.locationIds.find((taskId: number) => taskId === this.task?.id) !== undefined) {
-            exist = true;
-          }
-        }
-        if (task.locationId) {
-          if (task.locationId === this.location?.id) {
-            exist = true;
-          }
-        }
-        return exist;
-      })
-    }
+
     this.applyFilter();
     setTimeout(() => {
       this.ready = true;

@@ -73,7 +73,7 @@
 
         <div class="vertical-flex">
           <div class="flex-item">
-            <app-image-upload *ngIf="editable && editLocation.id" [entry]="editLocation" [fieldKey]="'markerImageId'"
+            <app-image-upload *ngIf="editable && editLocation.id" [entry]="editLocation" [fieldKey]="'markerImage'"
                               [label]="adminService.text('Marker Image')"></app-image-upload>
           </div>
           <div>
@@ -130,7 +130,7 @@
 
         <div class="vertical-flex">
           <div class="flex-item">
-            <app-image-upload *ngIf="editable && location.id" [entry]="location" [fieldKey]="'markerImageId'"
+            <app-image-upload *ngIf="editable && location.id" [entry]="location" [fieldKey]="'markerImage'"
                               [label]="adminService.text('Marker Image')"></app-image-upload>
           </div>
           <div>

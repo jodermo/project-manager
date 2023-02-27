@@ -3,14 +3,14 @@ import {NgApiAttributeEntity} from '../ng.api-attribute.entity';
 
 export class NgLocationEntity extends NgApiAttributeEntity {
 
-    poiTypeId: number = 0;
+    poiType: number = 0;
     name: string = '';
     description: string = '';
     latitude: number = 0;
     longitude: number = 0;
-    imageId: number = 0;
-    markerImageId: number = 0;
-    locationPreviewImageId: number = 0;
+    image: number = 0;
+    markerImage: number = 0;
+    locationPreviewImage: number = 0;
     fileId: number = 0;
     imageIds: any = [];
     fileIds: any = [];

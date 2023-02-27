@@ -22,7 +22,7 @@ export class SubTasksPreviewComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.task?.id) {
-      this.subTasks = this.adminService.apiData['task'].filter((task: NgTaskEntity) => task.parentId === this.task?.id);
+      this.subTasks = this.adminService.apiData['task'].filter((task: NgTaskEntity) => task.nextTask === this.task?.id);
     }
     this.ready = true;
   }

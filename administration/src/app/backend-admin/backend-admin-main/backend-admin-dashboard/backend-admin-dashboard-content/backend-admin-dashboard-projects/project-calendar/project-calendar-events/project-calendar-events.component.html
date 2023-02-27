@@ -1,0 +1,129 @@
+<div class="example-action-buttons">
+  <button *ngIf="accordion" mat-button (click)="accordion.openAll()">Expand All</button>
+  <button *ngIf="accordion" mat-button (click)="accordion.closeAll()">Collapse All</button>
+  <button mat-icon-button (click)="addEvent()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel *ngFor="let event of calendar.events" [expanded]="calendar.currentEvent === event">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="flex-item">
+        <span *ngIf="event.start">
+           {{adminService.date(event.start)}}
+        </span>
+        <span> - </span>
+        <span *ngIf="event.end">
+           {{adminService.date(event.end)}}
+        </span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="event.title">
+              {{adminService.text(event.title)}}
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="event.title"
+          (keyup)="calendar.refresh.next(undefined)"
+        />
+      </mat-form-field>
+
+      <div class="horizontal-flex">
+        <div class="flex-item">
+          <mat-form-field appearance="fill">
+            <mat-label>Start</mat-label>
+            <input
+              matInput
+              class="form-control"
+              type="text"
+              mwlFlatpickr
+              [(ngModel)]="event.start"
+              (ngModelChange)="calendar.refresh.next(undefined)"
+              [altInput]="true"
+              [convertModelValue]="true"
+              [enableTime]="true"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Not set"
+            />
+            <mat-datepicker #pickerStart></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="flex-item">
+          <mat-form-field appearance="fill">
+            <mat-label>End</mat-label>
+            <input
+              matInput [matDatepicker]="pickerEnd"
+              [(ngModel)]="event.end"
+              (ngModelChange)="calendar.refresh.next(undefined)"
+              dateFormat="Y-m-dTH:i"
+              altFormat="F j, Y H:i"
+              placeholder="Start Date"
+            />
+            <mat-datepicker #pickerEnd></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="horizontal-flex" *ngIf="event.color">
+        <div class="flex-item">
+          <mat-form-field appearance="fill">
+            <mat-label>Primary Color</mat-label>
+            <input
+              type="color"
+              matInput
+              [(ngModel)]="event.color.primary"
+              (ngModelChange)="event.color.primary = $event"
+              (change)="calendar.refresh.next(undefined)"
+            />
+          </mat-form-field>
+        </div>
+        <div class="flex-item">
+          <mat-form-field appearance="fill">
+            <mat-label>Secondary Color</mat-label>
+            <input
+              type="color"
+              matInput
+              [(ngModel)]="event.color.secondary"
+              (ngModelChange)="event.color.secondary = $event"
+              (change)="calendar.refresh.next(undefined)"
+            />
+          </mat-form-field>
+        </div>
+        <div class="flex-item">
+          <mat-form-field appearance="fill" *ngIf="event.color">
+            <mat-label>Secondary Text Color</mat-label>
+            <input
+              matInput
+              type="color"
+              [ngModel]="event.color.secondaryText ?? '#1e90ff'"
+              (ngModelChange)="event.color.secondaryText = $event"
+              (change)="calendar.refresh.next(undefined)"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="horizontal-flex">
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="saveEvent(event)">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteEvent(event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+
+  </mat-expansion-panel>
+</mat-accordion>
+

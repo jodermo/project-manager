@@ -1,6 +1,6 @@
 import {BackendAdminService} from "./backend-admin.service";
 
-export const BackendAdminPages =  (adminService: BackendAdminService)=>{
+export const BackendAdminPages = (adminService: BackendAdminService) => {
   return [
     {
       name: 'Dashboard',
@@ -23,7 +23,16 @@ export const BackendAdminPages =  (adminService: BackendAdminService)=>{
     {
       name: 'Tasks',
       icon: 'ballot',
-      options: [],
+      options: [
+        {
+          name: 'Project Templates',
+          icon: 'ballot',
+        },
+        {
+          name: 'Tasks',
+          icon: 'ballot',
+        },
+      ],
       menu: () => {
         return true;
       },

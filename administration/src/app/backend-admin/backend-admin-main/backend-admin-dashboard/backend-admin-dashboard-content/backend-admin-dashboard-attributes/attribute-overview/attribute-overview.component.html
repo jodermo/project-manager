@@ -21,7 +21,7 @@
       </mat-card-title>
       <mat-card-content>
         <app-database-attribute [attribute]="attribute" [editable]="false"></app-database-attribute>
-        <app-image-preview *ngIf="attribute.imageId" [id]="attribute.imageId"></app-image-preview>
+        <app-image-preview *ngIf="attribute.image" [id]="attribute.image"></app-image-preview>
 
       </mat-card-content>
 

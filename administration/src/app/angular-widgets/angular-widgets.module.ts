@@ -16,6 +16,10 @@ import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {FlatpickrModule} from "angularx-flatpickr";
+import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
+import {MatCardModule} from "@angular/material/card";
+import { CalendarEventsComponent } from './calendar/calendar-events/calendar-events.component';
+import { CalendarEventComponent } from './calendar/calendar-events/calendar-event/calendar-event.component';
 
 
 @NgModule({
@@ -23,7 +27,9 @@ import {FlatpickrModule} from "angularx-flatpickr";
     IconSelectComponent,
     CarouselComponent,
     MarkerPreviewComponent,
-    CalendarComponent
+    CalendarComponent,
+    CalendarEventsComponent,
+    CalendarEventComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +39,8 @@ import {FlatpickrModule} from "angularx-flatpickr";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatCardModule,
     FormsModule,
     MatIconModule,
     MatSelectModule,
@@ -49,7 +57,9 @@ import {FlatpickrModule} from "angularx-flatpickr";
   exports: [
     IconSelectComponent,
     MarkerPreviewComponent,
-    CalendarComponent
+    CalendarComponent,
+    CalendarEventsComponent,
+    CalendarEventComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

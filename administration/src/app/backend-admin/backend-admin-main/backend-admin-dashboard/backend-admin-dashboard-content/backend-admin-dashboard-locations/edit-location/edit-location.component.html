@@ -65,13 +65,13 @@
 
             </div>
 
-            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'imageId'"  [label]="adminService.text('Location Image')"
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'image'"  [label]="adminService.text('Location Image')"
                               (onChange)="setData($event)"></app-image-upload>
 
-            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'markerImageId'"  [label]="adminService.text('Marker Image')"
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'markerImage'"  [label]="adminService.text('Marker Image')"
                               (onChange)="setData($event)"></app-image-upload>
 
-            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'locationPreviewImageId'" [label]="adminService.text('Location Preview')"
+            <app-image-upload *ngIf="entry.id" [entry]="entry" [fieldKey]="'locationPreviewImage'" [label]="adminService.text('Location Preview')"
                               (onChange)="setData($event)"></app-image-upload>
 
           </mat-tab>

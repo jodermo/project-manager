@@ -204,12 +204,12 @@ export class DatabaseTableFieldLocationEntryComponent implements OnInit {
   getMarkerSource() {
     this.markerSrc = undefined;
     setTimeout(() => {
-      if (this.location && this.location.markerImageId) {
-        const file = this.adminService.getFileById(this.location.markerImageId);
+      if (this.location && this.location.markerImage) {
+        const file = this.adminService.getFileById(this.location.markerImage);
         this.markerSrc = this.adminService.filePath(file);
       }
-      if (this.editLocation && this.editLocation.markerImageId) {
-        const file = this.adminService.getFileById(this.editLocation.markerImageId);
+      if (this.editLocation && this.editLocation.markerImage) {
+        const file = this.adminService.getFileById(this.editLocation.markerImage);
         this.editMarkerSrc = this.adminService.filePath(file);
       }
       console.log('getMarkerSource', this.markerSrc, this.editMarkerSrc);

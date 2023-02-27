@@ -27,6 +27,18 @@ export class Project extends ApiEntity {
     @Column({type: 'text', nullable: true, default: null})
     details: string;
 
+    @Column({type: 'text', nullable: true, default: '#ff0000'})
+    primaryColor: string;
+
+    @Column({type: 'text', nullable: true, default: '#FAE3E3'})
+    secondaryColor: string;
+
+    @Column({type: 'text', nullable: true, default: '#000000'})
+    secondaryTextColor: string;
+
+    @Column({nullable: true, default: true})
+    allDay: boolean = true;
+
     @ManyToOne(() => Company, (company) => company.projects)
     company: Company;
 
@@ -39,7 +51,7 @@ export class Project extends ApiEntity {
     @Column({type: 'timestamptz'})
     startDate: Date;
 
-    @Column({type: 'timestamptz'})
+    @Column({type: 'timestamptz', nullable: true,})
     endDate: Date;
 
     @ManyToMany(() => Team)

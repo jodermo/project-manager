@@ -6,8 +6,7 @@ import {NgAppSettingsEntity} from '../../../../angular-classes/angular-entities/
 import {NgLanguageEntity} from '../../../../angular-classes/angular-entities/ng.language.entity';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
-  NgMainTaskTypes, NgSubTaskTypes,
-  NgTaskArModelTypes,
+  NgSubTaskTypes,
   NgTaskEntity,
   NgTaskTypes
 } from '../../../../angular-classes/angular-entities/ng.task.entity';
@@ -34,6 +33,7 @@ import {
 import {NgAttributeTypes} from "../../../../angular-classes/angular-entities/ng.attribute.entity";
 import {NgAddressEntity} from "../../../../angular-classes/angular-entities/ng.address.entity";
 import {BackendAdminPages} from "./backend-admin.pages";
+import {NgProjectEntity} from "../../../../angular-classes/angular-entities/ng.project.entity";
 
 export class BackendAdminError {
   time = 0;
@@ -113,10 +113,8 @@ export class BackendAdminService extends NgUserService {
   private mapComponent?: LocationsMapComponent;
   mapLayers: MapLayer[] = [];
   taskTypes = NgTaskTypes;
-  mainTaskTypes = NgMainTaskTypes;
   subTaskTypes = NgSubTaskTypes;
   companyTypes = NgCompanyTypes;
-  arModelTypes = NgTaskArModelTypes;
   configVisible = false;
   editCompanyComponent?: EditCompanyComponent;
   editFileComponent?: EditFileComponent;
@@ -141,6 +139,8 @@ export class BackendAdminService extends NgUserService {
     {value: 'Mrs.', label: 'Mrs.'},
     {value: 'Diverse', label: 'Diverse'}
   ];
+  projects: NgProjectEntity[] = [];
+
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
@@ -162,6 +162,7 @@ export class BackendAdminService extends NgUserService {
     }
     setTimeout(() => {
       this.loadData();
+      this.loadProjects();
     }, 0);
   }
 
@@ -218,6 +219,7 @@ export class BackendAdminService extends NgUserService {
     }, 0);
 
   }
+
   deleteFile(file: NgFileEntity, onSuccess?: () => void, onError?: (error: any) => void) {
     if (confirm('Bist du dir sicher?')) {
       file.delete(() => {
@@ -235,12 +237,12 @@ export class BackendAdminService extends NgUserService {
   }
 
   mainTasks(tasks = this.apiData.task) {
-    return tasks?.filter((task: NgTaskEntity) => !task.parentId);
+    return tasks?.filter((task: NgTaskEntity) => !task.nextTask);
   }
 
   subTasks(task: NgTaskEntity, tasks = this.apiData.task): NgTaskEntity[] {
     if (task.id) {
-      return tasks.filter((subTask: NgTaskEntity) => subTask.parentId === task.id);
+      return tasks.filter((subTask: NgTaskEntity) => subTask.nextTask === task.id);
     }
     return [];
   }
@@ -334,7 +336,6 @@ export class BackendAdminService extends NgUserService {
       }
     }, onError);
   }
-
 
 
   downloadFile(file: NgFileEntity) {
@@ -451,7 +452,7 @@ export class BackendAdminService extends NgUserService {
   addNewTask(parentNode?: NgTaskEntity) {
     const newTask = new NgTaskEntity(this);
     if (parentNode?.id) {
-      newTask.parentId = parentNode.id;
+      newTask.nextTask = parentNode.id;
     }
     this.editTask = newTask;
   }
@@ -468,5 +469,25 @@ export class BackendAdminService extends NgUserService {
 
   getAddressById(addressId: number) {
     return undefined;
+  }
+
+  loadProjects(onDone?: () => void) {
+    this.get('project', (results: any) => {
+      this.projects = [];
+      if (results?.length) {
+        for (const result of results) {
+          const project = new NgProjectEntity(this).setData(result);
+          this.projects.push(project);
+        }
+        this.projects = this.sortData(this.projects, 'startDate');
+      }
+      if (onDone) {
+        onDone();
+      }
+    }, () => {
+      if (onDone) {
+        onDone();
+      }
+    });
   }
 }

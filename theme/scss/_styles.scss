@@ -14,9 +14,171 @@
   hyphens: auto;
 }
 
+.mat-accordion {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .mat-form-field-infix {
+    max-width: 100%;
+  }
+
+  .mat-form-field {
+    max-width: 100%;
+  }
+
+  .horizontal-flex {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .mat-expansion-panel {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    display: inline-block;
+    box-sizing: border-box;
+
+    .mat-expansion-panel-header {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      display: inline-flex;
+      box-sizing: border-box;
+    }
+
+    .mat-expansion-panel-content {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+
+      .mat-expansion-panel-body {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+
+        & > div {
+          position: relative;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .flex-item {
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
+
 html.a-fullscreen {
   width: 100%;
   height: 100%;
+}
+
+app-backend-admin-dashboard-projects {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+app-calendar, app-project-calendar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .calendar-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 100%;
+
+
+    .mat-card-content {
+      position: relative;
+      flex: 1;
+      max-height: 100%;
+      overflow: hidden;
+      transition: all .25s ease;
+
+      .calendar-content {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        transition: all .25s ease;
+
+        .scrollable {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow-x: hidden;
+          overflow-y: auto;
+          transition: all .25s ease;
+        }
+      }
+
+    }
+  }
+
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.calendar-view {
+  flex: 1;
+}
+
+app-calendar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.modal-backdrop, .modal, app-project-calendar-event {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  pointer-events: none;
+
+  & > * {
+    pointer-events: all;
+  }
+
+  .modal-card {
+    max-width: $modal-width;
+  }
 }
 
 .game-question-location-select {
@@ -113,6 +275,7 @@ body {
   line-height: $line-height-default;
   font-weight: $font-weight-normal;
   touch-action: none;
+
   * {
     font-family: $font-family-default;
   }
@@ -1518,11 +1681,13 @@ app-distance-search, .apply-form-wrapper, .video-sharing-wrapper, .contact-form-
 
 .sidebar-list {
   box-sizing: border-box;
+
   .mat-list-item {
     font-weight: bold;
     transition: background-color $animation-time-fast ease;
     cursor: pointer;
     box-sizing: border-box;
+
     &.active {
       background: $color-secondary;
       cursor: default;

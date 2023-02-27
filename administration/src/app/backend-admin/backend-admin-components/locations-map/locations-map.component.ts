@@ -321,7 +321,7 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
     if (this.locations) {
       for (const location of this.locations) {
         if (!this.mapLocations.find(mapLocation => location === mapLocation.dataLocation)) {
-          const image = this.adminService.getFileById(location.markerImageId);
+          const image = this.adminService.getFileById(location.markerImage);
           const iconPath = image && this.adminService.filePath(image) ? this.adminService.filePath(image) : '/assets/images/marker/Drachen_point_small_48.png';
           const mapLocation = new MapLocation(
             location.name,

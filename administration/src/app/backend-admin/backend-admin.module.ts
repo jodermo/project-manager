@@ -209,12 +209,41 @@ import {
   EditUserCompanyComponent
 } from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-users/edit-user/edit-user-company/edit-user-company.component";
 import {AddressComponent} from "./backend-admin-components/address/address.component";
-import { BackendAdminDashboardTeamsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-teams/backend-admin-dashboard-teams.component';
-import { BackendAdminDashboardUserRolesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-roles/backend-admin-dashboard-user-roles.component';
-import { BackendAdminDashboardUserGroupsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-groups/backend-admin-dashboard-user-groups.component';
-import { BackendAdminDashboardAddressesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-addresses/backend-admin-dashboard-addresses.component';
-import { BackendAdminDashboardProjectsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/backend-admin-dashboard-projects.component';
-import { BackendAdminDashboardDataComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-data/backend-admin-dashboard-data.component';
+import {
+  BackendAdminDashboardTeamsComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-teams/backend-admin-dashboard-teams.component';
+import {
+  BackendAdminDashboardUserRolesComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-roles/backend-admin-dashboard-user-roles.component';
+import {
+  BackendAdminDashboardUserGroupsComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-user-groups/backend-admin-dashboard-user-groups.component';
+import {
+  BackendAdminDashboardAddressesComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-addresses/backend-admin-dashboard-addresses.component';
+import {
+  BackendAdminDashboardProjectsComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/backend-admin-dashboard-projects.component';
+import {
+  BackendAdminDashboardDataComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-data/backend-admin-dashboard-data.component';
+import {
+  BackendAdminDashboardContentTasksComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-tasks/backend-admin-dashboard-content-tasks.component';
+import {
+  ProjectCalendarComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/project-calendar/project-calendar.component';
+import {
+  ProjectCalendarEventsComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/project-calendar/project-calendar-events/project-calendar-events.component';
+import {
+  ProjectCalendarEventComponent
+} from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/project-calendar/project-calendar-events/project-calendar-event/project-calendar-event.component';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {FlatpickrModule} from "angularx-flatpickr";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -297,7 +326,11 @@ import { BackendAdminDashboardDataComponent } from './backend-admin-main/backend
     BackendAdminDashboardUserGroupsComponent,
     BackendAdminDashboardAddressesComponent,
     BackendAdminDashboardProjectsComponent,
-    BackendAdminDashboardDataComponent
+    BackendAdminDashboardDataComponent,
+    BackendAdminDashboardContentTasksComponent,
+    ProjectCalendarComponent,
+    ProjectCalendarEventsComponent,
+    ProjectCalendarEventComponent
   ],
   imports: [
     CommonModule,
@@ -333,7 +366,15 @@ import { BackendAdminDashboardDataComponent } from './backend-admin-main/backend
     NgxDropzoneModule,
     ActiveReportsModule,
     MatSlideToggleModule,
-    D3ChartModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    D3ChartModule,
+    CalendarModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   exports: [
     BackendAdminComponent,
@@ -347,5 +388,5 @@ import { BackendAdminDashboardDataComponent } from './backend-admin-main/backend
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class BackendAdminModule{
+export class BackendAdminModule {
 }

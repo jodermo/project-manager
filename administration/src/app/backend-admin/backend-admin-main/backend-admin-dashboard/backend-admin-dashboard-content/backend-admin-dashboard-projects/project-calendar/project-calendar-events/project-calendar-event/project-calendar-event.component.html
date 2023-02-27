@@ -1,0 +1,34 @@
+
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-body">
+    <mat-card class="modal-card">
+      <mat-card-title>
+        <span>Event action occurred</span>
+        <span class="spacer"></span>
+        <div>
+          <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <div>
+          Action:
+          <pre>{{ calendar.modalData?.action }}</pre>
+        </div>
+        <div>
+          Event:
+          <pre>{{ calendar.modalData?.event | json }}</pre>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button (click)="close()">
+          OK
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-template>
+
+

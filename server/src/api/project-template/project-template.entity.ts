@@ -4,12 +4,9 @@ import {
     ManyToMany,
     ManyToOne
 } from 'typeorm';
-import {UserRole} from "../user-role/user-role.entity";
 import {ApiEntity} from "../api.entity";
 import {File} from "../file/file.entity";
-import {Company} from "../company/company.entity";
 import { Task } from '../task/task.entity';
-import {Team} from "../team/team.entity";
 
 @Entity()
 export class ProjectTemplate extends ApiEntity {

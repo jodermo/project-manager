@@ -522,6 +522,14 @@ export class NgApiService {
         return this;
     }
 
+    date(date: any){
+        return new Date(date).toLocaleDateString();
+    }
+
+    dateTime(date: any){
+        return new Date(date).toLocaleTimeString();
+    }
+
     dayByIndex(index: number) {
         return CalendarDays.find(weekDay => weekDay.index === index);
     }
