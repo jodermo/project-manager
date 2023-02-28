@@ -244,6 +244,23 @@ import {FlatpickrModule} from "angularx-flatpickr";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { BackendAdminDashboardProjectTemplatesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-project-templates/backend-admin-dashboard-project-templates.component';
+import {
+    ProjectTemplateOverviewComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-project-templates/project-template-overview/project-template-overview.component";
+import {
+  EditProjectTemplateComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-project-templates/edit-project-template/edit-project-template.component";
+import {
+  ProjectTemplateDatabaseTableComponent
+} from "./backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-project-templates/project-template-database-table/project-template-database-table.component";
+import { BackendAdminDashboardContentProjectsComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-projects/backend-admin-dashboard-content-projects.component';
+import { BackendAdminDashboardAccountComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-account/backend-admin-dashboard-account.component';
+import { BackendAdminDashboardContentCompaniesComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-content-companies/backend-admin-dashboard-content-companies.component';
+import { CompanyMapComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-companies/company-map/company-map.component';
+import { ProjectMapComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-projects/project-map/project-map.component';
+import { TeamsTableComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-teams/teams-table/teams-table.component';
+import { EditTeamComponent } from './backend-admin-main/backend-admin-dashboard/backend-admin-dashboard-content/backend-admin-dashboard-teams/edit-team/edit-team.component';
 
 @NgModule({
   declarations: [
@@ -330,7 +347,18 @@ import {MatNativeDateModule} from "@angular/material/core";
     BackendAdminDashboardContentTasksComponent,
     ProjectCalendarComponent,
     ProjectCalendarEventsComponent,
-    ProjectCalendarEventComponent
+    ProjectCalendarEventComponent,
+    BackendAdminDashboardProjectTemplatesComponent,
+    ProjectTemplateOverviewComponent,
+    EditProjectTemplateComponent,
+    ProjectTemplateDatabaseTableComponent,
+    BackendAdminDashboardContentProjectsComponent,
+    BackendAdminDashboardAccountComponent,
+    BackendAdminDashboardContentCompaniesComponent,
+    CompanyMapComponent,
+    ProjectMapComponent,
+    TeamsTableComponent,
+    EditTeamComponent
   ],
   imports: [
     CommonModule,

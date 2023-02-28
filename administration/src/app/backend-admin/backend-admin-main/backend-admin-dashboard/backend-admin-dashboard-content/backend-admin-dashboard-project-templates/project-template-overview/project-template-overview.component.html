@@ -1,0 +1,59 @@
+<div *ngIf="showPaginator">
+  <mat-toolbar class="white no-padding">
+    <button mat-icon-button (click)="newEntry()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" aria-label="Select page" #paginator></mat-paginator>
+  </mat-toolbar>
+</div>
+<h2 *ngIf="!renderData">no render data</h2>
+<div class="project-template-list card-list" *ngIf="ready && renderData && renderData.length">
+  <div class="project-template-list-item card-list-item" *ngFor="let projectTemplateEntry of renderData">
+    <mat-card class="project-template-card card-list-card">
+      <mat-card-title (click)="setEditEntry(projectTemplateEntry)">
+        <span class="icon-box margin-right">
+          <mat-icon>not_listed_location</mat-icon>
+        </span>
+        <div class="vertical-flex">
+          <span *ngIf="projectTemplateEntry.title">
+            {{adminService.text(projectTemplateEntry.title)}}
+          </span>
+          <sub><sup>
+            <small><i>{{adminService.text(projectTemplateEntry.type)}}</i></small>
+          </sup></sub>
+        </div>
+
+        <span *ngIf="!projectTemplateEntry.title">{{projectTemplateEntry.id}}</span>
+
+        <span class="spacer"></span>
+      </mat-card-title>
+      <mat-card-content>
+        <p *ngIf="projectTemplateEntry.description">
+          {{projectTemplateEntry.description}}
+        </p>
+        <app-image-preview *ngIf="projectTemplateEntry.image" [id]="projectTemplateEntry.image"></app-image-preview>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="projectTemplateEntry.active"
+                            (change)="adminService.toggleEntry(projectTemplateEntry, $event)">
+            {{projectTemplateEntry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="deleteEntry(projectTemplateEntry);" [disabled]="!projectTemplateEntry.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="setEditEntry(projectTemplateEntry)" [disabled]="!projectTemplateEntry.id">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div *ngIf="ready && renderData && !renderData.length && filterInput" class="filter-error">
+  {{adminService.text('No data matching the filter')}} "{{filterInput.value}}"
+</div>
+

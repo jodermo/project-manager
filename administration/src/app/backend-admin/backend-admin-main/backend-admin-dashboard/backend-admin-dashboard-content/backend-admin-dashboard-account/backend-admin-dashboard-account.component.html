@@ -1,0 +1,13 @@
+<div class="full-height">
+  <mat-card class="full-card" *ngIf="adminService.user">
+    <mat-card-title>{{adminService.user.username}}</mat-card-title>
+    <mat-card-content>
+      <b>{{adminService.user.email}}</b>
+    </mat-card-content>
+    <mat-card-actions align="start">
+      <button mat-flat-button (click)="adminService.logout();">
+        <mat-icon>logout</mat-icon> <span>{{adminService.text('Logout')}}</span>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

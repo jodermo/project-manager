@@ -24,7 +24,10 @@ export class ProjectTemplate extends ApiEntity {
     details: string;
 
     @ManyToOne(() => File)
-    image:  File[];
+    image:  File;
+
+    @ManyToMany(() => File)
+    images:  File[];
 
     @ManyToMany(() => Task)
     tasks: Task[];

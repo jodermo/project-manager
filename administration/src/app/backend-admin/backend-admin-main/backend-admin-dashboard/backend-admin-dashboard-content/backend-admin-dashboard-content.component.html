@@ -6,20 +6,21 @@
   >
   </app-backend-admin-dashboard-content-dashboard>
 
-  <app-backend-admin-dashboard-projects
+  <app-backend-admin-dashboard-content-projects
     class="dashboard-content"
     *ngIf="adminService.dashboard.page.name === 'Projects'">
-  </app-backend-admin-dashboard-projects>
+  </app-backend-admin-dashboard-content-projects>
 
   <app-backend-admin-dashboard-content-tasks
     class="dashboard-content"
     *ngIf="adminService.dashboard.page.name === 'Tasks'">
   </app-backend-admin-dashboard-content-tasks>
 
-  <app-backend-admin-dashboard-companies
+  <app-backend-admin-dashboard-content-companies
     class="dashboard-content"
     *ngIf="adminService.dashboard.page.name === 'Companies'">
-  </app-backend-admin-dashboard-companies>
+  </app-backend-admin-dashboard-content-companies>
+
   <app-backend-admin-dashboard-content-users
     class="dashboard-content"
     *ngIf="adminService.dashboard.page.name === 'Users'">

@@ -13,6 +13,20 @@ export const BackendAdminPages = (adminService: BackendAdminService) => {
     {
       name: 'Projects',
       icon: 'work',
+      options: [
+        {
+          name: 'Calendar',
+          icon: 'event',
+        },
+        {
+          name: 'Map',
+          icon: 'map',
+        },
+        {
+          name: 'Project Insights',
+          icon: 'show_chart',
+        },
+      ],
       menu: () => {
         return true;
       },
@@ -25,12 +39,12 @@ export const BackendAdminPages = (adminService: BackendAdminService) => {
       icon: 'ballot',
       options: [
         {
-          name: 'Project Templates',
+          name: 'Tasks',
           icon: 'ballot',
         },
         {
-          name: 'Tasks',
-          icon: 'ballot',
+          name: 'Project Templates',
+          icon: 'device_unknown',
         },
       ],
       menu: () => {
@@ -43,7 +57,16 @@ export const BackendAdminPages = (adminService: BackendAdminService) => {
     {
       name: 'Companies',
       icon: 'business',
-      options: [],
+      options: [
+        {
+          name: 'Companies',
+          icon: 'contact_mail',
+        },
+        {
+          name: 'Map',
+          icon: 'map',
+        }
+      ],
       menu: () => {
         return true;
       },

@@ -12,6 +12,14 @@ import {DefaultTranslation} from '../translations/default.translation';
 import {NgAppSettingsEntity} from "./angular-entities/ng.app-settings.entity";
 import {NgAttributeEntity} from "./angular-entities/ng.attribute.entity";
 import {NgLocationEntity} from "./angular-entities/ng.location.entity";
+import {NgProjectTemplateEntity} from "./angular-entities/ng.project-template.entity";
+import {NgProjectEntity} from "./angular-entities/ng.project.entity";
+import {NgAddressEntity} from "./angular-entities/ng.address.entity";
+import {NgUserRoleEntity} from "./angular-entities/ng.user-role.entity";
+import {NgTeamEntity} from "./angular-entities/ng.team.entity";
+import {NgQuestionEntity} from "./angular-entities/ng.question.entity";
+import {NgAnswerEntity} from "./angular-entities/ng.answer.entity";
+import {NgUserMessageEntity} from "./angular-entities/ng.user-message.entity";
 
 
 export const XMLHttpRequestMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
@@ -239,6 +247,15 @@ export class NgApiService {
         'task': (data: any) => {
             return new NgTaskEntity(this).setData(data);
         },
+        'project': (data: any) => {
+            return new NgProjectEntity(this).setData(data);
+        },
+        'project-template': (data: any) => {
+            return new NgProjectTemplateEntity(this).setData(data);
+        },
+        'address': (data: any) => {
+            return new NgAddressEntity(this).setData(data);
+        },
         'company': (data: any) => {
             return new NgCompanyEntity(this).setData(data);
         },
@@ -251,12 +268,30 @@ export class NgApiService {
         'user': (data: any) => {
             return new NgUserEntity(this).setData(data);
         },
+        'user-role': (data: any) => {
+            return new NgUserRoleEntity(this).setData(data);
+        },
         'user-group': (data: any) => {
             return new NgTaskEntity(this).setData(data);
         },
-        'quest': (data: any) => {
-            return new NgTaskEntity(this).setData(data);
-        }
+        'user-message': (data: any) => {
+            return new NgUserMessageEntity(this).setData(data);
+        },
+        'team': (data: any) => {
+            return new NgTeamEntity(this).setData(data);
+        },
+        'question': (data: any) => {
+            return new NgQuestionEntity(this).setData(data);
+        },
+        'answer': (data: any) => {
+            return new NgAnswerEntity(this).setData(data);
+        },
+        'language': (data: any) => {
+            return new NgLanguageEntity(this).setData(data);
+        },
+        'translation': (data: any) => {
+            return new NgTranslationEntity(this).setData(data);
+        },
     };
 
     public fileUtil = {
@@ -344,10 +379,11 @@ export class NgApiService {
         }
     }
 
-    public  fileById(fileId: number){
+    public fileById(fileId: number) {
         return this.apiData.file.find((file: NgFileEntity) => file.id === fileId);
 
     }
+
     public sortData(data: any, sortKey = 'id', reverse = false) {
         data = data.sort((a: any, b: any) => {
             return (a[sortKey] || 0) - (b[sortKey] || 0);
@@ -522,11 +558,11 @@ export class NgApiService {
         return this;
     }
 
-    date(date: any){
+    date(date: any) {
         return new Date(date).toLocaleDateString();
     }
 
-    dateTime(date: any){
+    dateTime(date: any) {
         return new Date(date).toLocaleTimeString();
     }
 
@@ -722,18 +758,18 @@ export class NgApiService {
         const parsedData: any = {};
         for (const attr in data) {
             if (attr !== 'id') {
-                try{
+                try {
                     parsedData[attr] = data[attr];
-                }catch(error: any){
+                } catch (error: any) {
                     console.log('patch error attr', attr, data[attr]);
                 }
 
             }
         }
         let body = parsedData;
-        try{
+        try {
             body = JSON.stringify(parsedData);
-        }catch(error: any){
+        } catch (error: any) {
             console.log('patch error parse', error, parsedData, body);
         }
         let url = this.url(testData) + apiRoute;

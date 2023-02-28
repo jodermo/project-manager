@@ -1,0 +1,89 @@
+<div class="overlay" *ngIf="entry && ready">
+  <div class="overlay-background" (click)="cancel();"></div>
+  <div class="overlay-content">
+    <mat-card class="overlay-card">
+      <mat-card-title>
+        <span class="icon-box margin-right">
+          <mat-icon>not_listed_location</mat-icon>
+        </span>
+        <span *ngIf="projectTemplate">
+          {{projectTemplate.title || ('ID ' + projectTemplate.id)}}
+          <sup><sub><small><i>({{projectTemplate.type}})</i></small></sub></sup>
+        </span>
+        <span class="title-divider" *ngIf="projectTemplate"></span>
+        <span *ngIf="!entry.id"> <b>{{adminService.text('New ProjectTemplate')}}</b></span>
+        <span *ngIf="entry.id" class="margin-left">
+          <b>
+            {{entry.title || ('ID ' + entry.id)}}
+            <sub><sup><small><i>({{adminService.text(entry.type)}})</i></small></sup></sub>
+          </b>
+        </span>
+        <span class="spacer"></span>
+        <div class="input-wrapper">
+          <mat-slide-toggle class="backend-admin-form-field" [(ngModel)]="entry.active">
+            {{entry.active ? adminService.text('Active') : adminService.text('Inactive')}}
+          </mat-slide-toggle>
+        </div>
+        <button *ngIf="tabIndex === 1 && (entry.type === 'location' || entry.type === 'ar-model')"
+                mat-icon-button
+                (click)="editLocationMap()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="saveEntry();" [disabled]="!valid() || loading">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button (click)="cancel();">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-content class="overlay-content" *ngIf="loading || entry.dataIsLoading">
+        <div class="loader-box">
+          <mat-spinner></mat-spinner>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="overlay-content" *ngIf="!loading && !entry.dataIsLoading">
+        <mat-tab-group class="overlay-tab-group" *ngIf="entry" mat-align-tabs="center" [selectedIndex]="tabIndex"
+                       animationDuration="0ms"
+                       headerPosition="below"
+                       (selectedIndexChange)="tabIndex = $event"
+        >
+
+          <mat-tab class="overlay-tab" [label]="adminService.text('ProjectTemplate')">
+
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Title')}}</mat-label>
+              <input matInput type="text" name="title" [(ngModel)]="entry.title"
+                     (keyup.enter)="saveEntry()">
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Type')}}</mat-label>
+              <mat-select [(ngModel)]="entry.type" *ngIf="!entry.parentId">
+                <mat-option *ngFor="let projectTemplatesType of adminService.projectTemplateTypes" [value]="projectTemplatesType">
+                  {{adminService.text(projectTemplatesType)}}
+                </mat-option>
+              </mat-select>
+              <mat-select [(ngModel)]="entry.type" *ngIf="entry.parentId">
+                <mat-option *ngFor="let projectTemplatesType of adminService.projectTemplateTypes" [value]="projectTemplatesType">
+                  {{adminService.text(projectTemplatesType)}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="backend-admin-form-field" appearance="fill">
+              <mat-label>{{adminService.text('Description')}}</mat-label>
+              <textarea matInput name="description" [(ngModel)]="entry.description"
+                        (keyup.enter)="saveEntry()"></textarea>
+            </mat-form-field>
+
+          </mat-tab>
+
+
+
+        </mat-tab-group>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

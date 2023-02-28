@@ -1,5 +1,4 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToMany, ManyToOne} from 'typeorm';
-import {UserRole} from "../user-role/user-role.entity";
 import {ApiEntity} from "../api.entity";
 import {User} from "../user/user.entity";
 import {File} from "../file/file.entity";

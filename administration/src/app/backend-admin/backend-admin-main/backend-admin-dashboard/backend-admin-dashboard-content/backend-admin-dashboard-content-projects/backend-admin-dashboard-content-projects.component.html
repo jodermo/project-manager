@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="content-page-header" *ngIf="adminService.dashboard.page">
+  <mat-icon class="margin-right"
+            *ngIf="adminService.dashboard.page.icon">{{adminService.dashboard.page.icon}}</mat-icon>
+  <span>
+    {{adminService.text(adminService.dashboard.page.name)}}
+  </span>
+</mat-toolbar>
+
+<mat-tab-group *ngIf="adminService.dashboard.page" animationDuration="0ms"
+               class="content-tab-group" mat-align-tabs="center"
+               [selectedIndex]="adminService.dashboard.page.optionIndex"
+               (selectedIndexChange)="adminService.dashboard.page.optionIndex = $event"
+>
+
+
+  <mat-tab [label]="adminService.text('Calendar')">
+    <app-backend-admin-dashboard-projects
+      class="dashboard-content">
+    </app-backend-admin-dashboard-projects>
+  </mat-tab>
+
+  <mat-tab [label]="adminService.text('Map')">
+    <app-project-map *ngIf="adminService.dashboard.page.optionIndex === 1"
+      class="dashboard-content">
+    </app-project-map>
+  </mat-tab>
+
+  <mat-tab [label]="adminService.text('Project Insights')">
+
+  </mat-tab>
+
+
+</mat-tab-group>

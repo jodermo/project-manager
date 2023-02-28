@@ -28,7 +28,7 @@ export class MapLocation extends ClientDeviceCoordinate {
     public name: string,
     public latitude: number,
     public longitude: number,
-    public icon = '/assets/images/marker/Drachen_point_small_48.png',
+    public icon = '/assets/images/marker/company.png',
     public dataLocation?: NgLocationEntity,
     public feature?: Feature
   ) {
@@ -63,9 +63,9 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
   @Input() location?: NgLocationEntity;
   @Input() locationIds?: number[];
   @Input() locationId?: number;
-  @Input() positionMarker = false;
-  @Input() userInteraction = false;
-  @Input() showCursor = false;
+  @Input() positionMarker = true;
+  @Input() userInteraction = true;
+  @Input() showCursor = true;
   @Input() updateLocation = false;
   @Input() autoSaveLocation = false;
   @Input() autoUpdateMyLocation = false;
@@ -140,7 +140,6 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
     setTimeout(() => {
       this.initMap();
       this.setMyLocation();
-
     }, 500);
 
   }
@@ -153,14 +152,20 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
 
   initMap() {
     this.adminService.setMapComponent(this);
-    if (this.mapElementRef && this.mapElementRef.nativeElement.clientHeight && !this.loaded) {
+    if (this.mapElementRef && !this.loaded) {
       this.mapElement = this.mapElementRef.nativeElement;
       this.createMap();
       this.loaded = true;
+      setTimeout(() => {
+        this.setMyLocation();
+      }, 0);
+
     }
+
   }
 
   createMap() {
+    console.log('createMap', this.mapElement);
     if (this.mapElement) {
       this.initLatLon();
       this.getMapSize();
@@ -199,7 +204,7 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
       this.map.on('pointermove', (e: any) => {
         this.onPointMove(e);
       });
-
+      console.log('createMap map', this.map, this.mapElement);
 
     }
   }
@@ -322,7 +327,7 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
       for (const location of this.locations) {
         if (!this.mapLocations.find(mapLocation => location === mapLocation.dataLocation)) {
           const image = this.adminService.getFileById(location.markerImage);
-          const iconPath = image && this.adminService.filePath(image) ? this.adminService.filePath(image) : '/assets/images/marker/Drachen_point_small_48.png';
+          const iconPath = image && this.adminService.filePath(image) ? this.adminService.filePath(image) : '/assets/images/marker/company.png';
           const mapLocation = new MapLocation(
             location.name,
             location.latitude,
@@ -474,6 +479,7 @@ export class LocationsMapComponent implements AfterViewInit, OnChanges {
       this.projection.width = this.projection.right - this.projection.left;
       this.projection.height = this.projection.top - this.projection.bottom;
       this.zoom = this.map.getView().getZoom() || this.zoom;
+      console.log('updateProjection', this.projection);
     }
   }
 

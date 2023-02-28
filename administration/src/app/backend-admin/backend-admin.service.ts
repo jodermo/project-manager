@@ -34,6 +34,10 @@ import {NgAttributeTypes} from "../../../../angular-classes/angular-entities/ng.
 import {NgAddressEntity} from "../../../../angular-classes/angular-entities/ng.address.entity";
 import {BackendAdminPages} from "./backend-admin.pages";
 import {NgProjectEntity} from "../../../../angular-classes/angular-entities/ng.project.entity";
+import {
+  DatabaseEditEntryComponent
+} from "./backend-admin-components/database/database-edit-entry/database-edit-entry.component";
+import {NgTeamEntity} from "../../../../angular-classes/angular-entities/ng.team.entity";
 
 export class BackendAdminError {
   time = 0;
@@ -140,6 +144,9 @@ export class BackendAdminService extends NgUserService {
     {value: 'Diverse', label: 'Diverse'}
   ];
   projects: NgProjectEntity[] = [];
+  projectTemplateTypes: any[] = [];
+  editProjectTemplateComponent?: DatabaseEditEntryComponent;
+  editTeam?: NgTeamEntity;
 
   constructor(
     httpClient: HttpClient,
@@ -489,5 +496,9 @@ export class BackendAdminService extends NgUserService {
         onDone();
       }
     });
+  }
+
+  createNewTeam() {
+
   }
 }

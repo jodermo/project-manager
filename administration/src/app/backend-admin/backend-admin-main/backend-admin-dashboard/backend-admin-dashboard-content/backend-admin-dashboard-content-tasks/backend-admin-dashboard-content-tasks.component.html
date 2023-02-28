@@ -12,9 +12,6 @@
                (selectedIndexChange)="adminService.dashboard.page.optionIndex = $event"
 >
 
-  <mat-tab [label]="adminService.text('Project Templates')">
-
-  </mat-tab>
 
   <mat-tab [label]="adminService.text('Tasks')">
     <app-backend-admin-dashboard-tasks
@@ -22,8 +19,12 @@
     </app-backend-admin-dashboard-tasks>
   </mat-tab>
 
-
+  <mat-tab [label]="adminService.text('Project Templates')">
+    <app-backend-admin-dashboard-project-templates
+      class="dashboard-content">
+    </app-backend-admin-dashboard-project-templates>
+  </mat-tab>
 
 
 </mat-tab-group>
-<app-edit-user *ngIf="adminService.editUser" [entry]="adminService.editUser"></app-edit-user>
+<app-edit-task *ngIf="adminService.editUser" [entry]="adminService.editUser"></app-edit-task>

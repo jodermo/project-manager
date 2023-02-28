@@ -1,0 +1,31 @@
+<mat-toolbar>
+  <span>{{adminService.text('Companies')}}</span>
+  <span class="spacer"></span>
+  <small *ngIf="loaded">
+    <i>
+      <span *ngIf="renderData">{{renderData.length}} / </span>
+      <span *ngIf="entries">{{entries.length}}</span>
+    </i>
+  </small>
+  <span class="spacer"></span>
+  <div class="toolbar-form-field">
+    <input matInput (keyup)="applyFilter($event)" placeholder="{{adminService.text('Search')}}" #input>
+  </div>
+</mat-toolbar>
+<div class="full-height">
+  <div class="tab-content vertical-scroll">
+    <app-locations-map></app-locations-map>
+  </div>
+</div>
+
+
+<mat-toolbar class="white no-padding">
+  <button mat-icon-button (click)="newEntry()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span class="spacer"></span>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="applyFilter()" aria-label="Select page"
+                 #paginator></mat-paginator>
+</mat-toolbar>
+<app-edit-company (onSave)="onSaveEntry($event)"
+                  (onDelete)="onDeleteEntry()" [apiRoute]="apiRoute" #editComponent></app-edit-company>

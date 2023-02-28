@@ -16,9 +16,11 @@ export class NgProjectTemplateEntity extends NgApiAttributeEntity {
 
     details: string = '';
 
-    image:  number[] = [];
+    image?:  any;
 
-    tasks: number[] = [];
+    images?:  any[];
+
+    tasks?: any[];
 
 
     constructor(api: NgApiService, testData = false) {

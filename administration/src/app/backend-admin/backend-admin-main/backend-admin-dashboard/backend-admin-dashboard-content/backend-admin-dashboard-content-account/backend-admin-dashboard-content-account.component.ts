@@ -8,7 +8,11 @@ import { BackendAdminService } from '../../../../backend-admin.service';
 })
 export class BackendAdminDashboardContentAccountComponent implements OnInit {
 
-  constructor(public adminService: BackendAdminService) { }
+  tabIndex = 0;
+  loaded = false;
+
+  constructor(public adminService: BackendAdminService) {
+  }
 
   ngOnInit(): void {
   }
