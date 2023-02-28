@@ -149,6 +149,16 @@ export const BackendAdminPages = (adminService: BackendAdminService) => {
       name: 'Account',
       icon: 'account_circle',
       optionIndex: 0,
+      options: [
+        {
+          name: 'Overview',
+          icon: 'insert_chart',
+        },
+        {
+          name: 'Profile',
+          icon: 'contact_mail',
+        }
+      ],
       menu: () => {
         return true;
       },
